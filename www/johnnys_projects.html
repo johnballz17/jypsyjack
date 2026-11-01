@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johnny's Projects // Official Remodel Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cinzel+Decorative:wght@700;900&family=Special+Elite&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --wood-dark: #1e1008;
+            --brass-gold: #d4af37;
+            --brass-bright: #fcd34d;
+            --amber-hot: #ffe066;
+            --green-gauge: #2ec4b6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--wood-dark);
+            background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.45) 0px, transparent 1px, transparent 38px, rgba(0, 0, 0, 0.5) 39px),
+                              linear-gradient(180deg, #180d07 0%, #29150b 40%, #1a0d06 100%);
+            color: #f5eedf;
+            font-family: 'Inter', sans-serif;
+            padding: 30px 16px 60px;
+            line-height: 1.6;
+        }
+        .container { max-width: 960px; margin: 0 auto; }
+        .wood-panel {
+            background: linear-gradient(180deg, #2b170e 0%, #1c0e07 100%);
+            border: 2px solid var(--brass-gold);
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 14px rgba(0, 0, 0, 0.7);
+        }
+        .badge {
+            font-family: 'Special Elite', monospace;
+            font-size: 0.75rem;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--brass-bright);
+            border: 1px solid var(--brass-gold);
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border: 1px solid rgba(212,175,55,0.4);
+            border-radius: 4px;
+            display: block;
+        }
+        .notes-box {
+            background: rgba(212, 175, 55, 0.06);
+            border-left: 3px solid var(--brass-gold);
+            padding: 12px 16px;
+            font-family: 'Special Elite', monospace;
+            font-size: 0.85rem;
+            color: #ebd9be;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="wood-panel" style="text-align:center;margin-bottom:30px;">
+            <div style="font-size:2rem;margin-bottom:6px;">⚙️</div>
+            <h1 style="font-family:'Cinzel Decorative',cursive;font-size:2.2rem;color:var(--brass-bright);margin-bottom:6px;">
+                JOHNNY'S PROJECTS
+            </h1>
+            <p style="font-family:'Special Elite',monospace;color:#d8c39b;">
+                Steam-Powered Estate Restorations, Lathe Works &amp; Remodel Showcase Logbook
+            </p>
+            <div style="margin-top:14px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+                <a href="input.html" style="display:inline-block;padding:8px 18px;background:linear-gradient(180deg,#fcd34d 0%,#d4af37 100%);color:#1a0e05;font-weight:bold;text-decoration:none;border-radius:4px;font-family:'Cinzel',serif;font-size:0.82rem;">
+                    ⚙️ OPEN WORKSHOP INTAKE
+                </a>
+                <a href="admin.html" style="display:inline-block;padding:8px 18px;background:rgba(212,175,55,0.15);color:var(--brass-bright);border:1px solid var(--brass-gold);font-weight:bold;text-decoration:none;border-radius:4px;font-family:'Cinzel',serif;font-size:0.82rem;">
+                    🛡️ ADMIN SUITE
+                </a>
+                <a href="fixer-upper/dream.html" style="display:inline-block;padding:8px 18px;background:rgba(56,189,248,0.15);color:#38bdf8;border:1px solid rgba(56,189,248,0.4);font-weight:bold;text-decoration:none;border-radius:4px;font-family:'Cinzel',serif;font-size:0.82rem;">
+                    🏛️ WHISPERING PINES MANOR
+                </a>
+            </div>
+            <div id="live-sync-badge" style="margin-top:12px;font-family:'Special Elite',monospace;font-size:0.75rem;color:var(--green-gauge);">
+                ⚡ Loading live projects from expedition network...
+            </div>
+        </header>
+
+        <!-- Dynamic Live Projects Container -->
+        <main id="projects-container">
+            <!-- Project cards will be populated here dynamically -->
+        </main>
+
+        <footer style="text-align:center;font-family:'Special Elite',monospace;font-size:0.8rem;color:#a89578;margin-top:20px;">
+            JOHNNY'S EXPEDITION LEDGER &bull; ALL RIGHTS RESERVED
+        </footer>
+    </div>
+
+    <script>
+        (async function() {
+            const container = document.getElementById('projects-container');
+            const badge = document.getElementById('live-sync-badge');
+
+            function renderProjects(projects) {
+                if (!projects || projects.length === 0) {
+                    container.innerHTML = `
+                        <div class="wood-panel" style="text-align:center;padding:40px;">
+                            <p style="font-family:'Special Elite',monospace;color:#d8c39b;">No active projects recorded in ledger yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = projects.map(p => {
+                    const icon = p.roomIcon || '⚙️';
+                    const roomName = p.roomName || 'Mechanical Bay';
+                    const level = p.roomLevel || 'Ground Floor';
+                    const costVal = p.cost ? `$${Number(p.cost).toLocaleString()} USD` : '$4,250 USD';
+                    const title = p.title || 'Untitled Project';
+                    const img = p.remotePhoto || p.localPhoto || p.image || 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80';
+                    const desc = p.desc || '';
+                    const notes = p.notes || '';
+                    const tier = p.tier || 'STANDARD';
+
+                    // Specs or materials
+                    const specs = p.specs || {};
+                    const dimension = specs.dimension || 'Custom Dimensions';
+                    const materials = specs.materials || 'Seasoned Timber & Solid Brass';
+                    const timeline = specs.timeline || 'Active Restoration';
+                    const capacity = specs.capacity || 'Master Scope';
+
+                    return `
+                        <article class="wood-panel" id="${p.id || ''}">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+                                <span class="badge">${icon} ${roomName} // ${level} (${tier})</span>
+                                <span style="font-family:'Special Elite',monospace;color:var(--amber-hot);font-size:1.1rem;font-weight:bold;">${costVal}</span>
+                            </div>
+                            <h2 style="font-family:'Cinzel Decorative',cursive;font-size:1.45rem;color:var(--brass-bright);margin-bottom:12px;">
+                                ${title}
+                            </h2>
+                            <div class="photo-frame" style="margin-bottom:14px;">
+                                <img src="${img}" alt="${title}" onerror="this.src='steampunk109.jpg'">
+                            </div>
+                            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:16px;margin-bottom:14px;">
+                                <div style="background:#150a04;padding:14px;border:1px solid rgba(212,175,55,0.25);border-radius:4px;">
+                                    <h3 style="font-family:'Cinzel',serif;font-size:0.95rem;color:var(--brass-bright);margin-bottom:8px;">☑️ Project Protocols & Description</h3>
+                                    <p style="font-family:'Special Elite',monospace;font-size:0.85rem;line-height:1.7;color:#f5eedf;">
+                                        ${desc || 'Handcrafted bespoke restoration executing rigorous architectural preservation standards.'}
+                                    </p>
+                                </div>
+                                <div style="background:#150a04;padding:14px;border:1px solid rgba(212,175,55,0.25);border-radius:4px;">
+                                    <h3 style="font-family:'Cinzel',serif;font-size:0.95rem;color:var(--brass-bright);margin-bottom:8px;">📦 Specifications & Materials</h3>
+                                    <ul style="margin-left:18px;font-family:'Special Elite',monospace;font-size:0.85rem;line-height:1.7;">
+                                        <li><strong>Dimension:</strong> ${dimension}</li>
+                                        <li><strong>Armament:</strong> ${materials}</li>
+                                        <li><strong>Timeline:</strong> ${timeline}</li>
+                                        <li><strong>Capacity:</strong> ${capacity}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            ${notes ? `
+                            <div class="notes-box">
+                                📜 <strong>Johnny's Field Notes:</strong> ${notes}
+                            </div>
+                            ` : ''}
+                        </article>
+                    `;
+                }).join('');
+            }
+
+            let loaded = false;
+            // 1. Try Cloudflare Worker API
+            try {
+                const res = await fetch('/api/johnny-projects', { cache: 'no-store' });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && Array.isArray(data.projects) && data.projects.length > 0) {
+                        renderProjects(data.projects);
+                        badge.innerHTML = `🟢 Live Webpage Synchronized • ${data.projects.length} Published Projects (${data.storage || 'Cloudflare KV'})`;
+                        loaded = true;
+                    }
+                }
+            } catch (e) {}
+
+            // 2. Try localStorage cached projects
+            if (!loaded) {
+                try {
+                    const cached = localStorage.getItem('pmis_shared_live_projects');
+                    if (cached) {
+                        const parsed = JSON.parse(cached);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            renderProjects(parsed);
+                            badge.innerHTML = `🟡 Local Cache Synchronized • ${parsed.length} Projects`;
+                            loaded = true;
+                        }
+                    }
+                } catch (e) {}
+            }
+
+            // 3. Try static projects.json
+            if (!loaded) {
+                try {
+                    const res = await fetch('projects.json', { cache: 'no-store' });
+                    if (res.ok) {
+                        const staticProjects = await res.json();
+                        if (Array.isArray(staticProjects) && staticProjects.length > 0) {
+                            renderProjects(staticProjects);
+                            badge.innerHTML = `🔵 Static Archive Synchronized • ${staticProjects.length} Projects`;
+                            loaded = true;
+                        }
+                    }
+                } catch (e) {}
+            }
+
+            if (!loaded) {
+                badge.innerHTML = `⚠️ Running in standalone demonstration mode.`;
+            }
+        })();
+    </script>
+</body>
+</html>

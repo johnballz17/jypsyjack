@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jypsy Jack's Shack - 1910 Historic Bed & Breakfast Restoration</title>
+    <link rel="stylesheet" href="css/style.css?v=20261024_protect_all_core_tabs">
+</head>
+<body>
+
+    <!-- TOP HUD BAR -->
+    <header class="main-hud">
+        <div class="brand-section">
+            <div class="brand-logo" style="width:44px; height:44px; border-radius:6px; overflow:hidden; border:1.5px solid #f26522; background:#000; display:flex; align-items:center; justify-content:center;">
+                <img src="steampunk109.jpg" alt="Jypsy Jack" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+            <div class="brand-titles">
+                <h1 style="font-size:1.35rem; margin:0; letter-spacing:0.5px;">Jypsy Jack's Shack</h1>
+                <span id="hud-house-name" style="display:none;">1910 Whispering Pines Manor</span><span id="hud-house-sub" style="display:none;"></span>
+            </div>
+            <a href="index.html" class="btn-field-guide" style="text-decoration:none; color:var(--text-primary); border-color:#f26522; background:rgba(242,101,34,0.2);">
+                Return
+            </a>
+        </div>
+
+        <!-- HUD Dropdown Trigger & Horizontal Flyout Menu -->
+        <div class="hud-dropdown-wrapper" id="hud-dropdown-wrapper">
+            <button type="button" class="btn-hud-dropdown-trigger" id="btn-hud-dropdown-trigger" onclick="UI.toggleHudDropdown(event)" title="Hover or click to view weather, foundation health, cash, stamina & stats">
+                <span class="hud-trigger-icon">📊</span>
+                <span class="hud-trigger-text">Stats</span>
+                <span class="dropdown-caret">▾</span>
+            </button>
+
+            <div class="hud-dropdown-menu" id="hud-dropdown-menu">
+                <!-- Row 1: Controls & Settings -->
+                <div class="hud-dropdown-row-label">
+                    <span>⚙️ Controls &amp; Settings</span>
+                </div>
+                <div class="hud-dropdown-row hud-dropdown-row-actions">
+                    <button class="btn-field-guide" id="btn-field-guide" onclick="UI.openTutorialModal(0)" title="Open 1910 Restoration Tutorial">🎓 Tutorial</button>
+                    <button class="btn-field-guide btn-theme-toggle" id="btn-theme-toggle" onclick="UI.toggleTheme()" title="Switch between Victorian Blueprint and Steampunk Brass themes">⚙️ Theme: Blueprint</button>
+                </div>
+
+                <div class="hud-dropdown-divider"></div>
+
+                <!-- Row 2: Atmospheric & Structural Health -->
+                <div class="hud-dropdown-row-label">
+                    <span>☀️ Environmental &amp; Structural Health</span>
+                </div>
+                <div class="hud-dropdown-row hud-dropdown-row-stats">
+                    <!-- Weather Forecast Badge -->
+                    <div class="weather-badge" id="hud-weather-badge">
+                        <span class="weather-icon">☀️</span>
+                        <div class="weather-text">
+                            <strong>Sunny &amp; Warm (74°F)</strong>
+                            <small>+10% value bonus on curb appeal tasks</small>
+                        </div>
+                    </div>
+
+                    <!-- Foundation Structural Health -->
+                    <div class="hud-stat-box" id="hud-foundation-box">
+                        <span class="stat-label">Foundation</span>
+                        <span class="stat-val" id="hud-foundation" style="font-size:1.05rem; color:var(--accent-red);">⚠️ -3.5" Sag</span>
+                    </div>
+
+                    <!-- Site Clutter Meter -->
+                    <div class="hud-stat-box">
+                        <span class="stat-label">Site Clutter</span>
+                        <span class="stat-val" id="hud-clutter" style="font-size:1.15rem; color:var(--accent);">15%</span>
+                    </div>
+
+                    <!-- Neighbor Sentiment Badge -->
+                    <div class="hud-stat-box">
+                        <span class="stat-label">Neighbor Rel.</span>
+                        <span class="stat-val" id="hud-neighbor" style="font-size:1.15rem; color:var(--accent-green);">55%</span>
+                    </div>
+                </div>
+
+                <div class="hud-dropdown-divider"></div>
+
+                <!-- Row 3: Resources & Time Progress -->
+                <div class="hud-dropdown-row-label">
+                    <span>⚡ Resources &amp; Manor Valuation</span>
+                </div>
+                <div class="hud-dropdown-row hud-dropdown-row-stats">
+                    <!-- Daily Stamina / Action Points -->
+                    <div class="hud-stat-box">
+                        <span class="stat-label">Daily Stamina</span>
+                        <div class="stamina-meter" id="hud-energy-container" title="Energy: 3-5 random bolts per day based on rest level (Max 5)">
+                            <span class="bolt active">⚡</span>
+                            <span class="bolt active">⚡</span>
+                            <span class="bolt active">⚡</span>
+                            <span class="bolt active">⚡</span>
+                            <span class="bolt active">⚡</span>
+                        </div>
+                    </div>
+
+                    <!-- Available Funds -->
+                    <div class="hud-stat-box">
+                        <span class="stat-label">Available Cash</span>
+                        <span class="stat-val" id="hud-money">$12,500.00</span>
+                    </div>
+
+                    <!-- Current House Appraisal -->
+                    <div class="hud-stat-box">
+                        <span class="stat-label">Manor Appraisal</span>
+                        <span class="stat-val" id="hud-value" style="color:var(--accent-blue);">$65,000</span>
+                    </div>
+
+                    <!-- Day Counter -->
+                    <div class="hud-stat-box">
+                        <span class="stat-label">Renovation Time</span>
+                        <span class="stat-val day-val" id="hud-day">Day 1 • Wk 1 • Mo 1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- OVERALL PROGRESS STRIP -->
+    <div class="overall-progress-strip">
+        <span style="font-weight:700; color:var(--accent);">Building the Dream:</span>
+        <div class="progress-track">
+            <div class="progress-bar-fill" id="hud-progress-fill"></div>
+        </div>
+        <span id="hud-progress-pct" style="font-weight:700; color:var(--accent-green); min-width:90px;">0% Renovated</span>
+    </div>
+
+    <!-- REAL-LIFE EDITABLE HOUSE PROJECT TOOLBAR -->
+    <div class="real-life-toolbar">
+        <div class="toolbar-brand-badge" style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:6px;">
+                <span class="live-dot">●</span> <strong>REAL-LIFE PROJECT BUILDER</strong>
+            </div>
+            <div class="toolbar-divider" style="width:1px; height:18px; background:rgba(255,255,255,0.15);"></div>
+            <!-- Live Mic Indicators Dock (Mounted in Real-Life Project Builder) -->
+            <div id="live-mic-mount-anchor" style="display:inline-flex; align-items:center;"></div>
+        </div>
+        <div class="toolbar-buttons-row">
+            <!-- 1. ALWAYS VISIBLE: UPDATE WEBPAGE -->
+            <button class="btn-toolbar-action btn-master-save" id="btn-update-webpage" onclick="UI.updateWebpageMasterSave()" title="UPDATE: Publish all your work to the live website, sync with cloud, and generate a timestamped server restore point!" style="background:linear-gradient(180deg, #10b981 0%, #059669 100%); border-color:#34d399; color:#ffffff; font-weight:800; font-size:0.95rem; padding:8px 18px; box-shadow:0 0 14px rgba(16, 185, 129, 0.45); cursor:pointer;">
+                UPDATE
+            </button>
+
+            <!-- 2. ALWAYS VISIBLE: SAVE TO MY PC -->
+            <button class="btn-toolbar-action" id="btn-save-my-pc" onclick="UI.saveToMyPc()" title="SAVE: Save independently and immediately to your computer's local vault!" style="background:linear-gradient(180deg, #0284c7 0%, #0369a1 100%); border-color:#38bdf8; color:#ffffff; font-weight:800; font-size:0.92rem; padding:8px 15px; cursor:pointer;">
+                SAVE
+            </button>
+
+            <!-- 3. EXPANDABLE HORIZONTAL DROPDOWN MENU (Hover or Click) -->
+            <div class="toolbar-dropdown-wrapper" id="toolbar-dropdown-wrapper">
+                <button type="button" class="btn-toolbar-action btn-toolbar-dropdown-trigger" id="btn-toolbar-dropdown-trigger" onclick="UI.toggleToolbarDropdown(event)" title="Options: Hover or click to expand all project builder controls in horizontal rows">
+                    <span>OPTIONS</span>
+                    <span class="dropdown-caret">▾</span>
+                </button>
+
+                <!-- DROPDOWN PANEL EXPANDED HORIZONTALLY IN ROWS -->
+                <div class="toolbar-dropdown-menu" id="toolbar-dropdown-menu">
+                    
+                    <!-- ROW 1: Backups & System Control -->
+                    <div class="toolbar-dropdown-row">
+                        <span class="toolbar-dropdown-row-label">🛡️ Backups &amp; State:</span>
+                        <button class="btn-toolbar-action" id="btn-master-backups-modal" onclick="UI.openMasterBackupModal()" title="MASTER BACKUPS & RESTORE: Browse local PC saves, server snapshots, and repopulate data so work is never lost!" style="background:linear-gradient(180deg, #6366f1 0%, #4f46e5 100%); border-color:#818cf8; color:#ffffff; font-weight:800; font-size:0.82rem; padding:6px 12px; cursor:pointer;">
+                            🛡️ 📦 BACKUPS &amp; RESTORE
+                        </button>
+                        <span id="toolbar-auto-save-status" class="auto-save-pill" title="Continuous Auto-Vault: Saves locally every 30 seconds & saves emergency snapshot on browser close" style="display:inline-flex; align-items:center; gap:6px; background:rgba(15,23,42,0.85); border:1px solid #334155; padding:5px 10px; border-radius:20px; font-size:0.75rem; color:#94a3b8; font-weight:700;">
+                            <span style="color:#10b981;">●</span> 30s Auto-Vault: <span id="auto-save-time-label" style="color:#38bdf8;">Active</span>
+                        </span>
+                        <button class="btn-toolbar-action btn-auto-backup-badge" id="btn-auto-backup-status" onclick="UI.showHalfHourBackupReminder(true)" title="Auto-backup is active every 5 minutes. Click to download offline JSON snapshot immediately." style="font-size:0.75rem; padding:5px 10px;">
+                            <span class="backup-pulse-dot"></span> 💾 Auto-Backup Active
+                        </button>
+                        <button class="btn-toolbar-action" id="btn-toolbar-undo" onclick="UI.performUndo()" title="Undo last action (restore accidentally deleted rooms, tasks, or edits)" style="background:#475569; color:#f8fafc; border-color:#64748b; font-weight:700; font-size:0.78rem;">
+                            ↩️ Undo (<span id="undo-count-badge">0</span>)
+                        </button>
+                    </div>
+
+                    <div class="toolbar-dropdown-divider"></div>
+
+                    <!-- ROW 2: Structure & Creation -->
+                    <div class="toolbar-dropdown-row">
+                        <span class="toolbar-dropdown-row-label">🏗️ Project &amp; Tasks:</span>
+                        <button class="btn-toolbar-action" onclick="UI.openPropertyEditorModal()" title="Edit house name, address, purchase price, budget & ARV" style="font-size:0.78rem;">
+                            🏡 Edit Property Info
+                        </button>
+                        <button class="btn-toolbar-action" onclick="UI.openNewProjectModal()" title="Create a new standalone Main Task placed at the top" style="background:#0284c7; color:#fff; border-color:#38bdf8; font-weight:700; font-size:0.78rem;">
+                            📁 ➕ New Main Task
+                        </button>
+                        <button class="btn-toolbar-action" onclick="UI.openTaskEditorModal(null, UI.selectedRoom)" title="Add a nested task to the active sub task" style="background:#059669; color:#fff; border-color:#34d399; font-weight:700; font-size:0.78rem;">
+                            🔨 ➕ Nested Task
+                        </button>
+                        <button class="btn-toolbar-action" onclick="UI.openExpenseLedgerModal()" title="View & log real-life receipts and contractor expenses" style="font-size:0.78rem;">
+                            💵 Expense Ledger
+                        </button>
+                        <button class="btn-toolbar-action btn-toolbar-highlight" onclick="UI.openRapidInputModal()" title="Fast multi-field input center - automatically dispatches to Blueprint, Renovations & Journals" style="background:#8b5cf6; color:#fff; border-color:#a78bfa; font-size:0.78rem;">
+                            ⚡ Rapid Input Center
+                        </button>
+                    </div>
+
+                    <div class="toolbar-dropdown-divider"></div>
+
+                    <!-- ROW 3: Sync, Merge & Import/Export -->
+                    <div class="toolbar-dropdown-row">
+                        <span class="toolbar-dropdown-row-label">☁️ Cloud &amp; Portability:</span>
+                        <button class="btn-toolbar-action" onclick="UI.pullLatestFromCloud()" title="Non-destructively fetch and merge friend's latest progress from live website" style="background:#0284c7; color:#fff; border-color:#38bdf8; font-weight:700; font-size:0.78rem;">
+                            🔄 Merge &amp; Sync Cloud
+                        </button>
+                        <button class="btn-toolbar-action" onclick="UI.publishToCloudflare()" title="Save your updates to the live website without overwriting friend's work" style="background:#059669; color:#fff; border-color:#34d399; font-weight:700; font-size:0.78rem;">
+                            💾 Save to Live Web
+                        </button>
+                        <button class="btn-toolbar-action btn-toolbar-highlight" onclick="UI.openImportExportModal()" title="Export or Import project JSON data" style="font-size:0.78rem;">
+                            💾 Export / Import (JSON)
+                        </button>
+                        <button class="btn-toolbar-action" onclick="UI.importAndMergeSaveFile()" title="Import friend's JSON save file and merge without losing work" style="background:#475569; color:#fff; border-color:#64748b; font-size:0.78rem;">
+                            📥 Import &amp; Merge JSON
+                        </button>
+                        <button class="btn-toolbar-action btn-toolbar-highlight" onclick="UI.openPublishModal()" title="Publish, export and share your house project website" style="font-size:0.78rem;">
+                            🌐 Publish &amp; Public Portal
+                        </button>
+                    </div>
+
+                    <div class="toolbar-dropdown-divider"></div>
+
+                    <!-- ROW 4: Community, Guides & Utilities -->
+                    <div class="toolbar-dropdown-row">
+                        <span class="toolbar-dropdown-row-label">🧭 Community &amp; Tools:</span>
+                        <a href="community.html" class="btn-toolbar-action btn-toolbar-highlight" target="_blank" title="Crowdsourced trade advice, salvage material leads, and workshop bench hacks" style="background:#0284c7; color:#fff; border-color:#38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; font-size:0.78rem;">
+                            🪵 Community Tips &amp; Workshop
+                        </a>
+                        <a href="dream.html#hall-of-fame" class="btn-toolbar-action btn-toolbar-highlight" target="_blank" title="Public Backer Hall of Fame & Commemorative Plaque Registry" style="background:#059669; color:#fff; border-color:#34d399; text-decoration:none; display:inline-flex; align-items:center; gap:4px; font-size:0.78rem;">
+                            🏆 Backer Hall of Fame &amp; Plaques
+                        </a>
+                        <button class="btn-toolbar-action btn-toolbar-highlight" id="btn-toolbar-theme" onclick="UI.toggleTheme()" title="Switch between Victorian Blueprint and Steampunk Brass & Gear themes" style="background:#b45309; color:#fef3c7; border-color:#f59e0b; font-size:0.78rem;">
+                            🕰️ Steampunk Theme
+                        </button>
+                        <button class="btn-toolbar-action btn-toolbar-highlight" onclick="UI.openBlueprintGuideModal()" title="Complete in-app restoration directions, floor tree guide, task transfer tips and safety notes" style="background:#0284c7; color:#fff; border-color:#38bdf8; font-weight:700; font-size:0.78rem;">
+                            🧭 Directions &amp; Guide
+                        </button>
+                        <button class="btn-toolbar-action btn-toolbar-highlight" onclick="UI.openLemonadeLoopModal()" title="Open Lemonade Stand Loop: B&B weekend hosting, carrying costs and Advance Day simulator" style="background:linear-gradient(135deg, #ec4899 0%, #db2777 100%); color:#fff; border-color:#f472b6; font-weight:700; font-size:0.78rem;">
+                            🕹️ Lemonade Stand Loop
+                        </button>
+                        <a href="/manager.html" target="_blank" class="btn-toolbar-action btn-toolbar-highlight" title="Open Health & Maintenance Web Manager (Live users, sync indicators & system telemetry)" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color:#fff; border-color:#38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:5px; font-weight:700; font-size:0.78rem;">
+                            🛡️ Health &amp; Manager
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3 HORIZONTAL DIVIDER ADJUSTERS FOR THE 3 WINDOWS -->
+    <div class="window-size-slider-ribbon" id="window-size-slider-ribbon">
+        <div class="slider-ribbon-title">
+            <span>📐 Window Sizers:</span>
+        </div>
+        <div class="slider-ctrl-item">
+            <span class="slider-ctrl-label">1. Projects &amp; Tasks:</span>
+            <input type="range" class="window-width-range" id="slider-range-left" min="120" max="850" step="10" value="380" oninput="UI.onPanelSliderInput('left', this.value)" title="Slide horizontal divider to adjust Projects &amp; Tasks window size">
+            <span class="slider-ctrl-val" id="val-slider-left">380px</span>
+        </div>
+        <div class="slider-ctrl-item">
+            <span class="slider-ctrl-label">2. Middle Tabs (Renovations):</span>
+            <input type="range" class="window-width-range" id="slider-range-middle" min="400" max="1800" step="20" value="950" oninput="UI.onPanelSliderInput('middle', this.value)" title="Slide horizontal divider to adjust Middle Tabs window size">
+            <span class="slider-ctrl-val" id="val-slider-middle">Auto</span>
+        </div>
+        <div class="slider-ctrl-item">
+            <span class="slider-ctrl-label">3. Log:</span>
+            <input type="range" class="window-width-range" id="slider-range-right" min="90" max="600" step="10" value="320" oninput="UI.onPanelSliderInput('right', this.value)" title="Slide horizontal divider to adjust Running Log Book window size">
+            <span class="slider-ctrl-val" id="val-slider-right">320px</span>
+        </div>
+        <div class="slider-ctrl-actions">
+            <button type="button" class="btn-slider-action" onclick="UI.toggleExpandMiddleWorkspace(event)" id="btn-ribbon-expand-middle" title="Shrink both sides to expand middle tabs like Renovations">
+                ⇲ Expand Middle Tabs
+            </button>
+            <button type="button" class="btn-slider-action" onclick="UI.resetPanelSliders()" title="Reset all 3 windows to default layout sizes">
+                🔄 Reset Sizes
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="app-container" id="app-container">
+
+        <!-- LEFT: HOUSE BLUEPRINT ROOM SELECTION -->
+        <aside class="blueprint-sidebar" id="main-blueprint-panel">
+            <div class="sidebar-heading">
+                <span class="sidebar-heading-title" onclick="UI.refreshProjectsAndTasks()" title="Click to refresh Projects & Tasks and collapse all folders">
+                    <span id="all-projects-caret">▾</span> PROJECTS & TASKS
+                </span>
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <button type="button" class="btn-sidebar-undo" id="btn-sidebar-undo" onclick="UI.performProjectsUndo()" title="Undo last action in Projects &amp; Tasks (restore deleted folder/subtask, revert reordering, restore links)">
+                        ↩️ UNDO <span id="sidebar-undo-badge" style="display:none; background:#ef4444; color:#fff; border-radius:999px; padding:1px 5px; font-size:0.68rem; font-weight:800; margin-left:2px;">0</span>
+                    </button>
+                    <button type="button" class="btn-sidebar-redo" id="btn-sidebar-redo" onclick="UI.performProjectsRedo()" title="Redo last undone action in Projects &amp; Tasks">
+                        ↪️ REDO <span id="sidebar-redo-badge" style="display:none; background:#0284c7; color:#fff; border-radius:999px; padding:1px 5px; font-size:0.68rem; font-weight:800; margin-left:2px;">0</span>
+                    </button>
+                    <button class="btn-sidebar-add-room" id="btn-sidebar-add-main-task" onclick="UI.openNewProjectModal()" title="Create a new Main Task (Level / Master Project at the top)">
+                        ➕ MAIN TASK
+                    </button>
+                    <button type="button" class="btn-sidebar-settings-gear" id="btn-sidebar-settings" onclick="UI.openSidebarSettingsModal()" title="Projects &amp; Tasks Settings: Adjust button size (1x to 3x), customize button labels, and link custom buttons across subtasks">
+                        ⚙️ SETTINGS
+                    </button>
+                </div>
+            </div>
+            <div class="blueprint-grid" id="blueprint-grid"></div>
+
+            <!-- DEDICATED HOLDING FOLDER / TEMPORARY STAGING DRAWER -->
+            <div class="sidebar-holding-dock" id="sidebar-holding-dock">
+                <div class="holding-dock-header" onclick="UI.toggleHoldingFolderCollapsed(event)" title="Holding Folder: Safely store tasks or subtasks temporarily while navigating projects">
+                    <div class="holding-dock-title-wrap">
+                        <span class="holding-dock-icon">📦</span>
+                        <span class="holding-dock-title">HOLDING FOLDER</span>
+                        <span class="holding-dock-count-badge" id="holding-folder-badge">0</span>
+                    </div>
+                    <div class="holding-dock-header-actions" onclick="event.stopPropagation();">
+                        <button type="button" class="btn-holding-clear" id="btn-holding-clear" onclick="UI.clearHoldingFolder(event)" title="Clear all staged items in holding folder" style="display:none;">Clear</button>
+                        <button type="button" class="btn-holding-toggle" id="btn-holding-toggle" onclick="UI.toggleHoldingFolderCollapsed(event)" title="Expand or collapse holding drawer">▾</button>
+                    </div>
+                </div>
+                <div class="holding-dock-body" id="holding-dock-body" 
+                     ondragover="UI.onHoldingFolderDragOver(event)" 
+                     ondragleave="UI.onHoldingFolderDragLeave(event)" 
+                     ondrop="UI.onHoldingFolderDrop(event)">
+                </div>
+            </div>
+        </aside>
+
+        <!-- HORIZONTAL SLIDING DIVIDER 1: Between Projects & Tasks and Middle Tabs -->
+        <div class="window-slider-divider" id="divider-left" title="Click &amp; drag horizontally to resize Projects &amp; Tasks and Middle Tabs">
+            <div class="divider-grip-line"></div>
+        </div>
+
+        <!-- CENTER WORKSPACE WITH TABS -->
+        <section class="center-workspace" id="center-workspace-panel">
+            <nav class="tab-nav-bar" id="workspace-tab-nav-bar">
+                <button class="tab-nav-btn active" data-tab="renovations">🛠️ Renovations</button>
+                <button class="tab-nav-btn" data-tab="starting-point" title="Original 1910 baseline condition when found, 60-ton load, structural sags, purchase price, and daily maintenance">🏛️ Starting Point (The Before)</button>
+                <button class="tab-nav-btn" data-tab="dream">🌟 Building the Dream</button>
+                <button class="tab-nav-btn" data-tab="blueprint">📐 Full Blueprint Schematics</button>
+                <button class="tab-nav-btn" data-tab="concept" title="Interactive visual gallery of the house and projects with floor-by-floor tabs">🖼️ House Concept Gallery</button>
+                <button class="tab-nav-btn" data-tab="journals">📖 Field Journals & Media</button>
+                <button class="tab-nav-btn" data-tab="junkyard">🚗 Junkyard Salvage</button>
+                <button class="tab-nav-btn" data-tab="cats">🐱 4 Cats & Chaos</button>
+                <button class="tab-nav-btn" data-tab="hardware">🏪 Tools & Store</button>
+                <button class="tab-nav-btn" data-tab="finance">🏦 Finance & Loans</button>
+                <button class="tab-nav-btn" data-tab="inspection">📋 Appraisal & Permit</button>
+                <button class="tab-nav-btn" data-tab="career">🏨 B&B Operations</button>
+                <!-- Button to shrink both sides and expand middle tabs -->
+                <button type="button" class="btn-expand-middle-tabs" id="btn-expand-middle-tabs" onclick="UI.toggleExpandMiddleWorkspace(event)" title="Expand Middle Tabs: Temporarily shrink Projects &amp; Tasks and Running Log Book to make center pages larger">
+                    ⇲ EXPAND MIDDLE TABS
+                </button>
+            </nav>
+
+            <!-- WORKSPACE ACTIVE TAB HEADER STRIP WITH ADD, EDIT, REMOVE CONTROLS -->
+            <div class="workspace-active-tab-bar" id="workspace-active-tab-bar">
+                <div class="tab-bar-info">
+                    <span class="tab-bar-icon" id="current-tab-icon">🛠️</span>
+                    <div class="tab-bar-headings">
+                        <span class="tab-bar-title" id="current-tab-title">Renovations</span>
+                        <span class="tab-bar-desc" id="current-tab-desc">Main task list, room project dossiers, sub-tasks, and journals</span>
+                    </div>
+                </div>
+                <div class="tab-bar-header-actions">
+                    <button type="button" class="btn-tab-head-action btn-tab-head-add" onclick="UI.openTabEditorModal(null)" title="Add a new custom tab to the workspace">
+                        ➕ Add Tab
+                    </button>
+                    <button type="button" class="btn-tab-head-action btn-tab-head-edit" onclick="UI.openTabEditorModal(UI.currentTab)" title="Edit this tab's name, icon, or description">
+                        ✏️ Edit Tab
+                    </button>
+                    <button type="button" class="btn-tab-head-action btn-tab-head-remove" id="btn-delete-active-tab" onclick="UI.deleteTab(UI.currentTab)" title="Remove this tab from the workspace">
+                        <span style="color:#ef4444; font-weight:900; margin-right:4px;">❌</span> Del Tab
+                    </button>
+                    <button type="button" class="btn-tab-head-action btn-tab-head-reset" onclick="UI.resetTabsToDefault()" title="Restore all default tabs" style="display:none;" id="btn-restore-default-tabs">
+                        🔄 Restore Defaults
+                    </button>
+                </div>
+            </div>
+
+            <div class="tab-content-area" id="tab-content-area">
+                <!-- TAB 1: RENOVATIONS -->
+                <div class="tab-page active" id="tab-renovations">
+                    <div class="section-banner">
+                        <h3 id="selected-room-header">Living Room Projects</h3>
+                    </div>
+                    <div class="task-cards-list" id="task-cards-container"></div>
+                </div>
+
+                <!-- TAB: STARTING POINT (THE BEFORE) -->
+                <div class="tab-page" id="tab-starting-point">
+                    <div id="starting-point-container"></div>
+                </div>
+
+                <!-- TAB: BUILDING THE DREAM & PUBLIC PORTAL -->
+                <div class="tab-page" id="tab-dream">
+                    <div id="dream-page-container"></div>
+                </div>
+
+                <!-- TAB: HOUSE BLUEPRINT (FULL-PAGE SCHEMATIC) -->
+                <div class="tab-page" id="tab-blueprint">
+                    <div id="full-blueprint-page-container"></div>
+                </div>
+
+                <!-- TAB: HOUSE BLUEPRINT CONCEPT / VISUAL GALLERY -->
+                <div class="tab-page" id="tab-concept">
+                    <div id="concept-visual-container"></div>
+                </div>
+
+                <!-- TAB: FIELD JOURNALS & MEDIA (PHOTO, VIDEO, PROGRESS JOURNALS) -->
+                <div class="tab-page" id="tab-journals">
+                    <div id="field-journals-page-container"></div>
+                </div>
+
+                <!-- TAB: JUNKYARD SALVAGE -->
+                <div class="tab-page" id="tab-junkyard">
+                    <div id="junkyard-container"></div>
+                </div>
+
+                <!-- TAB: 4 CATS & HOUSEHOLD CHAOS -->
+                <div class="tab-page" id="tab-cats">
+                    <div id="cats-household-container"></div>
+                </div>
+
+                <!-- TAB: HARDWARE STORE -->
+                <div class="tab-page" id="tab-hardware">
+                    <div class="section-banner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                        <div>
+                            <h3>Hardware Depot & Tool Shed</h3>
+                            <span class="room-header-status">Acquire pro tools to unlock high-margin DIY jobs</span>
+                        </div>
+                        <button type="button" class="btn-primary-nav" onclick="UI.openToolEditorModal()" style="display:inline-flex; align-items:center; gap:6px; background:#10b981; border:none; color:#fff; font-weight:700; padding:8px 16px; border-radius:6px; cursor:pointer;">
+                            ➕ Add Tool / Equipment
+                        </button>
+                    </div>
+                    <div class="hardware-grid" id="hardware-items-container"></div>
+                </div>
+
+                <!-- TAB: FINANCIAL LEDGER -->
+                <div class="tab-page" id="tab-finance">
+                    <div class="section-banner">
+                        <h3>Financial Ledger & Loan Desk</h3>
+                        <span class="room-header-status">Manage carrying overhead and hard-money credit</span>
+                    </div>
+                    <div id="financial-ledger-container"></div>
+                </div>
+
+                <!-- TAB: INSPECTION -->
+                <div class="tab-page" id="tab-inspection">
+                    <div class="section-banner">
+                        <h3>Property Condition & Hospitality Permit</h3>
+                        <span class="room-header-status">Foundation must be leveled and certified before city permits B&B lodging</span>
+                    </div>
+                    <div id="inspection-report-container"></div>
+                </div>
+
+                <!-- TAB: CAREER -->
+                <div class="tab-page" id="tab-career">
+                    <div class="section-banner">
+                        <h3>1910 Whispering Pines Manor & B&B Hospitality Operations</h3>
+                    </div>
+                    <div id="career-portfolio-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HORIZONTAL SLIDING DIVIDER 2: Between Middle Tabs and Running Log Book -->
+        <div class="window-slider-divider" id="divider-right" title="Click &amp; drag horizontally to resize Middle Tabs and Log">
+            <div class="divider-grip-line"></div>
+        </div>
+
+        <!-- RIGHT ACTIVITY FEED (RUNNING LOG BOOK) -->
+        <aside class="activity-sidebar" id="activity-sidebar-panel">
+            <div class="sidebar-heading">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span style="font-size:1.05rem;">📖</span>
+                    <span>LOG</span>
+                </div>
+                <div class="log-settings-dropdown-wrapper" id="log-settings-dropdown-wrapper">
+                    <button type="button" class="btn-sidebar-add-room btn-log-settings-trigger" id="btn-log-settings-trigger" onclick="UI.toggleLogSettingsDropdown(event)" title="Log Settings: View report, open standalone webpage, clear field logs, toggle quarter width">
+                        <span>⚙️ SETTINGS</span>
+                        <span class="dropdown-caret">▾</span>
+                    </button>
+                    <div class="log-settings-dropdown-menu" id="log-settings-dropdown-menu">
+                        <button type="button" class="log-settings-menu-item" onclick="UI.openLogbookReportModal(); UI.closeLogSettingsDropdown();" title="View &amp; print full executive log book report" style="background:#10b981; border:1px solid #34d399; color:#fff;">
+                            📄 Report
+                        </button>
+                        <button type="button" class="log-settings-menu-item" onclick="UI.openDailyDataLog(); UI.closeLogSettingsDropdown();" title="Daily Data Log: hidden running record of every update, change and addition to the Fixer-Upper index" style="background:#1e1b4b; border:1px solid #818cf8; color:#c7d2fe;">
+                            📊 Daily Data Log
+                        </button>
+                        <a href="logbook.html" target="_blank" class="log-settings-menu-item" onclick="UI.closeLogSettingsDropdown();" title="Open Log in its own standalone full-page webpage" style="background:#0f172a; border:1px solid #38bdf8; color:#38bdf8; text-decoration:none;">
+                            ↗️ Webpage
+                        </a>
+                        <button type="button" class="log-settings-menu-item" onclick="UI.clearAllActivityLogs(); UI.closeLogSettingsDropdown();" title="Delete all old field logs from Log" style="background:rgba(239,68,68,0.18); border:1px solid #ef4444; color:#ef4444;">
+                            🗑️ Clear
+                        </button>
+                        <button type="button" class="log-settings-menu-item btn-toggle-qtr-logbook" id="btn-toggle-qtr-logbook" onclick="UI.toggleLogbookQuarterWidth(event); UI.closeLogSettingsDropdown();" title="QTR (¼X Width): Shrink Log to 1/4 width to give more room to Renovations" style="background:#0284c7; border:1px solid #38bdf8; color:#fff;">
+                            ¼X QTR
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TIME PERIOD SELECTOR BAR (DAY / WEEK / MONTH / ALL HISTORY) -->
+            <div class="feed-time-nav-bar" id="feed-time-nav-bar">
+                <button type="button" class="btn-feed-time" data-time="day" onclick="UI.setFeedTimeView('day')" title="Today's accomplishments & field log">
+                    Day View
+                </button>
+                <button type="button" class="btn-feed-time" data-time="week" onclick="UI.setFeedTimeView('week')" title="Current week's running log">
+                    Week View
+                </button>
+                <button type="button" class="btn-feed-time" data-time="month" onclick="UI.setFeedTimeView('month')" title="Current month's accomplishments & history">
+                    Month View
+                </button>
+                <button type="button" class="btn-feed-time active" data-time="all" onclick="UI.setFeedTimeView('all')" title="Complete project history log book">
+                    All History
+                </button>
+            </div>
+
+
+            <!-- COMPOSER -->
+            <div class="feed-composer">
+                <textarea id="feed-user-input" class="feed-composer-input" placeholder="Log a physical accomplishment, job update, or contractor quote..." rows="2"></textarea>
+
+                <!-- Attached Tag Chips Tray -->
+                <div id="feed-composer-tags-tray" class="feed-composer-tags-tray" style="display:none;"></div>
+
+                <!-- Quick Tag Shortcut Buttons & Drawer Trigger -->
+                <div class="feed-quick-tags-bar">
+                    <span class="feed-quick-tag-label">TAG &amp; LINK:</span>
+                    <button type="button" class="btn-quick-tag" onclick="UI.addComposerTag('tab', 'starting-point', '🏛️ History', '🏛️')" title="Tag History / The Before tab">🏛️ History</button>
+                    <button type="button" class="btn-quick-tag" onclick="UI.addComposerTag('tab', 'renovations', '🛠️ Reno', '🛠️')" title="Tag Renovations tab">🛠️ Reno</button>
+                    <button type="button" class="btn-quick-tag" onclick="UI.addComposerTag('tab', 'concept', '🖼️ Concepts', '🖼️')" title="Tag Concept Gallery tab">🖼️ Concepts</button>
+                    <button type="button" class="btn-quick-tag btn-more-tags" onclick="UI.toggleLogTagPicker(event)" title="Choose Main Task, Sub Task, Nested Task, or any Tab">
+                        <span>🔗 More...</span>
+                    </button>
+                </div>
+
+                <!-- Expanded Tag & Link Selector Drawer -->
+                <div id="feed-tag-picker-drawer" class="feed-tag-picker-drawer" style="display:none;">
+                    <div class="tag-picker-header">
+                        <span>🔗 Tag Main Task, Subtask, Task, or Tab:</span>
+                        <button type="button" class="btn-close-tag-picker" onclick="UI.closeLogTagPicker()">&times;</button>
+                    </div>
+                    <div class="tag-picker-grid">
+                        <div>
+                            <label>📁 Main Task:</label>
+                            <select id="tag-picker-select-level" onchange="UI.onSelectTagPickerItem('level', this)">
+                                <option value="">-- Choose Main Task --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>📂 Sub Task:</label>
+                            <select id="tag-picker-select-room" onchange="UI.onSelectTagPickerItem('room', this)">
+                                <option value="">-- Choose Subtask --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>🔨 Nested Task:</label>
+                            <select id="tag-picker-select-task" onchange="UI.onSelectTagPickerItem('task', this)">
+                                <option value="">-- Choose Task --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>📑 Workspace Tab:</label>
+                            <select id="tag-picker-select-tab" onchange="UI.onSelectTagPickerItem('tab', this)">
+                                <option value="">-- Choose Tab --</option>
+                                <option value="starting-point">🏛️ History (The Before)</option>
+                                <option value="renovations">🛠️ Renovations</option>
+                                <option value="concept">🖼️ House Concept Gallery</option>
+                                <option value="blueprint">📐 Full Blueprint Schematics</option>
+                                <option value="dream">🌟 Building the Dream</option>
+                                <option value="journals">📖 Field Journals & Media</option>
+                                <option value="junkyard">🚗 Junkyard Salvage</option>
+                                <option value="cats">🐱 4 Cats & Chaos</option>
+                                <option value="hardware">🏪 Tools & Store</option>
+                                <option value="finance">🏦 Finance & Loans</option>
+                                <option value="inspection">📋 Appraisal & Permit</option>
+                                <option value="career">🏨 B&B Operations</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feed-composer-bar">
+                    <span class="feed-composer-hint">Press Enter ↵ to log</span>
+                    <button type="button" class="btn-feed-post" onclick="UI.postActivityUpdate()">✍️ Log Note</button>
+                </div>
+            </div>
+
+            <!-- SUMMARY STATS BANNER WITH DAY TRACKER & QUICK ADVANCE -->
+            <div class="feed-stats-banner" id="feed-stats-banner">
+                <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                    <span id="feed-period-label" style="font-weight:700; color:#38bdf8; font-size:0.8rem;">📅 Log (Central Time)</span>
+                    <button type="button" class="btn-advance-feed-day" onclick="UI.advanceProjectDay(event)" title="Advance project day (+1 Day)" style="background:rgba(56,189,248,0.15); border:1px solid #38bdf8; color:#38bdf8; border-radius:4px; font-size:0.68rem; font-weight:800; padding:1px 6px; cursor:pointer;">
+                        +1 Day
+                    </button>
+                    <button type="button" class="btn-set-feed-start" onclick="UI.promptSetStartDate(event)" title="Set project start calendar date" style="background:transparent; border:none; color:#94a3b8; font-size:0.75rem; cursor:pointer; padding:0 2px;" aria-label="Set project start date">
+                        ⚙️
+                    </button>
+                </div>
+                <span id="feed-count-badge" class="feed-stat-pill">0 Accomplishments</span>
+            </div>
+
+            <div class="feed-container" id="activity-feed-box"></div>
+        </aside>
+
+    </main>
+
+        <!-- LEMONADE STAND LOOP & B&B MODAL (REPLACING OLD BOTTOM BAR) -->
+    <div class="modal-overlay" id="lemonade-loop-modal-overlay">
+        <div class="modal-window" style="max-width:620px;">
+            <div class="modal-header" style="background:linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%); border-bottom:1px solid #38bdf8;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🕹️</span>
+                    <div>
+                        <h2 style="color:#f472b6; margin:0; font-size:1.15rem;">Lemonade Stand Loop &amp; B&amp;B Simulator</h2>
+                        <small style="color:#94a3b8;">Whispering Pines Manor Daily Carrying Costs &amp; B&amp;B Hosting</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeLemonadeLoopModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:20px;">
+                <p style="font-size:0.9rem; color:#cbd5e1; line-height:1.5; margin-bottom:18px;">
+                    <strong>Lemonade Stand Loop:</strong> Balance daily carrying costs, lift the 60-ton 1910 house on hydraulic jacks, manage the 4 resident cats, and host lucrative weekend B&amp;B guests to fund continuous restoration work!
+                </p>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;">
+                    <button class="btn-open-house" id="btn-open-house" onclick="UI.closeLemonadeLoopModal(); UI.openSaleModal();" style="padding:12px; font-size:0.95rem; font-weight:700; cursor:pointer;">
+                        🏨 Host B&amp;B Weekend
+                    </button>
+                    <button class="btn-advance-day" id="btn-advance-day" onclick="window.Game.advanceDay();" style="padding:12px; font-size:0.95rem; font-weight:700; cursor:pointer;">
+                        ⏰ Advance Day (+1 Day)
+                    </button>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.1); padding-top:14px;">
+                    <button class="sound-btn" id="sound-toggle-btn" style="padding:8px 16px;">🔊 Sound FX</button>
+                    <button type="button" onclick="UI.closeLemonadeLoopModal()" style="background:#334155; color:#f8fafc; border:1px solid #475569; padding:8px 16px; border-radius:6px; cursor:pointer; font-weight:600;">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- BED & BREAKFAST GUEST CHECK-IN & REVIEWS MODAL -->
+    <div class="modal-overlay" id="sale-modal-overlay">
+        <div class="modal-window bnb-modal-window">
+            <div class="modal-header">
+                <h2>🏨 Whispering Pines B&B: Weekend Guest Check-In & Reviews</h2>
+                <button class="btn-modal-close" onclick="UI.closeSaleModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.4;" id="modal-bnb-subtitle">
+                    Weekend travelers, architecture historians, and cat lovers are reserving suites at Whispering Pines Manor! Review weekend bookings, guest feedback, and resident cat encounters:
+                </p>
+                <div style="display:flex; flex-direction:column; gap:14px; margin-top:10px;" id="modal-offers-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERACTIVE DILEMMA / PROBLEM CRISIS MODAL -->
+    <div class="modal-overlay" id="dilemma-modal-overlay">
+        <div class="modal-window dilemma-modal-window">
+            <div class="modal-header" style="background:#261820; border-bottom:1px solid #7f1d1d;">
+                <h2 style="color:#ef4444;">⚠️ Fixer-Upper Dilemma & Chaos Arrived!</h2>
+            </div>
+            <div class="modal-body" id="dilemma-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- TASK EXECUTION & QUALITY MINIGAME MODAL -->
+    <div class="modal-overlay" id="minigame-modal-overlay">
+        <div class="modal-window minigame-modal-window">
+            <div class="modal-header" id="minigame-modal-header">
+                <h2 id="minigame-title">🔨 Craftsmanship Minigame</h2>
+                <button class="btn-modal-close" onclick="UI.cancelMinigame()">&times;</button>
+            </div>
+            <div class="modal-body" id="minigame-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- CAT QUICK-CARE & WANDERER INSPECTION MODAL -->
+    <div class="modal-overlay" id="cat-modal-overlay">
+        <div class="modal-window cat-modal-window">
+            <div class="modal-header" id="cat-modal-header" style="background:linear-gradient(135deg, #1e293b, #0f172a); border-bottom:1px solid rgba(245, 158, 11, 0.3);">
+                <h2 id="cat-modal-title" style="color:var(--accent);">🐾 Manor Cat Companion</h2>
+                <button class="btn-modal-close" onclick="UI.closeCatModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="cat-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- JOB-SITE HAZARD INCIDENT & STOP-WORK MODAL -->
+    <div class="modal-overlay" id="hazard-modal-overlay">
+        <div class="modal-window hazard-modal-window">
+            <div class="modal-header hazard-modal-header" id="hazard-modal-header">
+                <h2 id="hazard-modal-title" style="color:#ef4444;">⚠️ Job-Site Safety Incident!</h2>
+                <button class="btn-modal-close" onclick="UI.closeHazardModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="hazard-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- DOCUMENTARY VIDEO JOURNAL PLAYER MODAL -->
+    <div class="modal-overlay" id="video-modal-overlay">
+        <div class="modal-window video-modal-window">
+            <div class="modal-header video-modal-header" id="video-modal-header">
+                <div class="vid-modal-title-group">
+                    <span class="vid-tag-badge">🎬 4K RESTORATION REEL</span>
+                    <h2 id="video-modal-title" style="margin:0; font-size:1.15rem; color:#f8fafc;">Episode Title</h2>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeVideoModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="video-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- RESTORATION TUTORIAL MODAL -->
+    <div class="modal-overlay" id="tutorial-modal-overlay">
+        <div class="modal-window tutorial-modal-window">
+            <div class="modal-header tutorial-modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🎓</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.15rem;">1910 RESTORATION TUTORIAL</h2>
+                        <small style="color:#94a3b8;">Whispering Pines Manor Historic B&amp;B Handbook &amp; Guide</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeTutorialModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="tutorial-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE PROPERTY INFO EDITOR MODAL -->
+    <div class="modal-overlay" id="property-editor-modal-overlay">
+        <div class="modal-window property-editor-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🏡</span>
+                    <div>
+                        <h2 style="color:var(--accent); margin:0; font-size:1.15rem;">Property Information & Restoration Goals</h2>
+                        <small style="color:#94a3b8;">Custom house details, address, purchase price, budget & ARV</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closePropertyEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="property-editor-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE MAIN PROJECT FOLDER EDITOR MODAL -->
+    <div class="modal-overlay" id="new-project-modal-overlay">
+        <div class="modal-window room-editor-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📁</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.15rem;">Create New Main Task</h2>
+                        <small style="color:#94a3b8;">Creates a new Tier 1 Main Task (e.g. Level 3 Tower &amp; Roof, Carriage House) at the top of PROJECTS &amp; TASKS</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeNewProjectModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="new-project-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE ROOM / SECTION EDITOR MODAL -->
+    <div class="modal-overlay" id="room-editor-modal-overlay">
+        <div class="modal-window room-editor-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📐</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.15rem;">Sub Task Manager (Tier 2)</h2>
+                        <small style="color:#94a3b8;">Add or customize sub tasks (e.g. Victorian Slate Roofing &amp; Cupola, Master Suite)</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeRoomEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="room-editor-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE TASK / PROJECT EDITOR MODAL -->
+    <div class="modal-overlay" id="task-editor-modal-overlay">
+        <div class="modal-window task-editor-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="font-size:2rem;">🔨</span>
+                    <div>
+                        <h2 style="color:#f59e0b; margin:0; font-size:1.45rem; font-weight:800; letter-spacing:0.5px;">Nested Task Editor (Project Task • Tier 3)</h2>
+                        <small style="color:#94a3b8; font-size:0.95rem;">Add, edit, or customize actionable nested project tasks, contractor bids, and materials</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeTaskEditorModal()" style="font-size:1.8rem; padding:4px 10px;">&times;</button>
+            </div>
+            <div class="modal-body" id="task-editor-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- MULTI-TARGET FOOTNOTE JUMP MODAL -->
+    <div class="modal-overlay" id="footnote-multi-targets-modal-overlay" style="display:none;">
+        <div class="modal-window footnote-multi-modal-window" style="max-width:680px; width:92%;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📑</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.15rem;" id="fn-multi-modal-title">Footnote Linked Projects</h2>
+                        <small style="color:#94a3b8;" id="fn-multi-modal-subtitle">Connected across multiple tasks & scopes</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeFootnoteMultiTargetsModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="fn-multi-modal-body" style="padding:16px; max-height:75vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE PHOTO JOURNAL EDITOR MODAL -->
+    <div class="modal-overlay" id="photo-editor-modal-overlay">
+        <div class="modal-window photo-editor-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📷</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.15rem;">Photo Journal Entry Editor</h2>
+                        <small style="color:#94a3b8;">Upload photos from device or link web pictures with captions & field notes</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closePhotoEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="photo-editor-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE VIDEO JOURNAL EDITOR MODAL -->
+    <div class="modal-overlay" id="video-editor-modal-overlay">
+        <div class="modal-window video-editor-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🎥</span>
+                    <div>
+                        <h2 style="color:#ec4899; margin:0; font-size:1.15rem;">Documentary Video Log Editor</h2>
+                        <small style="color:#94a3b8;">Link construction video walkthroughs, timecoded milestones & transcripts</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeVideoEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="video-editor-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE PROGRESS & LITERATURE JOURNAL EDITOR MODAL -->
+    <div class="modal-overlay" id="progress-editor-modal-overlay">
+        <div class="modal-window progress-editor-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📖</span>
+                    <div>
+                        <h2 style="color:#10b981; margin:0; font-size:1.15rem;">Engineering Progress & Literature Editor</h2>
+                        <small style="color:#94a3b8;">Record structural calculations, code requirements, permit notes, and specs</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeProgressEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="progress-editor-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE EXPENSE LEDGER MODAL -->
+    <div class="modal-overlay" id="expense-ledger-modal-overlay">
+        <div class="modal-window expense-ledger-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">💵</span>
+                    <div>
+                        <h2 style="color:#10b981; margin:0; font-size:1.15rem;">Real-Life Renovation Expense Ledger</h2>
+                        <small style="color:#94a3b8;">Log receipts, contractor payments, material expenses, and track actual budget</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeExpenseLedgerModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="expense-ledger-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE IMPORT & EXPORT JSON MODAL -->
+    <div class="modal-overlay" id="import-export-modal-overlay">
+        <div class="modal-window import-export-modal-window">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">💾</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.15rem;">Project Data Backup, Export & Restore</h2>
+                        <small style="color:#94a3b8;">Save your entire house renovation to a JSON file or restore a backup</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeImportExportModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="import-export-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- PUBLISH & SHARE PORTAL MODAL -->
+    <div class="modal-overlay" id="publish-modal-overlay">
+        <div class="modal-window publish-modal-window" style="max-width:700px;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🌐</span>
+                    <div>
+                        <h2 style="color:var(--accent); margin:0; font-size:1.15rem;">Publish, Share & Public Supporter Portal</h2>
+                        <small style="color:#94a3b8;">Publish your live restoration website, donation portal & individual project webpages</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closePublishModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="publish-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- DONATION SETTINGS & STORY EDITOR MODAL -->
+    <div class="modal-overlay" id="donation-editor-modal-overlay">
+        <div class="modal-window donation-editor-modal-window" style="max-width:680px;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">💝</span>
+                    <div>
+                        <h2 style="color:#f59e0b; margin:0; font-size:1.15rem;">Edit Campaign Story & Donation Channels</h2>
+                        <small style="color:#94a3b8;">Configure donation goal, story, GoFundMe, Patreon, Venmo, PayPal & perks</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeDonationEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="donation-editor-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- FULL PROJECT WEBPAGE MODAL (IN-APP VIEW & EDIT) -->
+    <div class="modal-overlay" id="project-webpage-modal-overlay">
+        <div class="modal-window project-webpage-modal-window" style="max-width:960px; max-height:92vh;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📋</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.15rem;" id="proj-modal-header-title">Project Detail Webpage</h2>
+                        <small style="color:#94a3b8;" id="proj-modal-header-sub">Dedicated checklist, materials, tools, photos, video links & notes</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeProjectWebpageModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="project-webpage-modal-body" style="padding:0; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- RAPID PROJECT INTAKE & DISPATCH MODAL -->
+    <div class="modal-overlay" id="rapid-input-modal-overlay">
+        <div class="modal-window rapid-input-modal-window" style="width:95vw; max-width:1550px; max-height:94vh;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">⚡</span>
+                    <div>
+                        <h2 style="color:#a78bfa; margin:0; font-size:1.15rem;">Rapid Project Intake & Quick Dispatch</h2>
+                        <small style="color:#94a3b8;">Fast multi-field entry — automatically routes data to Blueprint, Renovations, Journals, and Dream Portal</small>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <a href="input.html" target="_blank" class="btn-proj-header" style="font-size:0.75rem; padding:4px 10px;">
+                        🌐 Open Fullscreen Input Page ↗
+                    </a>
+                    <button class="btn-modal-close" onclick="UI.closeRapidInputModal()">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" id="rapid-input-modal-body" style="padding:0; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- CONCEPT / VISUAL LIGHTBOX MODAL -->
+    <div class="modal-overlay" id="concept-lightbox-modal-overlay">
+        <div class="modal-window concept-lightbox-modal-window" style="width:92vw; max-width:1150px; max-height:92vh;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📐</span>
+                    <div>
+                        <h2 id="concept-lightbox-title" style="color:var(--accent-blue); margin:0; font-size:1.2rem;">Architectural Visual Plate</h2>
+                        <small id="concept-lightbox-sub" style="color:#94a3b8;">Floor Level & Room Overview</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeConceptLightbox()">&times;</button>
+            </div>
+            <div class="modal-body" id="concept-lightbox-modal-body" style="padding:0; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- FLOOR LEVEL EDITOR MODAL -->
+    <div class="modal-overlay" id="level-editor-modal-overlay">
+        <div class="modal-window" style="max-width:540px;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">✏️</span>
+                    <div>
+                        <h2 style="color:var(--accent-blue); margin:0; font-size:1.2rem;">Edit Floor Level Title &amp; Details</h2>
+                        <small style="color:#94a3b8;">Customize architectural floor names, icons, and elevation markers</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeLevelEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:18px 24px;">
+                <input type="hidden" id="level-edit-id">
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label style="display:block; font-weight:700; color:#38bdf8; margin-bottom:6px; font-size:0.85rem;">Folder Accent Color:</label>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <input type="color" id="level-edit-color" value="#38bdf8" style="width:44px; height:34px; padding:0; border:1px solid #334155; border-radius:6px; cursor:pointer; background:transparent;">
+                        <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                            <button type="button" onclick="document.getElementById('level-edit-color').value='#38bdf8'" style="width:24px; height:24px; border-radius:50%; background:#38bdf8; border:1.5px solid #fff; cursor:pointer;" title="Sky Blue"></button>
+                            <button type="button" onclick="document.getElementById('level-edit-color').value='#10b981'" style="width:24px; height:24px; border-radius:50%; background:#10b981; border:1.5px solid #fff; cursor:pointer;" title="Emerald Green"></button>
+                            <button type="button" onclick="document.getElementById('level-edit-color').value='#f59e0b'" style="width:24px; height:24px; border-radius:50%; background:#f59e0b; border:1.5px solid #fff; cursor:pointer;" title="Amber Gold"></button>
+                            <button type="button" onclick="document.getElementById('level-edit-color').value='#a855f7'" style="width:24px; height:24px; border-radius:50%; background:#a855f7; border:1.5px solid #fff; cursor:pointer;" title="Royal Purple"></button>
+                            <button type="button" onclick="document.getElementById('level-edit-color').value='#f43f5e'" style="width:24px; height:24px; border-radius:50%; background:#f43f5e; border:1.5px solid #fff; cursor:pointer;" title="Rose / Crimson"></button>
+                            <button type="button" onclick="document.getElementById('level-edit-color').value='#06b6d4'" style="width:24px; height:24px; border-radius:50%; background:#06b6d4; border:1.5px solid #fff; cursor:pointer;" title="Cyan / Teal"></button>
+                            <button type="button" onclick="document.getElementById('level-edit-color').value='#b45309'" style="width:24px; height:24px; border-radius:50%; background:#b45309; border:1.5px solid #fff; cursor:pointer;" title="Steampunk Bronze"></button>
+                            <button type="button" onclick="document.getElementById('level-edit-color').value=''" style="padding:2px 8px; font-size:0.75rem; border-radius:4px; background:#1e293b; color:#cbd5e1; border:1px solid #475569; cursor:pointer;" title="Reset default color">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:14px;">
+
+                    <label style="display:block; font-weight:700; color:#cbd5e1; margin-bottom:6px; font-size:0.85rem;">Level Title / Name:</label>
+                    <input type="text" id="level-edit-name" style="width:100%; padding:9px 12px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:#fff; font-size:0.95rem;" placeholder="e.g. Tower &amp; Roof, 3rd Floor Penthouse, etc.">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:18px;">
+                    <div class="form-group">
+                        <label style="display:block; font-weight:700; color:#38bdf8; margin-bottom:6px; font-size:0.85rem;">Slot Position:</label>
+                        <select id="level-edit-priority" style="width:100%; padding:9px 12px; background:#0f172a; border:1px solid #38bdf8; border-radius:6px; color:#fff; font-size:0.95rem; font-weight:800;">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; font-weight:700; color:#cbd5e1; margin-bottom:6px; font-size:0.85rem;">Icon / Symbol:</label>
+                        <select id="level-edit-icon" style="width:100%; padding:9px 12px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:#fff; font-size:0.95rem;">
+                            <option value="🏰">🏰 Castle / Tower</option>
+                            <option value="🛏️">🛏️ Bedroom / Upper</option>
+                            <option value="🛋️">🛋️ Living / Hearth</option>
+                            <option value="🧱">🧱 Brick / Foundation</option>
+                            <option value="🌳">🌳 Tree / Grounds</option>
+                            <option value="⚙️">⚙️ Workshop / Gear</option>
+                            <option value="🏡">🏡 Estate / House</option>
+                            <option value="⭐">⭐ Special / Star</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; font-weight:700; color:#cbd5e1; margin-bottom:6px; font-size:0.85rem;">Elevation Tag:</label>
+                        <input type="text" id="level-edit-elevation" style="width:100%; padding:9px 12px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:#fff; font-size:0.95rem;" placeholder="e.g. Elev. +32', 3rd Story">
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px; padding-top:14px; border-top:1px solid #1e293b;">
+                    <div style="display:flex; gap:8px;">
+                        <button type="button" class="btn-proj-header" onclick="UI.deleteLevelFromEditor()" style="background:#7f1d1d; color:#fca5a5; border-color:#ef4444; font-size:0.8rem; padding:6px 12px;" title="Delete this entire floor level and its rooms"><span style="color:#ef4444; font-weight:900; margin-right:4px;">❌</span> Del</button>
+                        <button type="button" class="btn-proj-header" onclick="UI.resetLevelDefault()" style="background:#334155; color:#cbd5e1; font-size:0.8rem; padding:6px 12px;">↺ Reset to Default</button>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <button type="button" class="btn-proj-header" onclick="UI.closeLevelEditorModal()" style="background:#1e293b; color:#94a3b8; font-size:0.85rem;">Cancel</button>
+                        <button type="button" class="btn-proj-header" onclick="UI.saveLevelEditor()" style="background:#0284c7; color:#fff; border-color:#38bdf8; font-weight:700; font-size:0.85rem;">💾 Save Floor Title</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOVE TASK MODAL -->
+    <div class="modal-overlay" id="move-task-modal-overlay">
+        <div class="modal-window" style="max-width:500px;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">✂️</span>
+                    <div>
+                        <h2 style="color:#f59e0b; margin:0; font-size:1.2rem;">Move Task to Another Room</h2>
+                        <small style="color:#94a3b8;">Relocate this task and all its data to a different room</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeMoveTaskModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:18px 24px;">
+                <input type="hidden" id="move-task-id">
+                <p style="color:#e2e8f0; font-size:0.9rem; margin-bottom:12px;">
+                    Task: <strong id="move-task-name-display" style="color:#38bdf8;"></strong>
+                </p>
+                <div class="form-group" style="margin-bottom:18px;">
+                    <label style="display:block; font-weight:700; color:#cbd5e1; margin-bottom:6px; font-size:0.85rem;">Destination Room / Workspace:</label>
+                    <select id="move-task-target-room" style="width:100%; padding:10px 12px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:#fff; font-size:0.92rem;"></select>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:10px; padding-top:14px; border-top:1px solid #1e293b;">
+                    <button type="button" class="btn-proj-header" onclick="UI.closeMoveTaskModal()" style="background:#1e293b; color:#94a3b8;">Cancel</button>
+                    <button type="button" class="btn-proj-header" onclick="UI.confirmMoveTask()" style="background:#d97706; color:#fff; border-color:#f59e0b; font-weight:700;">✂️ Move Task Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COPY TASK MODAL -->
+    <div class="modal-overlay" id="copy-task-modal-overlay">
+        <div class="modal-window" style="max-width:500px;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📋</span>
+                    <div>
+                        <h2 style="color:#10b981; margin:0; font-size:1.2rem;">Copy / Duplicate Task to Room</h2>
+                        <small style="color:#94a3b8;">Create a duplicate task template in another room</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeCopyTaskModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:18px 24px;">
+                <input type="hidden" id="copy-task-id">
+                <p style="color:#e2e8f0; font-size:0.9rem; margin-bottom:12px;">
+                    Copying: <strong id="copy-task-name-display" style="color:#34d399;"></strong>
+                </p>
+                <div class="form-group" style="margin-bottom:18px;">
+                    <label style="display:block; font-weight:700; color:#cbd5e1; margin-bottom:6px; font-size:0.85rem;">Target Room:</label>
+                    <select id="copy-task-target-room" style="width:100%; padding:10px 12px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:#fff; font-size:0.92rem;"></select>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:10px; padding-top:14px; border-top:1px solid #1e293b;">
+                    <button type="button" class="btn-proj-header" onclick="UI.closeCopyTaskModal()" style="background:#1e293b; color:#94a3b8;">Cancel</button>
+                    <button type="button" class="btn-proj-header" onclick="UI.confirmCopyTask()" style="background:#059669; color:#fff; border-color:#34d399; font-weight:700;">📋 Duplicate Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 30-MINUTE SAFETY BACKUP REMINDER MODAL -->
+    <div class="modal-overlay" id="backup-reminder-modal-overlay">
+        <div class="modal-window" style="max-width:560px;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">💾</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.2rem;">Half-Hour Safety Backup Reminder</h2>
+                        <small style="color:#94a3b8;">Keep an offline copy of Whispering Pines Manor</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeBackupReminderModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:20px 24px;">
+                <div style="background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.3); border-radius:8px; padding:14px 16px; margin-bottom:16px;">
+                    <p style="color:#e2e8f0; font-size:0.92rem; line-height:1.5; margin:0 0 10px 0;">
+                        ⏱️ <strong>You've been actively designing for 30 minutes!</strong>
+                    </p>
+                    <p style="color:#94a3b8; font-size:0.86rem; line-height:1.5; margin:0;">
+                        Automatic snapshots save silently to your local browser storage every <strong>5 minutes</strong>. However, downloading a standalone <code>.json</code> file to your computer guarantees you will never lose your custom rooms, journals, contractor receipts, or blueprints under any circumstance.
+                    </p>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <button type="button" class="btn-proj-header" onclick="UI.downloadBackupFromReminder()" style="background:linear-gradient(135deg, #0284c7, #2563eb); color:#fff; border-color:#38bdf8; font-size:0.95rem; font-weight:700; padding:12px; justify-content:center;">
+                        📥 Download Fresh Backup File (.json)
+                    </button>
+                    <button type="button" class="btn-proj-header" onclick="UI.closeBackupReminderModal()" style="background:#1e293b; color:#cbd5e1; justify-content:center; padding:9px;">
+                        Dismiss &amp; Remind Me in 30 Minutes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REAL-LIFE TOOL & EQUIPMENT EDITOR MODAL -->
+    <div class="modal-overlay" id="tool-editor-modal-overlay">
+        <div class="modal-window tool-editor-modal-window" style="max-width:540px;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🛠️</span>
+                    <div>
+                        <h2 style="color:#10b981; margin:0; font-size:1.15rem;">Add Tool / Equipment</h2>
+                        <small style="color:#94a3b8;">Add new tools or workshop equipment to the catalog</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeToolEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="tool-editor-modal-body" style="padding:18px 24px;"></div>
+        </div>
+    </div>
+
+    <!-- BLUEPRINT & HOUSE DIRECTIONS GUIDE MODAL -->
+    <div class="modal-overlay" id="blueprint-guide-modal-overlay">
+        <div class="modal-window" style="max-width:820px; max-height:88vh; display:flex; flex-direction:column;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🧭</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.2rem;">Whispering Pines Restoration &amp; Blueprint Guide</h2>
+                        <small style="color:#94a3b8;">Floor Hierarchy, Lineage Indentation, Task Transfers &amp; Safety Backups</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeBlueprintGuideModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:20px; overflow-y:auto; flex:1;">
+                <div class="guide-chapter-card">
+                    <div class="guide-chapter-header">
+                        <span>🌳</span> 1. Left Sidebar Floor Lineage &amp; Indented Rooms
+                    </div>
+                    <div class="guide-chapter-body">
+                        The left sidebar is organized as an architectural tree. Each major floor header (e.g. <em>Level 3: Tower &amp; Roof</em>, <em>Level 2: Upper Guest Suites</em>, <em>Level 1: Main Living</em>, <em>Level 0: Sub-Cellar Foundation</em>, and <em>Grounds &amp; Outbuildings</em>) acts as the parent folder.
+                        <br><br>
+                        Sub-rooms are deeply indented by half an inch with solid tree branch connectors (<code>├──</code> and <code>└──</code>) so you can clearly see room lineage. You can collapse or expand floors individually by clicking their header, or use the <strong>▼ ALL</strong> and <strong>▲ ALL</strong> buttons at the top of the sidebar.
+                    </div>
+                    <div class="guide-key-tip">
+                        💡 <strong>Drag &amp; Drop Reordering:</strong> Click and drag any room card up or down to reorder within a floor, or drag it into another floor level. Hold <strong>Ctrl / Alt</strong> while dragging to duplicate the entire room!
+                    </div>
+                </div>
+
+                <div class="guide-chapter-card">
+                    <div class="guide-chapter-header">
+                        <span>✏️</span> 2. Renaming Main Floor Level Titles
+                    </div>
+                    <div class="guide-chapter-body">
+                        You can rename any main floor header! Simply <strong>double-click</strong> directly on the floor name to edit it inline, or click the <strong>✏️ Rename Label</strong> button to change its title, icon, or elevation marker.
+                    </div>
+                </div>
+
+                <div class="guide-chapter-card">
+                    <div class="guide-chapter-header">
+                        <span>✂️</span> 3. Dragging, Moving &amp; Copying Tasks Between Rooms
+                    </div>
+                    <div class="guide-chapter-body">
+                        You have two fast ways to relocate or copy tasks:
+                        <ul>
+                            <li><strong>Click &amp; Drag:</strong> Grab the <code>⋮⋮ Drag</code> handle on any task card and drag it onto any room card in the left sidebar! It will instantly move the task into that room. Hold <strong>Ctrl / Alt</strong> while dragging to copy it instead.</li>
+                            <li><strong>Transfer Buttons:</strong> Click <strong>✂️ Move Room</strong> or <strong>📋 Copy Task</strong> directly on the task card to choose a destination from a dropdown.</li>
+                            <li><strong>Reorder Tasks:</strong> Drag a task card above or below other tasks in the same room to reorder your work sequence.</li>
+                        </ul>
+                    </div>
+                    <div class="guide-key-tip">
+                        💡 <strong>Undo Support:</strong> If you accidentally move or delete a task or room, click the <strong>↩️ Undo</strong> button on the top toolbar anytime.
+                    </div>
+                </div>
+
+                <div class="guide-chapter-card">
+                    <div class="guide-chapter-header">
+                        <span>📸</span> 4. Phased Restoration Journals (Before / During / After)
+                    </div>
+                    <div class="guide-chapter-body">
+                        Under the <strong>📸 Photos &amp; Logs</strong> tab, each room features three distinct chronological phases:
+                        <strong>Before</strong> (hazard assessment &amp; original condition), <strong>During</strong> (rough-in framing, electrical, plumbing), and <strong>After</strong> (finished trim, paint, staged reveal). You can attach photos, record field notes, and document contractor work orders.
+                    </div>
+                </div>
+
+                <div class="guide-chapter-card">
+                    <div class="guide-chapter-header">
+                        <span>💾</span> 5. 5-Minute Auto-Backups &amp; 30-Minute Safe Downloads
+                    </div>
+                    <div class="guide-chapter-body">
+                        Your project is continuously protected:
+                        <ul>
+                            <li><strong>Every 5 minutes:</strong> The system automatically writes a rolling snapshot to your browser's persistent storage.</li>
+                            <li><strong>Every 30 minutes:</strong> A friendly notification pops up with a 1-click button to download an offline <code>.json</code> project file to your computer.</li>
+                            <li>You can also click the glowing green <strong>💾 Auto-Backup Active</strong> badge in the top toolbar anytime to download an immediate backup.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div style="padding:14px 20px; background:#0f172a; border-top:1px solid #1e293b; display:flex; justify-content:flex-end;">
+                <button type="button" class="btn-proj-header" onclick="UI.closeBlueprintGuideModal()" style="background:#0284c7; color:#fff; border-color:#38bdf8; font-weight:700;">
+                    Got It, Let's Build!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB EDITOR MODAL (ADD & EDIT WORKSPACE TABS) -->
+    <div class="modal-overlay" id="tab-editor-modal-overlay">
+        <div class="modal-window tab-editor-modal-window" style="max-width:580px;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;" id="tab-modal-header-icon">📑</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.18rem;" id="tab-modal-title">Edit Tab</h2>
+                        <small style="color:#94a3b8;" id="tab-modal-subtitle">Add, edit, or customize middle workspace tabs</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeTabEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="tab-editor-modal-body" style="padding:18px 24px;"></div>
+        </div>
+    </div>
+
+
+    <!-- RICH MEDIA CONTENT CREATOR MODAL -->
+    <div class="modal-overlay" id="rich-post-editor-modal-overlay">
+        <div class="modal-window rich-post-editor-modal-window" style="max-width:880px; width:95vw; max-height:92vh; display:flex; flex-direction:column;">
+            <div class="modal-header" style="flex-shrink:0;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;" id="rich-post-modal-icon">📰</span>
+                    <div>
+                        <h2 style="color:#f59e0b; margin:0; font-size:1.18rem;" id="rich-post-modal-title">Post Creator &amp; Editor</h2>
+                        <small style="color:#94a3b8;" id="rich-post-modal-subtitle">Rich media, typography, links, and footnotes</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeRichPostEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="rich-post-editor-modal-body" style="padding:18px 24px; overflow-y:auto; flex-grow:1;"></div>
+        </div>
+    </div>
+
+    <!-- STARTING POINT HERO & FORENSIC METRICS MODAL -->
+    <div class="modal-overlay" id="sp-hero-modal-overlay">
+        <div class="modal-window" style="max-width:680px; width:92vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🏛️</span>
+                    <div>
+                        <h2 style="color:#f59e0b; margin:0; font-size:1.2rem;">Edit Starting Point Hero &amp; Forensic Metrics</h2>
+                        <small style="color:#94a3b8;">Custom headers, subheaders, and 4 baseline structural metrics</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeStartingPointHeroModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="sp-hero-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- STARTING POINT BLUEPRINT & PROVENANCE SHOWCASE MODAL -->
+    <div class="modal-overlay" id="sp-blueprint-modal-overlay">
+        <div class="modal-window" style="max-width:640px; width:92vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📐</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.2rem;">Edit Architectural Pencil Blueprint Showcase</h2>
+                        <small style="color:#94a3b8;">Title, survey tags, drawing image, provenance notes, and captions</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeStartingPointBlueprintModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="sp-blueprint-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- STARTING POINT NARRATIVE SECTION MODAL (HEADERS, PARAGRAPHS, NOTES, FOOTNOTES) -->
+    <div class="modal-overlay" id="sp-narrative-modal-overlay">
+        <div class="modal-window" style="max-width:680px; width:92vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📜</span>
+                    <div>
+                        <h2 style="color:#f8fafc; margin:0; font-size:1.2rem;" id="sp-narrative-modal-title">Edit Starting Point Narrative Story</h2>
+                        <small style="color:#94a3b8;">Headers, subheaders, narrative text, field notes, and footnotes</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeStartingPointNarrativeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="sp-narrative-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- STARTING POINT BEFORE POST & MULTI-PHOTO GALLERY MODAL -->
+    <div class="modal-overlay" id="sp-post-modal-overlay">
+        <div class="modal-window" style="max-width:760px; width:94vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">📷</span>
+                    <div>
+                        <h2 style="color:#34d399; margin:0; font-size:1.2rem;" id="sp-post-modal-title">Edit Before Post &amp; Multi-Photo Gallery</h2>
+                        <small style="color:#94a3b8;">Manage post narrative, field notes, footnotes, and its dedicated photo gallery</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeStartingPointPostModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="sp-post-modal-body" style="padding:18px 24px; max-height:82vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    
+    <!-- HISTORY FAST TAB QUICK-JUMP EDITOR MODAL -->
+    <div class="modal-overlay" id="fast-tab-modal-overlay" style="display:none;">
+        <div class="modal-window" style="max-width:620px; width:92vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;" id="fast-tab-modal-icon-header">⚡</span>
+                    <div>
+                        <h2 style="color:#f59e0b; margin:0; font-size:1.2rem;" id="fast-tab-modal-title">Edit Fast Tab Quick-Jump</h2>
+                        <small style="color:#94a3b8;">Customize icon, label, stat value, brief info, and destination jump target</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeFastTabModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="fast-tab-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- BLUEPRINT FORENSIC HOTSPOT PIN EDITOR MODAL -->
+    <div class="modal-overlay" id="hotspot-editor-modal-overlay" style="display:none;">
+        <div class="modal-window" style="max-width:620px; width:92vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;" id="hotspot-modal-icon-header">📍</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.2rem;" id="hotspot-modal-title">Edit Hotspot Pin</h2>
+                        <small style="color:#94a3b8;">Customize pin title, forensic findings, icon, color, and pinpoint coordinates</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeHotspotEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="hotspot-editor-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- CROSS-FOLDER SUBTASK LINK ADDER MODAL -->
+    <div class="modal-overlay" id="subtask-link-modal-overlay" style="display:none;">
+        <div class="modal-window link-adder-modal-window" style="max-width:980px; width:94vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🔗</span>
+                    <div>
+                        <h2 style="color:#818cf8; margin:0; font-size:1.2rem;" id="subtask-link-modal-title">Cross-Project Link Manager</h2>
+                        <small style="color:#94a3b8;" id="subtask-link-modal-sub">Connect Main Folders, Sub-Tasks &amp; Nested Tasks across projects for synchronized dependency tracking</small>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <a href="links-guide.html" target="_blank" style="background:#4338ca; color:#fff; border:1px solid #818cf8; padding:6px 14px; border-radius:6px; font-weight:700; font-size:0.82rem; text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Open How-To Guide Webpage in new tab">
+                        📖 How-To Guide ↗
+                    </a>
+                    <button class="btn-modal-close" onclick="UI.closeSubtaskLinkModal()">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" id="subtask-link-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- 4 CATS RESIDENT COMPANION EDITOR MODAL -->
+    <div class="modal-overlay" id="cat-editor-modal-overlay">
+        <div class="modal-window" style="max-width:620px; width:92vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🐱</span>
+                    <div>
+                        <h2 style="color:#f97316; margin:0; font-size:1.2rem;" id="cat-editor-modal-title">Edit Resident Cat Profile</h2>
+                        <small style="color:#94a3b8;">Customize cat name, title, emoji avatar, personality, mischief &amp; vitals</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeCatEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="cat-editor-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- DAILY CHORES & CLUTTER MANAGEMENT MODAL -->
+    <div class="modal-overlay" id="chaos-editor-modal-overlay">
+        <div class="modal-window" style="max-width:640px; width:92vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">🧹</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.2rem;" id="chaos-editor-modal-title">Edit Daily Chore / Clutter Routine</h2>
+                        <small style="color:#94a3b8;">Customize chore title, stamina cost, cash cost, clutter reduction &amp; perks</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeChaosEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="chaos-editor-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- NEIGHBOR & GRIEVANCES DISPUTE MODAL -->
+    <div class="modal-overlay" id="neighbor-editor-modal-overlay">
+        <div class="modal-window" style="max-width:660px; width:92vw;">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.6rem;">👴🏻</span>
+                    <div>
+                        <h2 style="color:#ef4444; margin:0; font-size:1.2rem;">Edit Neighbor Profile &amp; Active Grievances</h2>
+                        <small style="color:#94a3b8;">Customize neighbor profile, relation score, and add/remove active grievances</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeNeighborEditorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="neighbor-editor-modal-body" style="padding:18px 24px; max-height:80vh; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- RUNNING LOG BOOK FULL EXECUTIVE REPORT MODAL -->
+    <div class="modal-overlay" id="logbook-report-modal-overlay">
+        <div class="modal-window" style="max-width:920px; width:95vw; max-height:90vh; display:flex; flex-direction:column;">
+            <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #334155; padding:16px 22px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="font-size:1.7rem;">📖</span>
+                    <div>
+                        <h2 style="margin:0; font-size:1.25rem; color:#f8fafc; font-weight:800;">Log &amp; Accomplishments Dossier</h2>
+                        <small id="report-project-sub" style="font-size:0.8rem; color:#94a3b8;">1910 Whispering Pines Manor &bull; Timber Basin, WA</small>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button type="button" class="btn-sidebar-add-room" onclick="UI.printLogbookReport()" title="Print full report or save as PDF" style="background:#0284c7; border-color:#38bdf8; color:#fff; font-weight:800; padding:6px 12px; font-size:0.78rem;">
+                        🖨️ Print / Save PDF
+                    </button>
+                    <button type="button" class="btn-sidebar-add-room" onclick="UI.copyLogbookReportMarkdown()" title="Copy entire report as formatted markdown" style="background:#334155; border-color:#64748b; color:#f8fafc; font-weight:700; padding:6px 10px; font-size:0.78rem;">
+                        📋 Copy MD
+                    </button>
+                    <a href="logbook.html" target="_blank" class="btn-sidebar-add-room" title="Open full log book in dedicated webpage" style="background:#0f172a; border-color:#38bdf8; color:#38bdf8; font-weight:700; padding:6px 10px; font-size:0.78rem; text-decoration:none;">
+                        ↗️ Standalone Page
+                    </a>
+                    <button class="btn-modal-close" onclick="UI.closeLogbookReportModal()" style="font-size:1.5rem; padding:4px 10px;">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" id="logbook-report-content" style="padding:22px 26px; overflow-y:auto; flex:1; max-height:calc(90vh - 80px);">
+                <!-- Dynamically rendered executive report -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MASTER SAVER, BACKUP & REPOPULATE VAULT MODAL -->
+    
+    <!-- PROJECTS & TASKS BUTTON SETTINGS & CUSTOMIZATION MODAL -->
+    <div class="modal-overlay" id="sidebar-settings-modal-overlay">
+        <div class="modal-window" style="max-width:760px; width:95vw; background:#0b1329; border:1.5px solid #38bdf8; box-shadow:0 10px 40px rgba(0,0,0,0.85); border-radius:10px;">
+            <div class="modal-header" style="border-bottom:1px solid #1e293b; padding:16px 22px; display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="font-size:1.8rem;">⚙️</span>
+                    <div>
+                        <h2 style="color:#38bdf8; margin:0; font-size:1.25rem; font-weight:800;">Projects &amp; Tasks Button Settings</h2>
+                        <small style="color:#94a3b8; font-size:0.85rem;">Adjust button scale (1x–3x), customize button labels, and link custom buttons across subtasks</small>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <a href="links-guide.html" target="_blank" class="btn-links-guide-webpage" style="background:#0284c7; color:#fff; border:1px solid #38bdf8; padding:7px 14px; border-radius:6px; font-weight:800; font-size:0.82rem; text-decoration:none; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 8px rgba(2,132,199,0.4);" title="Open the full How Links Work Webpage Guide in a new tab">
+                        📖 How Links Work Guide ↗
+                    </a>
+                    <button class="btn-modal-close" onclick="UI.closeSidebarSettingsModal()">&times;</button>
+                </div>
+            </div>
+
+            <!-- Tab Navigation inside Settings Modal -->
+            <div style="display:flex; background:#0f172a; border-bottom:1px solid #1e293b; padding:0 20px; gap:8px; overflow-x:auto;">
+                <button type="button" class="sidebar-settings-tab-btn active" id="tab-btn-sb-minimalist" onclick="UI.switchSidebarSettingsTab('minimalist')" style="padding:12px 18px; background:transparent; border:none; border-bottom:3px solid #38bdf8; color:#38bdf8; font-weight:800; cursor:pointer; font-size:0.9rem; white-space:nowrap;">
+                    ✨ Minimalist &amp; Visibility
+                </button>
+                <button type="button" class="sidebar-settings-tab-btn" id="tab-btn-sb-scale" onclick="UI.switchSidebarSettingsTab('scale')" style="padding:12px 18px; background:transparent; border:none; border-bottom:3px solid transparent; color:#94a3b8; font-weight:800; cursor:pointer; font-size:0.9rem; white-space:nowrap;">
+                    🎚️ Button Scale (1x–3x)
+                </button>
+                <button type="button" class="sidebar-settings-tab-btn" id="tab-btn-sb-labels" onclick="UI.switchSidebarSettingsTab('labels')" style="padding:12px 18px; background:transparent; border:none; border-bottom:3px solid transparent; color:#94a3b8; font-weight:800; cursor:pointer; font-size:0.9rem; white-space:nowrap;">
+                    ✏️ Edit Button Labels
+                </button>
+                <button type="button" class="sidebar-settings-tab-btn" id="tab-btn-sb-custom" onclick="UI.switchSidebarSettingsTab('custom')" style="padding:12px 18px; background:transparent; border:none; border-bottom:3px solid transparent; color:#94a3b8; font-weight:800; cursor:pointer; font-size:0.9rem; white-space:nowrap;">
+                    🔗 Custom Subtask Buttons &amp; Links
+                </button>
+            </div>
+
+            <div class="modal-body" style="padding:20px 24px; max-height:75vh; overflow-y:auto;">
+                <!-- TAB 1: MINIMALIST & GRANULAR VISIBILITY -->
+                <div id="sb-tab-minimalist">
+                    <!-- Master Minimalist Mode Switch -->
+                    <div style="background:linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%); border:1.5px solid #38bdf8; border-radius:10px; padding:18px 20px; margin-bottom:18px; box-shadow:0 4px 20px rgba(56, 189, 248, 0.15);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+                            <div>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <span style="font-size:1.4rem;">✨</span>
+                                    <strong style="color:#38bdf8; font-size:1.1rem; letter-spacing:0.3px;">MINIMALIST CLEAN MODE</strong>
+                                    <span style="background:rgba(56, 189, 248, 0.2); color:#38bdf8; font-size:0.7rem; font-weight:800; padding:2px 8px; border-radius:999px; border:1px solid #38bdf8;">RECOMMENDED</span>
+                                </div>
+                                <p style="color:#cbd5e1; font-size:0.85rem; margin:6px 0 0 0; line-height:1.45;">
+                                    Hides all bulky action rows, badges, and reorder controls for a super clean, distraction-free view. 
+                                    <strong>Zero loss of functionality:</strong> Every action is still instantly accessible via <strong>Right-Click Context Menu</strong> and drag-and-drop!
+                                </p>
+                            </div>
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:#0f172a; border:1px solid #38bdf8; border-radius:6px; padding:8px 14px;">
+                                <input type="checkbox" id="sb-vis-minimalist-master" checked onchange="UI.setMinimalistMode(this.checked)" style="width:22px; height:22px; accent-color:#38bdf8; cursor:pointer;">
+                                <span style="font-weight:800; font-size:0.9rem; color:#f8fafc;">Enable Minimalist</span>
+                            </label>
+                        </div>
+
+                        <!-- Presets Bar -->
+                        <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                            <span style="font-size:0.8rem; font-weight:700; color:#94a3b8; text-transform:uppercase;">Quick Display Presets:</span>
+                            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                <button type="button" onclick="UI.applyVisibilityPreset('minimalist')" style="background:#0284c7; border:1px solid #38bdf8; color:#ffffff; font-size:0.78rem; font-weight:800; border-radius:5px; padding:5px 12px; cursor:pointer;">✨ Pure Minimalist</button>
+                                <button type="button" onclick="UI.applyVisibilityPreset('balanced')" style="background:#1e293b; border:1px solid #475569; color:#e2e8f0; font-weight:800; font-size:0.78rem; border-radius:5px; padding:5px 12px; cursor:pointer;">⚖️ Balanced View</button>
+                                <button type="button" onclick="UI.applyVisibilityPreset('full')" style="background:#1e293b; border:1px solid #475569; color:#94a3b8; font-weight:800; font-size:0.78rem; border-radius:5px; padding:5px 12px; cursor:pointer;">🛠️ Show All Buttons</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:12px;">
+                        <h4 style="color:#f59e0b; margin:0 0 4px 0; font-size:0.92rem; text-transform:uppercase; letter-spacing:0.5px;">Custom Granular Button Controls</h4>
+                        <small style="color:#94a3b8; font-size:0.8rem;">Checked (☑) = Hidden from view. Uncheck any item to reveal that exact button on screen.</small>
+                    </div>
+
+                    <!-- Category 1: Main Task (Level Folder) -->
+                    <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:14px 16px; margin-bottom:14px;">
+                        <div style="font-weight:800; color:#38bdf8; font-size:0.88rem; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                            <span>🏢</span> MAIN TASK (LEVEL FOLDER) CONTROLS
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:8px;">
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">📁 ➕ SUB TASK Button</span>
+                                <input type="checkbox" id="sb-vis-lvl-add-subtask" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlAddSubtask', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">↗️ MOVE Button</span>
+                                <input type="checkbox" id="sb-vis-lvl-move" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlMove', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">📋 COPY Button</span>
+                                <input type="checkbox" id="sb-vis-lvl-copy" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlCopy', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">✏️ EDIT Button</span>
+                                <input type="checkbox" id="sb-vis-lvl-edit" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlEdit', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">❌ DEL Button</span>
+                                <input type="checkbox" id="sb-vis-lvl-del" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlDelete', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">⬇️ Make Subtask Button</span>
+                                <input type="checkbox" id="sb-vis-lvl-make-subtask" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlMakeSubtask', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">▲ / ▼ Move Folder Reorder</span>
+                                <input type="checkbox" id="sb-vis-lvl-reorder" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlReorder', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">🔢 Slot Dropdown ("Slot 1")</span>
+                                <input type="checkbox" id="sb-vis-lvl-slot" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlSlot', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">🏷️ "MAIN TASK" Label Badge</span>
+                                <input type="checkbox" id="sb-vis-lvl-main-label" checked onchange="UI.toggleSidebarVisibilitySetting('hideLvlMainLabel', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">⋮⋮ Drag Handle (⋮⋮ / 🔒)</span>
+                                <input type="checkbox" id="sb-vis-lvl-drag-handle" onchange="UI.toggleSidebarVisibilitySetting('hideLvlDragHandle', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: Sub-Task (Room Card) -->
+                    <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:14px 16px; margin-bottom:14px;">
+                        <div style="font-weight:800; color:#10b981; font-size:0.88rem; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                            <span>📁</span> SUB-TASK (ROOM FOLDER) CONTROLS
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:8px;">
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">🔨 ➕ NESTED TASK Button</span>
+                                <input type="checkbox" id="sb-vis-room-add-task" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomAddTask', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">↗️ MOVE Button</span>
+                                <input type="checkbox" id="sb-vis-room-move" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomMove', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">🔗 LINK Button</span>
+                                <input type="checkbox" id="sb-vis-room-link" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomLink', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">📋 COPY Button</span>
+                                <input type="checkbox" id="sb-vis-room-copy" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomCopy', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">✏️ EDIT Button</span>
+                                <input type="checkbox" id="sb-vis-room-edit" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomEdit', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">❌ DEL Button</span>
+                                <input type="checkbox" id="sb-vis-room-del" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomDelete', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">⬆️ Make Main Task Button</span>
+                                <input type="checkbox" id="sb-vis-room-make-main" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomMakeMain', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">▲ Move Subtask Up</span>
+                                <input type="checkbox" id="sb-vis-room-move-up" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomMoveUp', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">▼ Move Subtask Down</span>
+                                <input type="checkbox" id="sb-vis-room-move-down" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomMoveDown', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">🏷️ Tags &amp; Badges Row</span>
+                                <input type="checkbox" id="sb-vis-room-tags-row" checked onchange="UI.toggleSidebarVisibilitySetting('hideRoomTagsRow', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">⋮⋮ Drag Handle (⋮⋮)</span>
+                                <input type="checkbox" id="sb-vis-room-drag-handle" onchange="UI.toggleSidebarVisibilitySetting('hideRoomDragHandle', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 3: Nested Task Items -->
+                    <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:14px 16px; margin-bottom:14px;">
+                        <div style="font-weight:800; color:#a855f7; font-size:0.88rem; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                            <span>🔨</span> NESTED TASK (TREE ROW) CONTROLS
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:8px;">
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">↗️ Quick Move Button</span>
+                                <input type="checkbox" id="sb-vis-task-quick-move" checked onchange="UI.toggleSidebarVisibilitySetting('hideTaskQuickMove', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">📋 Quick Copy Button</span>
+                                <input type="checkbox" id="sb-vis-task-quick-copy" checked onchange="UI.toggleSidebarVisibilitySetting('hideTaskQuickCopy', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">☆ / 🖍️ Highlight Toggle</span>
+                                <input type="checkbox" id="sb-vis-task-highlight" onchange="UI.toggleSidebarVisibilitySetting('hideTaskHighlight', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 4: Top Controls & Toolbar -->
+                    <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:14px 16px; margin-bottom:14px;">
+                        <div style="font-weight:800; color:#38bdf8; font-size:0.88rem; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                            <span>🔍</span> TOP CONTROLS &amp; HEADER
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:8px;">
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">🔍 Search Projects Input</span>
+                                <input type="checkbox" id="sb-vis-top-search" onchange="UI.toggleSidebarVisibilitySetting('hideTopSearch', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">▼ / ▲ Expand/Collapse All</span>
+                                <input type="checkbox" id="sb-vis-top-expand-collapse" onchange="UI.toggleSidebarVisibilitySetting('hideTopExpandCollapse', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                            <label style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid #1e293b; border-radius:6px; padding:7px 10px; cursor:pointer;">
+                                <span style="font-size:0.82rem; color:#cbd5e1;">⏪ / ⏩ Undo &amp; Redo Buttons</span>
+                                <input type="checkbox" id="sb-vis-sidebar-undo-redo" onchange="UI.toggleSidebarVisibilitySetting('hideSidebarUndoRedo', this.checked)" style="width:17px; height:17px; accent-color:#f59e0b; cursor:pointer;">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: SCALE -->
+                <div id="sb-tab-scale" style="display:none;">
+                    <p style="color:#cbd5e1; font-size:0.92rem; margin-top:0; margin-bottom:14px;">
+                        Dynamically scale all button sizes, paddings, and font sizes throughout the <strong>Projects &amp; Tasks</strong> sidebar from <strong>1.0X (Compact)</strong> to <strong>3.0X (Giant)</strong>.
+                    </p>
+
+                    <!-- Quick Preset Pills -->
+                    <div style="margin-bottom:18px;">
+                        <label style="display:block; font-weight:700; color:#94a3b8; margin-bottom:8px; font-size:0.85rem;">QUICK PRESETS:</label>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                            <button type="button" class="btn-scale-preset" data-scale="1.0" onclick="UI.setSidebarButtonScale(1.0)" style="flex:1; padding:10px 14px; background:#1e293b; border:1px solid #334155; color:#cbd5e1; font-weight:800; border-radius:6px; cursor:pointer;">1.0X Compact</button>
+                            <button type="button" class="btn-scale-preset" data-scale="1.5" onclick="UI.setSidebarButtonScale(1.5)" style="flex:1; padding:10px 14px; background:#1e293b; border:1px solid #334155; color:#cbd5e1; font-weight:800; border-radius:6px; cursor:pointer;">1.5X Medium</button>
+                            <button type="button" class="btn-scale-preset" data-scale="2.0" onclick="UI.setSidebarButtonScale(2.0)" style="flex:1; padding:10px 14px; background:#1e293b; border:1px solid #334155; color:#cbd5e1; font-weight:800; border-radius:6px; cursor:pointer;">2.0X Large (Default)</button>
+                            <button type="button" class="btn-scale-preset" data-scale="2.5" onclick="UI.setSidebarButtonScale(2.5)" style="flex:1; padding:10px 14px; background:#1e293b; border:1px solid #334155; color:#cbd5e1; font-weight:800; border-radius:6px; cursor:pointer;">2.5X Extra Large</button>
+                            <button type="button" class="btn-scale-preset" data-scale="3.0" onclick="UI.setSidebarButtonScale(3.0)" style="flex:1; padding:10px 14px; background:#1e293b; border:1px solid #334155; color:#cbd5e1; font-weight:800; border-radius:6px; cursor:pointer;">3.0X Giant (3X)</button>
+                        </div>
+                    </div>
+
+                    <!-- Continuous Range Slider -->
+                    <div style="background:#0f172a; border:1px solid #1e293b; border-radius:8px; padding:16px; margin-bottom:20px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <label style="font-weight:700; color:#38bdf8; font-size:0.95rem;">Fine-Tune Button Size:</label>
+                            <span id="sb-scale-value-display" style="font-size:1.15rem; font-weight:900; color:#34d399; background:rgba(16,185,129,0.15); padding:3px 10px; border-radius:4px; border:1px solid #10b981;">2.0x</span>
+                        </div>
+                        <input type="range" id="sb-scale-range" min="1.0" max="3.0" step="0.1" value="2.0" oninput="UI.onSidebarScaleSliderInput(this.value)" style="width:100%; cursor:pointer; accent-color:#38bdf8;">
+                        <div style="display:flex; justify-content:space-between; color:#64748b; font-size:0.75rem; font-weight:700; margin-top:6px;">
+                            <span>1.0x (Original Compact)</span>
+                            <span>2.0x (Spacious Standard)</span>
+                            <span>3.0x (Maximum Giant)</span>
+                        </div>
+                    </div>
+
+                    <!-- Live Preview Box -->
+                    <div style="background:#080e1e; border:1px dashed rgba(56, 189, 248, 0.35); border-radius:8px; padding:14px; margin-top:14px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:#94a3b8; text-transform:uppercase; margin-bottom:10px;">Live Preview of Active Button Scale:</div>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+                            <button type="button" class="btn-level-card-action" style="background:#059669; border-color:#34d399; color:#fff; font-weight:800; pointer-events:none;">📂 ➕ SUB TASK</button>
+                            <button type="button" class="btn-level-card-action" style="pointer-events:none;">📋 COPY</button>
+                            <button type="button" class="btn-make-subtask" style="background:linear-gradient(135deg, #059669 0%, #047857 100%); border-color:#34d399; color:#fff; font-weight:800; pointer-events:none;">⬇️ Make Subtask</button>
+                            <button type="button" class="btn-level-reorder-large" style="pointer-events:none;">▲ MOVE FOLDER UP</button>
+                            <button type="button" class="level-accordion-caret" style="pointer-events:none;">► EXPAND</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: LABELS -->
+                <div id="sb-tab-labels" style="display:none;">
+                    <p style="color:#cbd5e1; font-size:0.92rem; margin-top:0; margin-bottom:14px;">
+                        Customize what each button in <strong>Projects &amp; Tasks</strong> says. You can rename buttons to match your team's workflow, add emojis, or shorten descriptions.
+                    </p>
+
+                    <h4 style="color:#38bdf8; margin:16px 0 10px 0; font-size:0.95rem; text-transform:uppercase; border-bottom:1px solid #1e293b; padding-bottom:4px;">Main Task (Floor Folder) Buttons:</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Add Subtask Button:</label>
+                            <input type="text" id="sb-lbl-add-subtask" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Make Subtask Button:</label>
+                            <input type="text" id="sb-lbl-make-subtask" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Move Folder Up Button:</label>
+                            <input type="text" id="sb-lbl-move-folder-up" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Move Folder Down Button:</label>
+                            <input type="text" id="sb-lbl-move-folder-down" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Folder Copy Button:</label>
+                            <input type="text" id="sb-lbl-copy-main" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Folder Edit Button:</label>
+                            <input type="text" id="sb-lbl-edit-main" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Folder Delete Button:</label>
+                            <input type="text" id="sb-lbl-del-main" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Expand / Hide Folder Caret:</label>
+                            <div style="display:flex; gap:6px;">
+                                <input type="text" id="sb-lbl-expand-main" placeholder="► EXPAND" style="flex:1; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                                <input type="text" id="sb-lbl-hide-main" placeholder="▼ HIDE" style="flex:1; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="color:#10b981; margin:18px 0 10px 0; font-size:0.95rem; text-transform:uppercase; border-bottom:1px solid #1e293b; padding-bottom:4px;">Subtask (Room Level) Buttons:</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Add Nested Task Button:</label>
+                            <input type="text" id="sb-lbl-add-nested" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Make Main Task Button:</label>
+                            <input type="text" id="sb-lbl-make-main" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Move Subtask Up Button:</label>
+                            <input type="text" id="sb-lbl-move-sub-up" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Move Subtask Down Button:</label>
+                            <input type="text" id="sb-lbl-move-sub-down" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Subtask Copy Button:</label>
+                            <input type="text" id="sb-lbl-copy-sub" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Subtask Edit Button:</label>
+                            <input type="text" id="sb-lbl-edit-sub" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Subtask Delete Button:</label>
+                            <input type="text" id="sb-lbl-del-sub" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.78rem; font-weight:700; color:#94a3b8; margin-bottom:4px;">Expand / Hide Subtask Caret:</label>
+                            <div style="display:flex; gap:6px;">
+                                <input type="text" id="sb-lbl-expand-sub" placeholder="▸ EXPAND" style="flex:1; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                                <input type="text" id="sb-lbl-hide-sub" placeholder="▾ HIDE" style="flex:1; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:14px; display:flex; justify-content:flex-end; gap:8px;">
+                        <button type="button" onclick="UI.saveCustomSidebarLabels()" style="background:#059669; color:#fff; font-weight:800; border:1px solid #34d399; padding:9px 20px; border-radius:6px; cursor:pointer;">
+                            💾 Save Custom Labels
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 3: CUSTOM SUBTASK BUTTONS & LINKS -->
+                <div id="sb-tab-custom" style="display:none;">
+                    <div style="background:linear-gradient(135deg, rgba(56,189,248,0.12) 0%, rgba(129,140,248,0.08) 100%); border:1px solid #38bdf8; border-radius:8px; padding:14px 18px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                        <div>
+                            <strong style="color:#38bdf8; font-size:0.98rem; display:flex; align-items:center; gap:8px;">📘 How Do Subtask &amp; Project Links Work?</strong>
+                            <div style="color:#cbd5e1; font-size:0.85rem; margin-top:3px;">Read our illustrated step-by-step guide explaining bidirectional cross-folder links, dependency notes, and 1-click navigation.</div>
+                        </div>
+                        <a href="links-guide.html" target="_blank" style="background:#0284c7; color:#fff; text-decoration:none; padding:9px 18px; border-radius:6px; font-weight:800; font-size:0.85rem; border:1px solid #38bdf8; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 8px rgba(2,132,199,0.35);">
+                            📖 Open How-To Guide Webpage ↗
+                        </a>
+                    </div>
+                    <p style="color:#cbd5e1; font-size:0.92rem; margin-top:0; margin-bottom:14px;">
+                        Add custom buttons and project links to Subtasks. Easily link to other subtasks (e.g. jump from Attic to WoodShed), navigate to blueprints/dossiers/photo galleries, or open external spec links.
+                    </p>
+
+                    <!-- Active Custom Buttons List -->
+                    <div style="background:#0f172a; border:1px solid #1e293b; border-radius:8px; padding:14px; margin-bottom:18px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <span style="font-weight:800; color:#38bdf8; font-size:0.88rem; text-transform:uppercase;">Configured Custom Subtask Buttons:</span>
+                            <span id="sb-custom-btn-count" style="font-size:0.75rem; color:#94a3b8;">0 Buttons Active</span>
+                        </div>
+                        <div id="sb-custom-buttons-list" style="display:flex; flex-direction:column; gap:8px;">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+
+                    <!-- Create New Custom Subtask Button Form -->
+                    <div style="background:#080e1e; border:1px solid #334155; border-radius:8px; padding:16px;">
+                        <h4 style="color:#34d399; margin:0 0 12px 0; font-size:0.95rem; font-weight:800;">➕ Add New Custom Subtask Button or Project Link</h4>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                            <div>
+                                <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:4px;">Button Label (with emoji):</label>
+                                <input type="text" id="sb-new-btn-label" placeholder="e.g. 📐 Blueprints, 🔗 Kitchen, 📑 Dossier" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:4px;">Action Type:</label>
+                                <select id="sb-new-btn-type" onchange="UI.onSidebarCustomBtnTypeChange(this.value)" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                                    <option value="room">🚀 Jump to Another Subtask / Room Project</option>
+                                    <option value="tab">📑 Switch to Workspace Tab</option>
+                                    <option value="url">🌐 Open External Web Link (URL)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Target selection (room vs tab vs url) -->
+                        <div id="sb-target-room-group" style="margin-bottom:12px;">
+                            <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:4px;">Target Subtask / Project to Jump to:</label>
+                            <select id="sb-new-btn-target-room" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                                <!-- Dynamically filled with rooms -->
+                            </select>
+                        </div>
+
+                        <div id="sb-target-tab-group" style="display:none; margin-bottom:12px;">
+                            <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:4px;">Target Tab / Section:</label>
+                            <select id="sb-new-btn-target-tab" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                                <option value="blueprint">📐 Full Blueprint Schematics</option>
+                                <option value="executive">📑 Executive Dossier</option>
+                                <option value="timeline">⏱️ Discovery Timeline</option>
+                                <option value="leveling">⚖️ Leveling &amp; Structural Ledger</option>
+                                <option value="salvage">🪵 Salvage &amp; Materials</option>
+                                <option value="reports">📖 Daily Ops Log &amp; Reports</option>
+                                <option value="inspector">🏠 Room Inspector</option>
+                                <option value="photowall">🖼️ Photo Wall Grid</option>
+                                <option value="sp_galleries">🖼️ Galleries</option>
+                                <option value="sp_posts">📝 Posts</option>
+                                <option value="custom_sections">🧱 Custom Sections</option>
+                            </select>
+                        </div>
+
+                        <div id="sb-target-url-group" style="display:none; margin-bottom:12px;">
+                            <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:4px;">External Link URL (https://...):</label>
+                            <input type="url" id="sb-new-btn-target-url" placeholder="https://example.com/spec-sheet.pdf" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+                            <div>
+                                <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:4px;">Button Color Accent:</label>
+                                <select id="sb-new-btn-color" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                                    <option value="blue">🔵 Sky Blue</option>
+                                    <option value="emerald">🟢 Emerald Green</option>
+                                    <option value="amber">🟠 Amber Gold</option>
+                                    <option value="purple">🟣 Royal Purple</option>
+                                    <option value="rose">🔴 Rose / Crimson</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:4px;">Show On Subtasks:</label>
+                                <select id="sb-new-btn-scope" style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #334155; border-radius:5px; color:#fff; font-size:0.9rem;">
+                                    <option value="all">🌟 All Subtasks</option>
+                                    <!-- Dynamically filled with specific rooms -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="UI.addCustomSubtaskButton()" style="background:#0284c7; color:#fff; font-weight:800; border:1px solid #38bdf8; padding:9px 18px; border-radius:6px; cursor:pointer;">
+                            ➕ Add Button to Subtasks
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding:14px 22px; border-top:1px solid #1e293b; display:flex; justify-content:space-between; align-items:center; background:#080e1e;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button type="button" class="btn-cancel" onclick="UI.resetSidebarSettingsToDefaults()" style="background:#1e293b; color:#94a3b8; border:1px solid #334155; padding:8px 16px; border-radius:6px; cursor:pointer; font-weight:700;">
+                    ↺ Reset All to Defaults
+                </button>
+                    <a href="links-guide.html" target="_blank" style="color:#38bdf8; text-decoration:none; font-size:0.85rem; font-weight:700; display:inline-flex; align-items:center; gap:6px; background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.3); padding:7px 14px; border-radius:6px;" title="Open How-To Guide Webpage in new tab">
+                        📖 How Links Work Guide ↗
+                    </a>
+                </div>
+                <button type="button" class="btn-confirm" onclick="UI.closeSidebarSettingsModal()" style="background:#0284c7; color:#fff; border:1px solid #38bdf8; padding:8px 20px; border-radius:6px; cursor:pointer; font-weight:800;">
+                    ✓ Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="master-backup-modal-overlay">
+        <div class="modal-window" style="max-width:980px; width:95vw; max-height:92vh; display:flex; flex-direction:column; background:#0f172a; border:1px solid #38bdf8; box-shadow:0 0 35px rgba(56, 189, 248, 0.25);">
+            <div class="modal-header" style="background:linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border-bottom:1px solid #334155; padding:16px 22px; display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="font-size:1.8rem;">🛡️</span>
+                    <div>
+                        <h2 style="margin:0; font-size:1.25rem; color:#38bdf8; font-weight:800;">Master Saver &amp; Repopulation Vault</h2>
+                        <small style="color:#94a3b8; font-size:0.8rem;">Independent Local PC Saves &bull; 30s Auto-Vault &bull; Emergency Close Snapshots &bull; Server Restore Points</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="UI.closeMasterBackupModal()" style="font-size:1.6rem; color:#94a3b8; background:transparent; border:none; cursor:pointer;">&times;</button>
+            </div>
+
+            <!-- Top Action Controls Row -->
+            <div style="background:#131d33; border-bottom:1px solid #1e293b; padding:14px 20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;">
+                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                    <button type="button" class="btn-vault-action" onclick="UI.updateWebpageMasterSave(); UI.renderMasterBackupModal();" style="background:linear-gradient(180deg, #10b981 0%, #059669 100%); border:1px solid #34d399; color:#fff; font-weight:800; padding:8px 16px; border-radius:6px; cursor:pointer; font-size:0.85rem; box-shadow:0 0 10px rgba(16,185,129,0.3);">
+                        🌐 ⬆️ Update Webpage (Master Save)
+                    </button>
+                    <button type="button" class="btn-vault-action" onclick="UI.saveToMyPc(); UI.renderMasterBackupModal();" style="background:linear-gradient(180deg, #0284c7 0%, #0369a1 100%); border:1px solid #38bdf8; color:#fff; font-weight:800; padding:8px 16px; border-radius:6px; cursor:pointer; font-size:0.85rem;">
+                        💻 💾 Save to My PC (Local Snapshot)
+                    </button>
+                    <button type="button" class="btn-vault-action" onclick="UI.createNamedRestorePoint()" style="background:#475569; border:1px solid #64748b; color:#f8fafc; font-weight:700; padding:8px 14px; border-radius:6px; cursor:pointer; font-size:0.85rem;">
+                        🏷️ Name Restore Point
+                    </button>
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                    <input type="file" id="vault-repopulate-file-input" accept=".json" style="display:none;" onchange="UI.importAndRepopulateFile(event)">
+                    <button type="button" class="btn-vault-action" onclick="document.getElementById('vault-repopulate-file-input').click()" style="background:#8b5cf6; border:1px solid #a78bfa; color:#fff; font-weight:700; padding:8px 14px; border-radius:6px; cursor:pointer; font-size:0.85rem;">
+                        📥 Import &amp; Repopulate JSON
+                    </button>
+                    <button type="button" class="btn-vault-action" onclick="window.Game.downloadBackupJson()" style="background:#334155; border:1px solid #475569; color:#f8fafc; font-weight:700; padding:8px 14px; border-radius:6px; cursor:pointer; font-size:0.85rem;">
+                        ⬇️ Export Current JSON
+                    </button>
+                    <button type="button" class="btn-vault-action" onclick="UI.renderMasterBackupModal()" style="background:#1e293b; border:1px solid #334155; color:#94a3b8; font-weight:700; padding:8px 12px; border-radius:6px; cursor:pointer; font-size:0.85rem;">
+                        🔄 Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Vault Lists Body Grid -->
+            <div class="modal-body" style="padding:18px 22px; overflow-y:auto; flex:1; display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+                <!-- Column 1: Local Computer Snapshots -->
+                <div style="background:#111827; border:1px solid #1f2937; border-radius:8px; padding:14px; display:flex; flex-direction:column;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #1f2937; padding-bottom:8px;">
+                        <div>
+                            <h3 style="margin:0; font-size:0.95rem; color:#38bdf8; display:flex; align-items:center; gap:6px;">
+                                <span>💻</span> Local PC Save History
+                            </h3>
+                            <small style="color:#64748b; font-size:0.75rem;">Saved on your computer (Every 30s + Close Snapshots)</small>
+                        </div>
+                        <span style="font-size:0.72rem; color:#94a3b8; background:#1e293b; padding:2px 8px; border-radius:10px;">Rolling: 35</span>
+                    </div>
+                    <div id="local-backups-list" style="display:flex; flex-direction:column; gap:8px; overflow-y:auto; max-height:480px; padding-right:4px;">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Column 2: Master Webpage & Server Snapshots -->
+                <div style="background:#111827; border:1px solid #1f2937; border-radius:8px; padding:14px; display:flex; flex-direction:column;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #1f2937; padding-bottom:8px;">
+                        <div>
+                            <h3 style="margin:0; font-size:0.95rem; color:#34d399; display:flex; align-items:center; gap:6px;">
+                                <span>🌐</span> Master Server Restore Points
+                            </h3>
+                            <small style="color:#64748b; font-size:0.75rem;">Stored permanently on web server / Cloudflare origin</small>
+                        </div>
+                        <span style="font-size:0.72rem; color:#94a3b8; background:#1e293b; padding:2px 8px; border-radius:10px;">Rolling: 100</span>
+                    </div>
+                    <div id="server-backups-list" style="display:flex; flex-direction:column; gap:8px; overflow-y:auto; max-height:480px; padding-right:4px;">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vault Footer -->
+            <div style="background:#0b1120; border-top:1px solid #1e293b; padding:12px 22px; display:flex; justify-content:space-between; align-items:center;">
+                <div style="font-size:0.78rem; color:#94a3b8;">
+                    💡 <strong>Safety Guarantee:</strong> Clicking <em>Repopulate</em> restores that exact estate point so work is never lost.
+                </div>
+                <button type="button" onclick="UI.closeMasterBackupModal()" style="background:#334155; color:#f8fafc; border:1px solid #475569; padding:8px 18px; border-radius:6px; cursor:pointer; font-weight:700; font-size:0.85rem;">
+                    Close Vault
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .backup-card-row {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 10px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.15s ease;
+        }
+        .backup-card-row:hover {
+            border-color: #38bdf8;
+            background: #24344d;
+        }
+        .backup-card-row.is-emergency-row {
+            border-left: 3px solid #f43f5e;
+            background: rgba(244, 63, 94, 0.08);
+        }
+        .backup-meta {
+            flex: 1;
+            min-width: 0;
+        }
+        .backup-type-badge {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .backup-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-restore-snap {
+            background: #0284c7;
+            border: 1px solid #38bdf8;
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .btn-restore-snap:hover {
+            background: #0369a1;
+            transform: scale(1.02);
+        }
+        .btn-restore-server {
+            background: #059669;
+            border-color: #34d399;
+        }
+        .btn-restore-server:hover {
+            background: #047857;
+        }
+        .btn-export-snap {
+            background: #334155;
+            border: 1px solid #475569;
+            color: #e2e8f0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 5px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-export-snap:hover {
+            background: #475569;
+            color: #ffffff;
+        }
+        .auto-save-pill.save-pulse {
+            animation: save-flash 1.2s ease;
+        }
+        @keyframes save-flash {
+            0% { background: rgba(16, 185, 129, 0.4); border-color: #10b981; }
+            100% { background: rgba(15, 23, 42, 0.85); border-color: #334155; }
+        }
+    </style>
+
+    <!-- HIERARCHICAL MOVE MENU (RIGHT-CLICK & HOVER) -->
+    <div id="hierarchical-move-menu" class="hierarchical-move-menu" style="display:none;" tabindex="-1">
+        <div class="move-menu-header">
+            <div class="move-menu-title-bar">
+                <div class="move-menu-title-left">
+                    <span class="move-menu-main-icon">↗️</span>
+                    <span class="move-menu-title-text">MOVE TO</span>
+                    <span class="move-menu-type-pill" id="move-menu-type-pill">ITEM</span>
+                </div>
+                <button type="button" class="btn-move-menu-close" onclick="UI.closeHierarchicalMoveMenu()" title="Close Move Menu (Esc)">&times;</button>
+            </div>
+            <div class="move-menu-item-info">
+                <span class="move-menu-info-label">Moving:</span>
+                <strong class="move-menu-info-name" id="move-menu-info-name"></strong>
+            </div>
+            <div class="move-menu-search-box">
+                <span class="move-menu-search-ico">🔍</span>
+                <input type="text" id="move-menu-search-input" class="move-menu-search-input" placeholder="Search folder, sub-task, or task..." oninput="UI.filterMoveMenuDestinations(this.value)">
+                <button type="button" id="move-menu-search-clear" class="btn-move-search-clear" onclick="UI.clearMoveMenuSearch()" style="display:none;">&times;</button>
+            </div>
+        </div>
+        <div class="move-menu-body" id="move-menu-tree-container"></div>
+        <div class="move-menu-footer">
+            <span class="move-menu-footer-hint">✨ Select any Main Folder, Sub-Task, or Nested Task • Esc to cancel</span>
+        </div>
+    </div>
+
+    <!-- RIGHT-CLICK DESKTOP CONTEXT MENU -->
+    <div id="item-context-menu" class="item-context-menu" style="display:none;" tabindex="-1"></div>
+
+    <!-- FLOATING CLIPBOARD BAR (COPY & PASTE SYSTEM) -->
+    <div id="floating-clipboard-bar" class="floating-clipboard-bar" style="display:none;"></div>
+
+    <!-- SCRIPTS -->
+    <script src="js/mic-overlay.js?v=20261021_rework"></script>
+    <script src="js/audio.js?v=20261020"></script>
+    <script src="js/data.js?v=20261022_daily_data_log"></script>
+    <script src="js/game.js?v=20261024_protect_all_core_tabs"></script>
+    <script src="js/ui.js?v=20261024_protect_all_core_tabs"></script>
+    <!-- Modularized Minigame Engines -->
+    <script src="js/minigames/minigame-manager.js"></script>
+    <script src="js/minigames/minigame-timing.js"></script>
+    <script src="js/minigames/minigame-level.js"></script>
+    <script src="js/minigames/minigame-scanner.js"></script>
+    <script src="js/minigames/minigame-hammer.js"></script>
+    <script src="js/minigames/minigame-nails.js"></script>
+    <script src="js/minigames/minigame-saw.js"></script>
+    <script src="js/minigames/minigame-paint.js"></script>
+    <script src="js/minigames/minigame-hydraulic.js"></script>
+    <script src="js/minigames/minigame-sandblast.js"></script>
+    <script src="js/minigames/minigame-plaster.js"></script>
+    <script src="js/minigames/minigame-subs.js"></script>
+</body>
+</html>

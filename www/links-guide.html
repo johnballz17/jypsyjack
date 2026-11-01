@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Subtask &amp; Project Links Work — Jypsy Jack's How-To Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20261022">
+    <style>
+        :root {
+            --guide-bg: #070d18;
+            --guide-card: #0f172a;
+            --guide-card-alt: #131e35;
+            --guide-border: #1e2e4a;
+            --guide-accent: #38bdf8;
+            --guide-accent-glow: rgba(56, 189, 248, 0.25);
+            --guide-indigo: #818cf8;
+            --guide-emerald: #10b981;
+            --guide-amber: #f59e0b;
+            --guide-rose: #f43f5e;
+            --guide-text: #f8fafc;
+            --guide-text-dim: #94a3b8;
+        }
+
+        body.guide-page-body {
+            margin: 0;
+            padding: 0;
+            background: var(--guide-bg);
+            color: var(--guide-text);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .guide-navbar {
+            background: rgba(8, 13, 23, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--guide-border);
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .guide-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .guide-brand-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .guide-btn-back {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .guide-btn-back:hover {
+            background: #334155;
+            color: #38bdf8;
+            border-color: #38bdf8;
+            transform: translateX(-2px);
+        }
+
+        .guide-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 32px 24px 80px 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Hero */
+        .guide-hero {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 1.5px solid var(--guide-border);
+            border-radius: 12px;
+            padding: 36px 32px;
+            margin-bottom: 32px;
+            position: relative;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .guide-hero::after {
+            content: "🔗";
+            position: absolute;
+            right: 28px;
+            bottom: -15px;
+            font-size: 8rem;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+
+        .guide-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(129, 140, 248, 0.18);
+            border: 1px solid var(--guide-indigo);
+            color: #c7d2fe;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .guide-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: #38bdf8;
+            margin: 0 0 10px 0;
+            line-height: 1.25;
+        }
+
+        .guide-subtitle {
+            font-size: 1.05rem;
+            color: var(--guide-text-dim);
+            max-width: 820px;
+            margin: 0 0 24px 0;
+        }
+
+        .guide-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .guide-stat-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid #293d63;
+            border-radius: 8px;
+            padding: 14px 16px;
+        }
+
+        .guide-stat-title {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .guide-stat-val {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+
+        /* Section Layout */
+        .guide-section {
+            background: var(--guide-card);
+            border: 1px solid var(--guide-border);
+            border-radius: 10px;
+            padding: 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .guide-section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+
+        .guide-section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.35rem;
+            color: #38bdf8;
+            margin: 0;
+        }
+
+        .guide-step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin: 20px 0;
+        }
+
+        .guide-step-card {
+            background: var(--guide-card-alt);
+            border: 1px solid #233554;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .guide-step-num {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: rgba(56, 189, 248, 0.25);
+            font-family: 'Cinzel', serif;
+        }
+
+        .guide-step-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #f1f5f9;
+            margin: 0 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guide-diagram-box {
+            background: #080d18;
+            border: 1px dashed #38bdf8;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 22px 0;
+            text-align: center;
+        }
+
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .diagram-node {
+            background: #1e293b;
+            border: 1.5px solid #38bdf8;
+            border-radius: 8px;
+            padding: 14px 18px;
+            text-align: left;
+            min-width: 220px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .diagram-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #818cf8;
+            font-weight: 800;
+            font-size: 0.85rem;
+        }
+
+        .diagram-arrow-line {
+            font-size: 1.4rem;
+            color: #818cf8;
+        }
+
+        .guide-chip-preview {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(129, 140, 248, 0.2);
+            border: 1px solid #818cf8;
+            color: #c7d2fe;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 4px 0;
+        }
+
+        .guide-chip-preview:hover {
+            background: rgba(129, 140, 248, 0.35);
+            color: #fff;
+        }
+
+        .guide-callout {
+            border-left: 4px solid var(--guide-accent);
+            background: rgba(56, 189, 248, 0.08);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 18px 0;
+            font-size: 0.95rem;
+        }
+
+        .guide-callout.tip {
+            border-left-color: var(--guide-emerald);
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        .guide-callout.warning {
+            border-left-color: var(--guide-amber);
+            background: rgba(245, 158, 11, 0.08);
+        }
+
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 0.92rem;
+        }
+
+        .guide-table th {
+            background: #111e38;
+            color: #38bdf8;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 2px solid #233554;
+            font-weight: 800;
+        }
+
+        .guide-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #1e293b;
+            color: #cbd5e1;
+        }
+
+        .guide-table tr:hover td {
+            background: rgba(56, 189, 248, 0.04);
+        }
+
+        .guide-faq-item {
+            border-bottom: 1px solid #1e293b;
+            padding: 14px 0;
+        }
+
+        .guide-faq-question {
+            font-weight: 800;
+            color: #f1f5f9;
+            font-size: 1rem;
+            margin-bottom: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guide-faq-answer {
+            color: var(--guide-text-dim);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .btn-live-test {
+            background: #0284c7;
+            color: #fff;
+            border: 1px solid #38bdf8;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-live-test:hover {
+            background: #0369a1;
+            transform: translateY(-1px);
+        }
+
+        .guide-footer {
+            border-top: 1px solid var(--guide-border);
+            padding: 24px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            background: #060a12;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body class="guide-page-body">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="guide-navbar">
+        <div class="guide-nav-left">
+            <a href="index.html" class="guide-btn-back" title="Return to Projects Workspace">
+                ← Return to Projects
+            </a>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size:1.4rem;">🔗</span>
+                <span class="guide-brand-title">Subtask &amp; Project Linking Guide</span>
+            </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <a href="index.html" class="btn-live-test" style="text-decoration:none;">
+                🛠️ Open Workspace
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="guide-container">
+
+        <!-- HERO SECTION -->
+        <header class="guide-hero">
+            <div class="guide-badge-pill">
+                <span>📘 Interactive Reference &amp; Tutorial</span>
+            </div>
+            <h1 class="guide-title">How Subtask &amp; Project Links Work</h1>
+            <p class="guide-subtitle">
+                Master cross-folder dependencies, bidirectional task tracking, prerequisite verification, and instant 1-click navigation across all floors, rooms, and trades of your project.
+            </p>
+
+            <div class="guide-stats-grid">
+                <div class="guide-stat-card">
+                    <div class="guide-stat-title"><span>🔄</span> Dynamic Sync</div>
+                    <div class="guide-stat-val" style="color:#38bdf8;">Bidirectional</div>
+                </div>
+                <div class="guide-stat-card">
+                    <div class="guide-stat-title"><span>🚀</span> Speed Navigation</div>
+                    <div class="guide-stat-val" style="color:#34d399;">1-Click Jump</div>
+                </div>
+                <div class="guide-stat-card">
+                    <div class="guide-stat-title"><span>📝</span> Dependency Audit</div>
+                    <div class="guide-stat-val" style="color:#818cf8;">Note Logger</div>
+                </div>
+                <div class="guide-stat-card">
+                    <div class="guide-stat-title"><span>💾</span> Persistence</div>
+                    <div class="guide-stat-val" style="color:#f59e0b;">Auto-Saved</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- SECTION 1: WHAT IS CROSS-FOLDER SUBTASK LINKING? -->
+        <section class="guide-section">
+            <div class="guide-section-header">
+                <span style="font-size:1.6rem;">💡</span>
+                <h2>1. What Are Subtask Links?</h2>
+            </div>
+            <p>
+                In large-scale historic renovations or complex project management, tasks rarely exist in isolation.
+                A task on the <strong>1st Floor</strong> (such as plastering the Grand Parlor ceiling) frequently depends on a task in the <strong>Attic / Roof</strong> (such as sealing flashing around the cupola), or a mechanical rough-in in the <strong>Basement</strong>.
+            </p>
+            <p>
+                The <strong>Subtask Linker</strong> bridges the gap between independent Main Task folders (floors, levels, phases, or divisions). It allows any subtask card to maintain an active reference to one or more subtasks in other folders, complete with dependency notes and real-time status tracking.
+            </p>
+
+            <!-- Visual Flow Diagram -->
+            <div class="guide-diagram-box">
+                <div style="font-size:0.8rem; font-weight:800; color:#94a3b8; text-transform:uppercase; margin-bottom:14px;">
+                    Bidirectional Dependency Relationship
+                </div>
+                <div class="diagram-flow">
+                    <div class="diagram-node">
+                        <div style="font-size:0.75rem; color:#f59e0b; font-weight:800;">MAIN TASK: Level 1</div>
+                        <div style="font-weight:800; color:#fff; font-size:1rem;">Guest Parlor &amp; Hearth</div>
+                        <div style="margin-top:6px;">
+                            <span class="guide-chip-preview">🔗 Attic Slate Roofing</span>
+                        </div>
+                    </div>
+
+                    <div class="diagram-arrow">
+                        <span class="diagram-arrow-line">◀━━━━▶</span>
+                        <span>BIDIRECTIONAL LINK</span>
+                        <small style="color:#94a3b8; font-size:0.72rem; margin-top:2px;">(Syncs notes &amp; statuses)</small>
+                    </div>
+
+                    <div class="diagram-node">
+                        <div style="font-size:0.75rem; color:#f59e0b; font-weight:800;">MAIN TASK: Level 3</div>
+                        <div style="font-weight:800; color:#fff; font-size:1rem;">Victorian Slate Roofing</div>
+                        <div style="margin-top:6px;">
+                            <span class="guide-chip-preview">🔗 Parlor &amp; Hearth</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-callout tip">
+                <strong>💡 Automatic Reciprocity:</strong> When you link <em>Room A</em> to <em>Room B</em>, the system automatically writes the reciprocal link in <em>Room B</em> pointing back to <em>Room A</em>! You never have to duplicate links manually.
+            </div>
+        </section>
+
+        <!-- SECTION 2: STEP-BY-STEP HOW TO CREATE A LINK -->
+        <section class="guide-section">
+            <div class="guide-section-header">
+                <span style="font-size:1.6rem;">🛠️</span>
+                <h2>2. Step-by-Step: How to Link Subtasks</h2>
+            </div>
+            <p>Follow these 3 quick steps from either the <strong>Projects &amp; Tasks</strong> sidebar or the <strong>Renovations</strong> workspace tab:</p>
+
+            <div class="guide-step-grid">
+                <div class="guide-step-card">
+                    <span class="guide-step-num">01</span>
+                    <h3 class="guide-step-title"><span>🔗</span> Click "LINK" on Any Card</h3>
+                    <p style="color:#cbd5e1; font-size:0.9rem;">
+                        Every subtask card features a violet <strong>🔗 LINK</strong> action button. Click it to open the Subtask Link Manager modal for that specific task.
+                    </p>
+                </div>
+
+                <div class="guide-step-card">
+                    <span class="guide-step-num">02</span>
+                    <h3 class="guide-step-title"><span>🎯</span> Select Target Folder &amp; Subtask</h3>
+                    <p style="color:#cbd5e1; font-size:0.9rem;">
+                        Choose which Main Task folder (e.g. <em>Level 3: Tower &amp; Roof</em>) and which Subtask (e.g. <em>Cupola Flashing</em>) you want to link. The selector prevents duplicate links.
+                    </p>
+                </div>
+
+                <div class="guide-step-card">
+                    <span class="guide-step-num">03</span>
+                    <h3 class="guide-step-title"><span>📝</span> Add Note &amp; Save</h3>
+                    <p style="color:#cbd5e1; font-size:0.9rem;">
+                        Type a dependency note (e.g. <em>"Must complete copper flashing before parlor plaster"</em>), then click <strong>🔗 Link Subtasks</strong>. The connection is instantly active!
+                    </p>
+                </div>
+            </div>
+
+            <div class="guide-callout">
+                <strong>📌 Persistent Storage:</strong> All subtask links are saved directly to your browser's persistent storage, included in the <strong>SAVE</strong> file, and synchronized across cloud saves.
+            </div>
+        </section>
+
+        <!-- SECTION 3: NAVIGATION & SPEED JUMPING -->
+        <section class="guide-section">
+            <div class="guide-section-header">
+                <span style="font-size:1.6rem;">🚀</span>
+                <h2>3. Instant 1-Click Navigation (Jumping)</h2>
+            </div>
+            <p>
+                Once subtasks are linked, a clickable violet badge chip appears right inside the subtask's detail area and card view:
+            </p>
+
+            <div style="background:#080d18; border:1px solid #1e293b; border-radius:8px; padding:18px; margin:16px 0;">
+                <div style="font-size:0.8rem; font-weight:800; color:#818cf8; text-transform:uppercase; margin-bottom:8px;">Example Linked Chip on a Task Card:</div>
+                <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                    <div class="guide-chip-preview" onclick="alert('In the live workspace, clicking this chip automatically expands the target folder and highlights the subtask!')">
+                        <span>🔗</span>
+                        <strong>Victorian Slate Roofing &amp; Cupola</strong>
+                        <span style="background:rgba(16,185,129,0.3); color:#34d399; padding:1px 6px; border-radius:4px; font-size:0.7rem; font-weight:800;">DONE</span>
+                        <span style="color:#94a3b8; font-size:0.75rem;">(Level 3: Tower &amp; Roof)</span>
+                    </div>
+                </div>
+                <div style="color:#94a3b8; font-size:0.82rem; margin-top:8px;">
+                    <em>Try clicking the chip above to see what happens!</em>
+                </div>
+            </div>
+
+            <h3 style="color:#f1f5f9; font-size:1.05rem; margin-top:20px;">What happens when you click a linked chip?</h3>
+            <ul style="color:#cbd5e1; font-size:0.95rem; padding-left:22px; line-height:1.8;">
+                <li>The sidebar automatically expands the destination Main Task folder (if collapsed).</li>
+                <li>The view smoothly scrolls directly to the linked subtask.</li>
+                <li>The destination subtask flashes with an emerald/violet highlight ring to catch your eye immediately.</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 4: SUBTASK LINKS VS CUSTOM BUTTONS -->
+        <section class="guide-section">
+            <div class="guide-section-header">
+                <span style="font-size:1.6rem;">⚖️</span>
+                <h2>4. Subtask Links vs. Custom Buttons</h2>
+            </div>
+            <p>
+                In the <strong>Projects &amp; Tasks Settings</strong> (opened via the ⚙️ SETTINGS button), you will notice both <em>Subtask Links</em> and <em>Custom Buttons</em>. Here is how they compare:
+            </p>
+
+            <table class="guide-table">
+                <thead>
+                    <tr>
+                        <th style="width:25%;">Feature</th>
+                        <th style="width:37%;">🔗 Subtask Links (Cross-Folder)</th>
+                        <th style="width:38%;">🎛️ Custom Action Buttons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Primary Purpose</strong></td>
+                        <td>Track construction dependencies &amp; multi-task workflows between rooms.</td>
+                        <td>Provide custom 1-click launcher buttons on subtask headers.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Directionality</strong></td>
+                        <td><strong>Bidirectional</strong> — automatically updates both linked rooms.</td>
+                        <td><strong>Targeted</strong> — triggers an action when clicked.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supported Targets</strong></td>
+                        <td>Any Subtask across any Main Task folder.</td>
+                        <td>Subtasks, Workspace Tabs (Blueprints, Starting Point, Timeline), or External URLs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dependency Notes</strong></td>
+                        <td>Yes — custom notes explaining prerequisite requirements.</td>
+                        <td>Optional button labels and color accents.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Where Configured</strong></td>
+                        <td>Directly on any card via the <strong>🔗 LINK</strong> button.</td>
+                        <td>Inside <strong>⚙️ SETTINGS &rarr; Custom Subtask Buttons</strong> tab.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION 5: REAL-LIFE MANOR RESTORATION SCENARIOS -->
+        <section class="guide-section">
+            <div class="guide-section-header">
+                <span style="font-size:1.6rem;">🏛️</span>
+                <h2>5. Real-World Renovation Scenarios</h2>
+            </div>
+            <p>Here are practical scenarios from the 1910 Queen Anne Manor restoration demonstrating when to link subtasks:</p>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+                <div style="background:#0f1a30; border-left:4px solid #f59e0b; padding:16px 20px; border-radius:0 8px 8px 0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="color:#f59e0b; font-size:1rem;">Scenario A: Roof Flashing before Ceiling Plaster</strong>
+                        <span style="font-size:0.75rem; background:#1e293b; color:#cbd5e1; padding:3px 8px; border-radius:4px;">Weatherproof Dependency</span>
+                    </div>
+                    <p style="color:#cbd5e1; font-size:0.88rem; margin:8px 0 0 0;">
+                        Never apply lime plaster or prime historic parlor ceilings until slate valley flashing and gutter transitions in the Roof Main Task folder are signed off as watertight.
+                    </p>
+                </div>
+
+                <div style="background:#0f1a30; border-left:4px solid #38bdf8; padding:16px 20px; border-radius:0 8px 8px 0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="color:#38bdf8; font-size:1rem;">Scenario B: Foundation Jacks &amp; 2nd Floor Door Sticking</strong>
+                        <span style="font-size:0.75rem; background:#1e293b; color:#cbd5e1; padding:3px 8px; border-radius:4px;">Structural Dependency</span>
+                    </div>
+                    <p style="color:#cbd5e1; font-size:0.88rem; margin:8px 0 0 0;">
+                        Before planning, rehanging, or trimming sticking doors in the 2nd Floor Bedrooms, verify that the 20-ton screw jacks in the Basement Structural Ledger have finished settling.
+                    </p>
+                </div>
+
+                <div style="background:#0f1a30; border-left:4px solid #10b981; padding:16px 20px; border-radius:0 8px 8px 0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="color:#10b981; font-size:1rem;">Scenario C: Architectural Salvage Inventory to Master Suite</strong>
+                        <span style="font-size:0.75rem; background:#1e293b; color:#cbd5e1; padding:3px 8px; border-radius:4px;">Material Reuse Dependency</span>
+                    </div>
+                    <p style="color:#cbd5e1; font-size:0.88rem; margin:8px 0 0 0;">
+                        Link antique tiger-oak pocket doors salvaged from the ground floor to the Master Suite installation checklist so craftsmen know where materials are staged.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: FAQ -->
+        <section class="guide-section">
+            <div class="guide-section-header">
+                <span style="font-size:1.6rem;">❓</span>
+                <h2>6. Frequently Asked Questions</h2>
+            </div>
+
+            <div class="guide-faq-item">
+                <div class="guide-faq-question"><span>Q:</span> How many subtasks can I link together?</div>
+                <div class="guide-faq-answer">
+                    There is no limit! You can link a single subtask to multiple rooms across different floors. Each connection is displayed with its own distinct chip and note.
+                </div>
+            </div>
+
+            <div class="guide-faq-item">
+                <div class="guide-faq-question"><span>Q:</span> How do I delete or remove a link?</div>
+                <div class="guide-faq-answer">
+                    Click the <strong>🔗 LINK</strong> button on the subtask card to open the manager. Scroll to the <em>"Active Subtask Links"</em> section and click the red <strong>🗑️ Remove</strong> button next to the link. Removing it automatically cleans up both sides!
+                </div>
+            </div>
+
+            <div class="guide-faq-item">
+                <div class="guide-faq-question"><span>Q:</span> Do links get deleted if I rename a folder or room?</div>
+                <div class="guide-faq-answer">
+                    No! Links use unique internal room keys, so you can freely rename room titles, change emojis, or re-order folders without breaking your dependency links.
+                </div>
+            </div>
+
+            <div class="guide-faq-item">
+                <div class="guide-faq-question"><span>Q:</span> Are links included when I click "SAVE"?</div>
+                <div class="guide-faq-answer">
+                    Yes! All links, notes, and timestamps are bundled into the export state, saved to your local PC, and synced across all browser tabs and cloud polling sessions.
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA JUMP TO WORKSPACE -->
+        <div style="text-align:center; margin-top:36px;">
+            <a href="index.html" class="btn-live-test" style="font-size:1rem; padding:12px 28px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+                <span>🛠️</span> Return to Projects Workspace
+            </a>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="guide-footer">
+        <div>1910 Whispering Pines Manor Restoration Project &bull; Architectural Field Guide</div>
+        <div style="margin-top:4px;">Built with Victorian Craftsmanship &amp; Modern Precision</div>
+    </footer>
+
+</body>
+</html>

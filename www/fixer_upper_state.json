@@ -1,0 +1,1735 @@
+{
+  "saveVersion": 3,
+  "savedAt": 1792542320544,
+  "tutorialCompleted": true,
+  "currentHouseIndex": 0,
+  "currentMoney": 12500,
+  "propertyValue": 65000,
+  "loanDebt": 0,
+  "currentDay": 3,
+  "currentWeatherKey": "Sunny",
+  "actionPoints": 5,
+  "completedTaskIDs": [
+    "live_test_task_1",
+    "friend_task_2",
+    "locked_task_1"
+  ],
+  "uncompletedTaskIDs": [
+    "task_custom_1792537585139",
+    "task_custom_1792537795878",
+    "task_custom_1792541312346",
+    "task_custom_1792541371422"
+  ],
+  "ownedToolIDs": [],
+  "deletedTaskIds": [],
+  "deletedRoomKeys": [
+    "room_1792466806019",
+    "room_1792280266994",
+    "room_1792468980316",
+    "room_1792308411128_copy_mve9gebj",
+    "room_1792537570365",
+    "room_1792537787806"
+  ],
+  "deletedPostIds": [],
+  "deletedExpenseIds": [],
+  "deletedLogIds": [],
+  "totalSpentOnRehab": 0,
+  "totalHoldingCostsPaid": 0,
+  "siteClutter": 20,
+  "neighborRelation": 55,
+  "cats": [
+    {
+      "id": "barnaby",
+      "name": "Barnaby",
+      "title": "The 18-lb Orange Chonk",
+      "avatar": "🐱",
+      "color": "#f97316",
+      "personality": "Lazy heavy sleeper who wedges himself into open wall framing, knocks over paint cans, and sits directly on architectural blueprints.",
+      "favoriteMischief": "Climbing into freshly opened drywall cavities right before the insulation crew arrives.",
+      "currentRoom": "LivingRoom",
+      "hunger": 50,
+      "affection": 60
+    },
+    {
+      "id": "mochi",
+      "name": "Mochi",
+      "title": "The Inquisitive Calico",
+      "avatar": "🐈",
+      "color": "#ec4899",
+      "personality": "Curious wanderer who loves testing freshly applied wet finishes with her paws. Polyurethane, grout, wet paint, and cement are her canvas.",
+      "favoriteMischief": "Leaving a permanent trail of tiny paw prints across the freshly stained red oak hardwoods.",
+      "currentRoom": "Exterior",
+      "hunger": 40,
+      "affection": 70
+    },
+    {
+      "id": "rusty",
+      "name": "Rusty",
+      "title": "The Scrappy One-Eared Tuxedo",
+      "avatar": "😼",
+      "color": "#64748b",
+      "personality": "Obsessive collector of job site supplies. Steals measuring tapes, rolls of blue painter's tape, and swats at live wire fish tape.",
+      "favoriteMischief": "Dragging the 25-ft tape measure beneath the floorboards and batting drywall screws under baseboards.",
+      "currentRoom": "Basement",
+      "hunger": 60,
+      "affection": 45
+    },
+    {
+      "id": "jumper",
+      "name": "Jumper",
+      "title": "The Flying Void (Black Cat)",
+      "avatar": "🐈‍⬛",
+      "color": "#a855f7",
+      "personality": "Hyperactive acrobat who perches on exposed ceiling joists and leaps down onto unsuspecting plumbers and electricians.",
+      "favoriteMischief": "Leaping from a ceiling rafter onto the back of a subcontractor holding a bucket of joint compound.",
+      "currentRoom": "RoofAttic",
+      "hunger": 55,
+      "affection": 80
+    }
+  ],
+  "isCatTowerOwned": false,
+  "salvageInventory": [],
+  "unlockedSalvageTaskIDs": [],
+  "pendingDilemma": null,
+  "selectedBreakfastMenu": "continental",
+  "guestReviews": [],
+  "manorRating": 5,
+  "activityLog": [
+    {
+      "id": "log_1792537930773_n4eu",
+      "day": 3,
+      "time": "10/20/2026, 6:12:10 PM CDT",
+      "dateStr": "Oct 20",
+      "timeStr": "06:12 PM",
+      "timestamp": 1792537930773,
+      "type": "user_note",
+      "isAccomplishment": false,
+      "message": "Working on the syncing issue. - Johnny"
+    },
+    {
+      "id": "log_1792537206238_ig0t",
+      "day": 3,
+      "message": "⚠️ Watch out: Your 4 cats (Barnaby, Mochi, Rusty, Jumper) are already exploring the job site, and neighbor Mr. Henderson is watching from his porch!",
+      "type": "welcome",
+      "isAccomplishment": false,
+      "time": "10/20/2026, 6:00:06 PM CDT",
+      "dateStr": "Oct 20",
+      "timeStr": "06:00 PM",
+      "timestamp": 1792537206238
+    },
+    {
+      "id": "log_1792537206238_1zh2",
+      "day": 3,
+      "message": "Acquired 1910 Whispering Pines Manor (116-Year-Old Historic Queen Anne Manor (60 Tons Dead Weight)) for $65,000. Let's start flipping!",
+      "type": "welcome",
+      "isAccomplishment": false,
+      "time": "10/20/2026, 6:00:06 PM CDT",
+      "dateStr": "Oct 20",
+      "timeStr": "06:00 PM",
+      "timestamp": 1792537206238
+    },
+    {
+      "id": "log_1792537182187_lb5j",
+      "day": 3,
+      "message": "⚠️ Watch out: Your 4 cats (Barnaby, Mochi, Rusty, Jumper) are already exploring the job site, and neighbor Mr. Henderson is watching from his porch!",
+      "type": "welcome",
+      "isAccomplishment": false,
+      "time": "10/20/2026, 5:59:42 PM CDT",
+      "dateStr": "Oct 20",
+      "timeStr": "05:59 PM",
+      "timestamp": 1792537182187
+    },
+    {
+      "id": "log_1792537182187_j8qi",
+      "day": 3,
+      "message": "Acquired 1910 Whispering Pines Manor (116-Year-Old Historic Queen Anne Manor (60 Tons Dead Weight)) for $65,000. Let's start flipping!",
+      "type": "welcome",
+      "isAccomplishment": false,
+      "time": "10/20/2026, 5:59:42 PM CDT",
+      "dateStr": "Oct 20",
+      "timeStr": "05:59 PM",
+      "timestamp": 1792537182187
+    },
+    {
+      "id": "log_1792535661350_dr0r",
+      "day": 3,
+      "message": "⚠️ Watch out: Your 4 cats (Barnaby, Mochi, Rusty, Jumper) are already exploring the job site, and neighbor Mr. Henderson is watching from his porch!",
+      "type": "welcome",
+      "isAccomplishment": false,
+      "time": "10/20/2026, 5:34:21 PM CDT",
+      "dateStr": "Oct 20",
+      "timeStr": "05:34 PM",
+      "timestamp": 1792535661350
+    },
+    {
+      "id": "log_1792535661350_ms1h",
+      "day": 3,
+      "message": "Acquired 1910 Whispering Pines Manor (116-Year-Old Historic Queen Anne Manor (60 Tons Dead Weight)) for $65,000. Let's start flipping!",
+      "type": "welcome",
+      "isAccomplishment": false,
+      "time": "10/20/2026, 5:34:21 PM CDT",
+      "dateStr": "Oct 20",
+      "timeStr": "05:34 PM",
+      "timestamp": 1792535661350
+    }
+  ],
+  "toolsOrganized": false,
+  "toolsOrganizedDays": 0,
+  "materialsInventory": {
+    "modernLumber": 0,
+    "oldGrowthLumber": 0,
+    "salvageLogs": 2
+  },
+  "stopWorkOrders": {},
+  "careerStats": {
+    "housesFlipped": 0,
+    "totalProfit": 0,
+    "bestFlip": 0
+  },
+  "propertyInfo": {
+    "name": "1910 Whispering Pines Manor",
+    "subtitle": "116-Year-Old Historic Craftsman B&B (60 Tons)",
+    "address": "1910 Vance Ridge Road, Timber Basin, WA",
+    "purchasePrice": 65000,
+    "startingCash": 12500,
+    "targetARV": 240000,
+    "holdingCostPerDay": 50,
+    "notes": "Historic 60-ton Craftsman estate under active structural restoration.",
+    "startDate": "2026-10-18"
+  },
+  "customRooms": {
+    "room_1792280266994": {
+      "name": "test",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "custom_additions",
+      "id": "room_1792280266994",
+      "isDeleted": true
+    },
+    "room_1792466718871": {
+      "name": "is the juice worth the squeeze",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "custom_additions",
+      "isCustom": true,
+      "id": "room_1792466718871",
+      "isDeleted": false
+    },
+    "room_1792466806019": {
+      "name": "test",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "custom_additions",
+      "isCustom": true,
+      "id": "room_1792466806019",
+      "isDeleted": true
+    },
+    "room_1792467138598": {
+      "name": "doing good versus making the money and quality",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "custom_additions",
+      "isCustom": true,
+      "id": "room_1792467138598",
+      "isDeleted": false
+    },
+    "room_1792468541561": {
+      "name": "GATHER IDEAS",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_proj_1792468528112",
+      "isCustom": true,
+      "id": "room_1792468541561",
+      "isDeleted": false
+    },
+    "room_1792468980316": {
+      "name": "GRAB THE TAPER",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "custom_additions",
+      "isCustom": true,
+      "id": "room_1792468980316",
+      "isDeleted": true
+    },
+    "LivingRoom": {
+      "isDeleted": false
+    },
+    "room_1792261974303": {
+      "name": "FIREPIT",
+      "icon": "🔨",
+      "area": "out door deck area",
+      "desc": "",
+      "id": "room_1792261974303",
+      "isDeleted": false,
+      "level": "custom_additions"
+    },
+    "room_1792262217378": {
+      "isDeleted": true
+    },
+    "RoofAttic": {
+      "name": "VICTORIAN SLATE/COPPER ROOF",
+      "icon": "🔨",
+      "area": "Roof, Eaves",
+      "desc": "using real slate or real copper replacing the cheap tar roofing ",
+      "id": "RoofAttic",
+      "isDeleted": false
+    },
+    "Garage": {
+      "name": "Carriage House",
+      "icon": "🚗",
+      "area": "Detached Stall/Garage",
+      "desc": "",
+      "id": "Garage",
+      "isDeleted": false
+    },
+    "Exterior": {
+      "name": "Wrap Around - Brick/Stone Work & Garden",
+      "icon": "🏡",
+      "area": "Grounds, Lawn & Veranda",
+      "desc": "",
+      "id": "Exterior",
+      "isDeleted": false
+    },
+    "WoodShed": {
+      "name": "Wood Shed & Lumber Corral",
+      "icon": "🪵",
+      "area": "Estate Grounds Timber Storage",
+      "desc": "Covered post-and-beam timber seasoning and lumber storage outbuilding. Features cantilever steel racks, gravel French drain foundation, and solar kiln fans to protect salvaged 1910 virgin old-growth fir and exotic hardwoods from rain and ground moisture.",
+      "id": "WoodShed",
+      "isDeleted": false
+    },
+    "Bathroom": {
+      "name": "2nd Floor Baths",
+      "icon": "🚿",
+      "area": "Antique Soaking Suite",
+      "desc": "",
+      "id": "Bathroom",
+      "isDeleted": false,
+      "level": "level_2"
+    },
+    "BreakfastNook": {
+      "name": "Kitchen Breakfast Nook",
+      "icon": "☕",
+      "area": "Sunlit Bay Alcove & Banquette",
+      "desc": "Sun-drenched bay window alcove off the country kitchen featuring custom curved oak banquette seating, walnut pedestal table, and artisan espresso bar.",
+      "id": "BreakfastNook",
+      "isDeleted": false
+    },
+    "Sunroom_copy_mvcwi81o": {
+      "name": "Victorian Sun Room & Command Center (Copy)",
+      "icon": "🕹️",
+      "area": "Glass Solarium & Gaming Cockpit",
+      "isCustom": true,
+      "isDeleted": false,
+      "level": "level_1"
+    },
+    "Basement": {
+      "name": "Foundation / cinder block / brick work concerns",
+      "icon": "🧱",
+      "area": "50' x 30'",
+      "desc": "",
+      "id": "Basement",
+      "isDeleted": false,
+      "level": "level_0",
+      "isCustom": true
+    },
+    "room_1792278375178": {
+      "name": "ttttttttttttttttttttttttttttt",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "id": "room_1792278375178",
+      "isDeleted": true
+    },
+    "room_1792278421316": {
+      "name": "uuuuuuuu",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "id": "room_1792278421316",
+      "isDeleted": true
+    },
+    "room_1792308374295": {
+      "name": "POPCORN",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_room_1792308374295",
+      "isCustom": true,
+      "id": "room_1792308374295",
+      "isDeleted": true
+    },
+    "room_1792308411128": {
+      "name": "TOPPER",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_room_1792308411128",
+      "isCustom": true,
+      "id": "room_1792308411128",
+      "isDeleted": true
+    },
+    "room_1792354217397": {
+      "name": "dump",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "level_1",
+      "isCustom": true,
+      "id": "room_1792354217397",
+      "isDeleted": true
+    },
+    "room_1792308411128_copy_mve9gebj": {
+      "name": "TOPPER (Copy)",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_copy_mve9gebi",
+      "isCustom": true,
+      "id": "room_1792308411128",
+      "isDeleted": true
+    },
+    "room_1792356067708": {
+      "name": "MISC",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_copy_mve9gebi",
+      "isCustom": true,
+      "id": "room_1792356067708",
+      "isDeleted": true
+    },
+    "room_1792356111582": {
+      "name": "WREWER",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_copy_mve9gebi",
+      "isCustom": true,
+      "id": "room_1792356111582",
+      "isDeleted": true
+    },
+    "room_1792356169464": {
+      "name": "DFSDFDSFSD",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_copy_mve9gebi",
+      "isCustom": true,
+      "id": "room_1792356169464",
+      "isDeleted": true
+    },
+    "room_1792356181781": {
+      "name": "FSDDSFS",
+      "icon": "🔨",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_copy_mve9gebi",
+      "isCustom": true,
+      "id": "room_1792356181781",
+      "isDeleted": true
+    },
+    "room_1792537570365": {
+      "name": "BBB",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "custom_additions",
+      "isCustom": true,
+      "id": "room_1792537570365",
+      "isDeleted": true
+    },
+    "room_1792537787806": {
+      "name": "EEE",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "custom_additions",
+      "isCustom": true,
+      "id": "room_1792537787806",
+      "isDeleted": true
+    },
+    "room_1792541241097": {
+      "name": "House Trash",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_proj_1792541216259",
+      "isCustom": true,
+      "id": "room_1792541241097",
+      "isDeleted": false
+    },
+    "room_1792541258656": {
+      "name": "Yard Trash",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_proj_1792541216259",
+      "isCustom": true,
+      "id": "room_1792541258656",
+      "isDeleted": false
+    },
+    "room_1792541435377": {
+      "name": "Organize All brass & copper do dads",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_proj_1792468528112",
+      "isCustom": true,
+      "id": "room_1792541435377",
+      "isDeleted": false
+    },
+    "room_1792541527505": {
+      "name": "Find more Large - brass / copper pipes / gears / rivets  etc",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_proj_1792468528112",
+      "isCustom": true,
+      "id": "room_1792541527505",
+      "isDeleted": false
+    },
+    "room_1792541572511": {
+      "name": "Pooper Scooper Doody",
+      "icon": "📁",
+      "area": "Historic Area",
+      "desc": "",
+      "level": "lvl_proj_1792541216259",
+      "isCustom": true,
+      "id": "room_1792541572511",
+      "isDeleted": false
+    }
+  },
+  "customTasks": [
+    {
+      "id": "live_test_task_1",
+      "name": "Live KV Persist Test",
+      "room": "LivingRoom",
+      "isDeleted": false
+    },
+    {
+      "id": "friend_task_2",
+      "name": "Friend Added This Task",
+      "room": "Kitchen",
+      "isDeleted": false
+    },
+    {
+      "id": "locked_task_1",
+      "name": "Locked Permanent Task",
+      "room": "test_room_lock",
+      "isDeleted": false
+    },
+    {
+      "id": "shed_stack_salvage_fir",
+      "name": "Sort, Sticker, and Stack 1910 Old-Growth Virgin Fir Timbers",
+      "room": "WoodShed",
+      "desc": "Catalog salvaged virgin fir rafters, hand-plane rough edges, apply wax end-grain sealer to prevent checking, and stack horizontally on dry wood stickers.",
+      "matCost": 90,
+      "subCost": 280,
+      "value": 950,
+      "toolRequired": null,
+      "apCost": 1,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792466751617",
+      "name": "people want to be helped with navigation through this life.",
+      "room": "room_1792466718871",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792467156607",
+      "name": "capacity to do it",
+      "room": "room_1792467138598",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792468557110",
+      "name": "GAHTER MORE IDEAS",
+      "room": "room_1792468541561",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792468988926",
+      "name": "BRICKS",
+      "room": "room_1792468980316",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792262009142",
+      "name": " Stone work - foundation",
+      "room": "room_1792261974303",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "pink granite stone work onto a square pit with solid floor/base create easy clean out",
+      "isCompleted": false,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "ext_move_debris_ordinance",
+      "name": "Resolve Front Yard  53' Trailer, Construction Supplies & Maintenance; to Backyard (City Ordinance)",
+      "room": "Exterior",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 150,
+      "actualSpent": 0,
+      "value": 650,
+      "materials": "",
+      "desc": "Haul unsightly stacks of drywall, lumber, scaffolding, and mortar tubs from front street view into the privacy-fenced backyard. Satisfies City Ordinance Sec. 14-8, prevents $250 citation, cuts clutter by -30%, and raises Mr. Henderson's mood (+25% relations)!",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "ext_mow_lawn",
+      "name": "Mow Overgrown Yard, Weed-Eat & Edge Curbs (City Ordinance)",
+      "room": "Exterior",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 110,
+      "actualSpent": 0,
+      "value": 550,
+      "materials": "",
+      "desc": "Cut knee-high weeds with commercial mower, trim fence lines, and edge sidewalks. Drastically boosts curb appeal, pleases Mr. Henderson (+20% relations), and avoids tall-grass blight citations!",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "ext_landscaping",
+      "name": "Clear Overgrowth & Black Mulch Flowerbeds (City Ordinance)",
+      "room": "Exterior",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 700,
+      "actualSpent": 0,
+      "value": 1100,
+      "materials": "",
+      "desc": "Hack down waist-high weeds, prune overgrown trees, plant boxwoods, and spread fresh mulch.",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "ext_paint",
+      "name": "Power Wash & Paint Exterior Facade (Low Priority)",
+      "room": "Exterior",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 2800,
+      "actualSpent": 0,
+      "value": 4300,
+      "materials": "",
+      "desc": "Pressure wash away mildew, scrape peeling lead-safe paint, and spray historic Queen Anne Victorian facade.",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "ext_door",
+      "name": "Craftsman Mahogany Entry Door & Hardware (Upkeep Maintenance)",
+      "room": "Exterior",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 1300,
+      "actualSpent": 0,
+      "value": 2000,
+      "materials": "",
+      "desc": "Install solid wood insulated craftsman door with sidelights, oil-rubbed bronze handle, and smart lock.",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "eco_wind",
+      "name": "Backyard Micro Wind Turbine/Garden Lighting",
+      "room": "Exterior",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 2900,
+      "actualSpent": 0,
+      "value": 4600,
+      "materials": "",
+      "desc": "Erect a 35-foot tubular mast with 1.2kW aero blades and battery grid tie-in in the open meadow. Slashes daily holding utility costs by $12/day!",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "bath_vanity",
+      "name": "Vanity & Steam Pipe Mirror",
+      "room": "Bathroom",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 1450,
+      "actualSpent": 0,
+      "value": 2200,
+      "materials": "",
+      "desc": "White oak  vanity, quartz countertop, dual vessel sinks, and anti-fog LED mirror.",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "nook_banquette_bench",
+      "name": "Curved Oak Booth Seating & Bench Storage",
+      "room": "BreakfastNook",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 1300,
+      "actualSpent": 0,
+      "value": 2700,
+      "materials": "",
+      "desc": "Frame and scribe curved white oak banquette seating with hinged lift-top storage for vintage linens and board games.",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "nook_bay_windows",
+      "name": "1910 Stain Glass  \"window effect\"",
+      "room": "BreakfastNook",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 950,
+      "actualSpent": 0,
+      "value": 2100,
+      "materials": "",
+      "desc": "Re-putty antique beveled glass panes, lubricate solid cast brass quadrant window stays, and weatherproof drafty bay sashes.",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "task_mvcwi81o_0",
+      "name": "Restore 1910 Curved Solarium Glass & Thermal Glaze",
+      "room": "Sunroom_copy_mvcwi81o",
+      "desc": "Re-glaze 48 arched Victorian conservatory glass panes with ceramic thermal UV tint to eliminate cockpit display glare and stabilize room temperature for gaming hardware.",
+      "matCost": 750,
+      "subCost": 1600,
+      "value": 3100,
+      "toolRequired": null,
+      "apCost": 1,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_mvcwi81o_1",
+      "name": "Mount Custom Chassis on Motorized 3-DOF Tilt Table",
+      "room": "Sunroom_copy_mvcwi81o",
+      "desc": "Construct reinforced tubular steel cockpit chassis and mount onto an industrial 3-DOF motorized pneumatic tilt table capable of 35-degree dynamic pitch and roll motions during flight sim play.",
+      "matCost": 1450,
+      "subCost": 3100,
+      "value": 5800,
+      "toolRequired": "tool_drill",
+      "apCost": 2,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_mvcwi81o_2",
+      "name": "Install Recaro Pneumatic Cockpit Flight Chair & Tactile Bass",
+      "room": "Sunroom_copy_mvcwi81o",
+      "desc": "Bolt down an ergonomic high-back bucket flight chair with pneumatic lumbar, 5-point flight harness, and dual integrated 50W tactile bass haptic transducers under the seat cushion.",
+      "matCost": 850,
+      "subCost": 1750,
+      "value": 3400,
+      "toolRequired": "tool_drill",
+      "apCost": 1,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_mvcwi81o_3",
+      "name": "Mount Dual Force-Feedback Joysticks & Rudder Pedals",
+      "room": "Sunroom_copy_mvcwi81o",
+      "desc": "Install dual center/side MIL-SPEC magnetic hall-sensor flight joysticks, twin-engine split throttle quadrant with detents, and heavy aluminum floor rudder pedals on articulated swivel locking arms.",
+      "matCost": 980,
+      "subCost": 1950,
+      "value": 3900,
+      "toolRequired": "tool_drill",
+      "apCost": 1,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_mvcwi81o_4",
+      "name": "Fabricate Overhead Cockpit Switch Panel & Comms Dials",
+      "room": "Sunroom_copy_mvcwi81o",
+      "desc": "Construct an authentic overhead cockpit console featuring 28 illuminated toggle switches with missile safety guards, master battery APU breakers, rotary encoders, and backlit LED annunciator warning panels.",
+      "matCost": 650,
+      "subCost": 1400,
+      "value": 2900,
+      "toolRequired": "tool_drill",
+      "apCost": 2,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_mvcwi81o_5",
+      "name": "Triple 4K Curved Panoramic Displays & 7.1 Solarium Surround",
+      "room": "Sunroom_copy_mvcwi81o",
+      "desc": "Mount triple 49-inch 144Hz curved ultrawide gaming monitors on a wraparound tubular bracket, integrated with 7.1 solarium surround speakers and acoustic corner bass traps.",
+      "matCost": 2200,
+      "subCost": 4200,
+      "value": 7500,
+      "toolRequired": "tool_drill",
+      "apCost": 2,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_mvcwi81o_6",
+      "name": "Dedicated 20-Amp Isolated Audio/PC Circuit & Subfloor Conduit",
+      "room": "Sunroom_copy_mvcwi81o",
+      "desc": "Run a dedicated 20-amp clean electrical circuit from the breaker panel and cut discrete floor conduits beneath the 1910 oak boards to conceal all gaming rig power and data cables from curious cats.",
+      "matCost": 480,
+      "subCost": 1100,
+      "value": 2200,
+      "toolRequired": "tool_pexcrimp",
+      "apCost": 1,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_mvcwi81o_7",
+      "name": "Install Dual-Resistance Wooden Rowing Machine Setup",
+      "room": "Sunroom_copy_mvcwi81o",
+      "desc": "Anchor a handcrafted solid American ash WaterRower rowing machine with dual fluid-air resistance facing the panoramic solarium garden view, complete with VR telemetry sync and silent nylon pull strap for morning B&B cardio.",
+      "matCost": 680,
+      "subCost": 1350,
+      "value": 2600,
+      "toolRequired": "tool_drill",
+      "apCost": 1,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792272248476",
+      "name": "underlayment",
+      "room": "RoofAttic",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "found_jack",
+      "name": "Hydraulic Jacking",
+      "room": "Basement",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 1900,
+      "actualSpent": 0,
+      "value": 4800,
+      "materials": "",
+      "desc": "[CRITICAL FOUNDATION #1] Set four 20-ton hydraulic jacks beneath the 60-ton old-growth timber center beam, lift the sagging frame 3.5 inches back to level, and sister with steel flitch plates. (Requires 1,100-lb plaster walls to be torn out first!)",
+      "isCompleted": false,
+      "isDeleted": false,
+      "footnotes": []
+    },
+    {
+      "id": "found_piers",
+      "name": "Excavate Walls, Floor & Footing",
+      "room": "Basement",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 2400,
+      "actualSpent": 0,
+      "value": 5400,
+      "materials": "",
+      "desc": "[CRITICAL FOUNDATION #2] Dig out rotted 1910 cedar tree-trunk stump footings and pour 3,500-PSI reinforced concrete piers down to stable bedrock to support the 60-ton dead load. (Required for B&B Permit)",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "found_fieldstone",
+      "name": "Measure, Design, Plan & Calculate",
+      "room": "Basement",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 3200,
+      "materials": "",
+      "desc": "[CRITICAL FOUNDATION #3] Chisel away decomposed lime mortar and pack structural hydraulic mortar between bulging stone cellar walls. (Required for B&B Permit)",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "base_drain",
+      "name": "Perimeter French Drain or Membrane Water Proofing",
+      "room": "Basement",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 1800,
+      "actualSpent": 0,
+      "value": 2800,
+      "materials": "",
+      "desc": "Trench cellar perimeter, lay 4-inch perforated drainage pipe, and wire battery-backup sump pumps to keep the B&B breakfast food cellar dry.",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "base_vapor",
+      "name": "Dual Sump Pump Flooding (back up system)",
+      "room": "Basement",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 950,
+      "actualSpent": 0,
+      "value": 1900,
+      "materials": "",
+      "desc": "Seal dirt cellar with heavy 20-mil vapor barrier to stop damp earth odors from rising into guest parlor and dining rooms.",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "found_gut_plaster",
+      "name": "45 TON - Lath & Plaster \"Unburdening\" (Before Raising House)",
+      "room": "Basement",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 850,
+      "actualSpent": 0,
+      "value": 2600,
+      "materials": "",
+      "desc": "[CRITICAL STRUCTURAL PRE-REQUISITE] Demolish 1,100-lb  lath & plaster  walls across entire house, to bare 1910 old-growth timber framing. Removes 60 tons from  manor - to facilitate hydraulic jacking - can safely raise the house without wall shear or shifting! (Required before hydraulic jacking)",
+      "isCompleted": false,
+      "isDeleted": false,
+      "footnotes": []
+    },
+    {
+      "id": "task_custom_1792278207576",
+      "name": "sdfdfsdfsd",
+      "room": "RoofAttic",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "isCustom": true,
+      "isDeleted": true
+    },
+    {
+      "id": "task_custom_1792278334993",
+      "name": "dfsdfsdfsdfsd",
+      "room": "RoofAttic",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "isCustom": true,
+      "isDeleted": true
+    },
+    {
+      "id": "bed_drywall",
+      "name": "INSTALL DRYWAL",
+      "room": "Bedroom",
+      "targetDate": "",
+      "diyCost": 0,
+      "subCost": 780,
+      "actualSpent": 0,
+      "value": 1250,
+      "materials": "",
+      "desc": "tape peeling joints, and install crisp 5-inch craftsman baseboards.",
+      "isCompleted": false,
+      "footnotes": [
+        {
+          "id": "fn1",
+          "number": 1,
+          "targetRoom": "Basement",
+          "note": "NEED SCREWS"
+        },
+        {
+          "id": "fn2",
+          "number": 2,
+          "targetRoom": "Bathroom",
+          "note": "AQUIRE DRYWALL"
+        }
+      ],
+      "isDeleted": true
+    },
+    {
+      "id": "task_room_1792308411128_roughin",
+      "room": "room_1792308411128",
+      "name": "Rough-In - TOPPER",
+      "desc": "Square and level load-bearing framing, plumb mechanical runs, and install insulation backing for TOPPER.",
+      "stage": 2,
+      "matCost": 650,
+      "diyCost": 650,
+      "subCost": 1450,
+      "value": 2400,
+      "valueBoost": 2400,
+      "apCost": 2,
+      "toolRequired": "tool_drill",
+      "isCustom": true,
+      "footnotes": [],
+      "targetDate": "",
+      "actualSpent": 0,
+      "materials": "",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792308454681",
+      "name": "Custom Renovation Task",
+      "room": "room_1792308374295",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792308619524",
+      "name": "GGGGGGTTTTT",
+      "room": "room_1792308411128",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    {
+      "id": "task_mve9gebj_0",
+      "room": "room_1792308411128_copy_mve9gebj",
+      "name": "Rough-In - TOPPER",
+      "desc": "Square and level load-bearing framing, plumb mechanical runs, and install insulation backing for TOPPER.",
+      "stage": 2,
+      "matCost": 650,
+      "diyCost": 650,
+      "subCost": 1450,
+      "value": 2400,
+      "valueBoost": 2400,
+      "apCost": 2,
+      "toolRequired": "tool_drill",
+      "isCustom": true,
+      "footnotes": [],
+      "targetDate": "",
+      "actualSpent": 0,
+      "materials": "",
+      "isCompleted": false,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792357192723",
+      "name": "Clean, Inspect & Measure Area",
+      "room": "Basement",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "Broom, Shop -Vac, Bags, Mops, Buckets",
+      "desc": "Purpose: to remove debris, trash, furniture, old equip, wood piles to facilitate ease of excavation",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792358391467",
+      "name": "Beam Lift Calculation",
+      "room": "Basement",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "Lasers Levels, 40 ton Hyd Jacks, Pads, I Beams",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792537585139",
+      "name": "CCC",
+      "room": "room_1792537570365",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792537795878",
+      "name": "FFF",
+      "room": "room_1792537787806",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792541312346",
+      "name": "Get Small Bags (grocery bags work)",
+      "room": "room_1792541241097",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    {
+      "id": "task_custom_1792541371422",
+      "name": "Custom Renovation Task",
+      "room": "room_1792541258656",
+      "targetDate": "",
+      "diyCost": 500,
+      "subCost": 1200,
+      "actualSpent": 0,
+      "value": 2500,
+      "materials": "Get Large Bags (need heavy duty)",
+      "desc": "",
+      "isCompleted": false,
+      "footnotes": [],
+      "isCustom": true,
+      "isDeleted": false
+    }
+  ],
+  "customPhotos": [],
+  "customVideos": [],
+  "customProgress": [],
+  "realLifeExpenses": [],
+  "realLifeMode": true,
+  "donationSettings": {
+    "title": "Building the Dream: 1910 Whispering Pines Manor Restoration",
+    "tagline": "An authentic ground-up restoration of an iconic 116-year-old Craftsman & Victorian estate and community heritage B&B.",
+    "story": "Whispering Pines was commissioned in 1910 by timber baron Thaddeus Vance using virgin old-growth Douglas fir and quarter-sawn white oak timbers. We are undertaking an authentic, ground-up restoration—jacking the 60-ton structure on hydraulic towers, restoring scalloped Peach Bottom black slate 32 feet high, replacing legacy lead supply pipes with modern PEX-A lines, and creating an educational craftsmanship center and community B&B. Every contribution directly funds historic materials, specialized restoration tools, and structural preservation.",
+    "totalGoal": 75000,
+    "gofundmeUrl": "https://gofundme.com/f/whispering-pines-1910-restoration",
+    "patreonUrl": "https://patreon.com/whisperingpinesrestoration",
+    "paypalHandle": "@whisperingpines1910",
+    "venmoHandle": "@whisperingpines-restoration",
+    "wishlistUrl": "https://amazon.com/hz/wishlist/ls/whispering-pines-restoration",
+    "volunteerEmail": "restore@whisperingpinesmanor.org",
+    "sponsorshipPerks": [
+      {
+        "name": "Adopt a Historic Board",
+        "amount": 75,
+        "perk": "Your name and dedication custom-branded onto a reclaimed virgin Douglas fir floorboard or rafter in the manor registry."
+      },
+      {
+        "name": "Adopt a Slate Roofing Tile",
+        "amount": 150,
+        "perk": "Your name hand-etched on the underside of an authentic 125-year Vermont sea green or black slate tile."
+      },
+      {
+        "name": "Sponsor a Foundation Pier (Brass Plaque)",
+        "amount": 500,
+        "perk": "Engraved architectural brass plaque set permanently into bedrock concrete footing pier."
+      },
+      {
+        "name": "Heritage Suite Sponsor",
+        "amount": 1200,
+        "perk": "Commemorative carved walnut door plaque, deed certificate, and complimentary weekend stay in restored B&B master suite."
+      }
+    ]
+  },
+  "taskChecklists": {},
+  "taskMaterials": {},
+  "taskTools": {},
+  "taskPriorities": {},
+  "taskDonations": {},
+  "communityTips": [],
+  "communityChallenges": [],
+  "communityUpvotedTipIds": [],
+  "hallOfFameBackers": [],
+  "dailyMaintenanceTasks": [],
+  "customLevels": {
+    "test_level_lock": {
+      "name": "Locked Level",
+      "rooms": [
+        "test_room_lock"
+      ],
+      "isDeleted": true
+    },
+    "lvl_room_1792280266994": {
+      "id": "lvl_room_1792280266994",
+      "name": "test",
+      "icon": "🔨",
+      "elevation": "Historic Area",
+      "rooms": [
+        "room_1792280266994"
+      ],
+      "isDeleted": true
+    },
+    "lvl_proj_powershell_test": {
+      "id": "lvl_proj_powershell_test",
+      "name": "PowerShell Test Project",
+      "icon": "??",
+      "elevation": "PROJECT",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792448642676": {
+      "id": "lvl_proj_1792448642676",
+      "name": "test",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "test",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792465648911": {
+      "id": "lvl_proj_1792465648911",
+      "name": "JOHNNYPROJECTS",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792466701665": {
+      "id": "lvl_proj_1792466701665",
+      "name": "Johnnyprjoect",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792466907296": {
+      "id": "lvl_proj_1792466907296",
+      "name": "johnnyproject",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792467125782": {
+      "id": "lvl_proj_1792467125782",
+      "name": "doing good",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792468528112": {
+      "id": "lvl_proj_1792468528112",
+      "name": "STEAMPUNK IDEAS",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [
+        "room_1792468541561"
+      ],
+      "isCustom": true,
+      "isDeleted": false
+    },
+    "lvl_proj_1792468973903": {
+      "id": "lvl_proj_1792468973903",
+      "name": "CINDERBLOCKS",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "level_2": {
+      "rooms": [
+        "Bedroom",
+        "Bathroom"
+      ],
+      "name": "2nd Floor Guest Rooms",
+      "icon": "🛏️",
+      "elevation": "Elev. +16'",
+      "isDeleted": false
+    },
+    "level_3": {
+      "rooms": [
+        "RoofAttic"
+      ],
+      "name": "Tower & Roof",
+      "icon": "🏰",
+      "elevation": "Elev. +32'",
+      "isDeleted": false
+    },
+    "level_1": {
+      "rooms": [
+        "LivingRoom",
+        "Kitchen",
+        "BreakfastNook",
+        "Sunroom",
+        "TempShop",
+        "PlumbingHVAC",
+        "Sunroom_copy_mvcwi81o",
+        "room_1792354217397"
+      ],
+      "name": "Main Parlor w/ Fireplace",
+      "icon": "🛋️",
+      "elevation": "Elev. 0'",
+      "isDeleted": false
+    },
+    "level_0": {
+      "rooms": [
+        "Basement"
+      ],
+      "name": "BASEMENT / FOUNDATION",
+      "icon": "🧱",
+      "elevation": "Elev. -10'",
+      "isDeleted": false
+    },
+    "grounds": {
+      "rooms": [
+        "Exterior",
+        "Garage",
+        "WoodShed",
+        "room_1792261974303"
+      ],
+      "isDeleted": false
+    },
+    "lvl_room_1792308411128": {
+      "id": "lvl_room_1792308411128",
+      "name": "TEST",
+      "icon": "",
+      "elevation": "Historic Area",
+      "rooms": [
+        "room_1792308411128"
+      ],
+      "isDeleted": true
+    },
+    "lvl_copy_mve9gebi": {
+      "id": "lvl_copy_mve9gebi",
+      "name": "TEST (Copy)",
+      "icon": "🏰",
+      "elevation": "Historic Area",
+      "rooms": [
+        "room_1792356067708",
+        "room_1792261974303",
+        "room_1792308411128_copy_mve9gebj",
+        "room_1792356111582",
+        "room_1792356169464",
+        "room_1792356181781"
+      ],
+      "isDeleted": true
+    },
+    "custom_additions": {
+      "name": "MISC TASKS",
+      "icon": "🏰",
+      "elevation": "",
+      "rooms": [
+        "room_1792466718871",
+        "room_1792467138598",
+        "room_1792468980316"
+      ],
+      "isDeleted": false
+    },
+    "lvl_proj_1792469692772": {
+      "id": "lvl_proj_1792469692772",
+      "name": "testtest",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_test_del_123": {
+      "isDeleted": true,
+      "rooms": []
+    },
+    "lvl_proj_1792537371055": {
+      "id": "lvl_proj_1792537371055",
+      "name": "test",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792537474030": {
+      "id": "lvl_proj_1792537474030",
+      "name": "test test 2",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792537508883": {
+      "id": "lvl_proj_1792537508883",
+      "name": "AAA",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [
+        "room_1792537570365"
+      ],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792537781822": {
+      "id": "lvl_proj_1792537781822",
+      "name": "DDD",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "",
+      "rooms": [
+        "room_1792537787806"
+      ],
+      "isCustom": true,
+      "isDeleted": true
+    },
+    "lvl_proj_1792541216259": {
+      "id": "lvl_proj_1792541216259",
+      "name": "DAILIES",
+      "icon": "📁",
+      "elevation": "PROJECT",
+      "desc": "Every day duties & maintenance",
+      "rooms": [],
+      "isCustom": true,
+      "isDeleted": false
+    }
+  },
+  "deletedLevelIds": [
+    "lvl_proj_1792466701665",
+    "lvl_proj_1792537371055",
+    "lvl_proj_1792467125782",
+    "lvl_proj_1792468973903",
+    "lvl_proj_powershell_test",
+    "test_level_lock",
+    "lvl_proj_1792537474030",
+    "lvl_copy_mve9gebi",
+    "lvl_proj_1792537781822",
+    "lvl_proj_1792537508883"
+  ],
+  "levelOrder": [
+    "level_3",
+    "level_2",
+    "level_1",
+    "level_0",
+    "grounds",
+    "lvl_proj_1792468528112",
+    "lvl_proj_1792541216259",
+    "custom_additions"
+  ],
+  "taskOrder": {},
+  "undoStack": [
+    {
+      "type": "deleteLevel",
+      "lvlId": "lvl_proj_1792466701665",
+      "lvlName": "lvl_proj_1792466701665",
+      "prevData": {
+        "id": "lvl_proj_1792466701665",
+        "name": "Johnnyprjoect",
+        "icon": "📁",
+        "elevation": "PROJECT",
+        "desc": "",
+        "rooms": [],
+        "isCustom": true,
+        "isDeleted": false
+      },
+      "prevOrder": [
+        "level_0",
+        "level_2",
+        "level_3",
+        "level_1",
+        "grounds",
+        "lvl_copy_mve9gebi",
+        "lvl_proj_1792468528112",
+        "lvl_proj_1792467125782",
+        "lvl_proj_1792468973903",
+        "lvl_proj_1792466701665",
+        "lvl_proj_powershell_test",
+        "test_level_lock",
+        "lvl_proj_1792469612113",
+        "lvl_proj_1792469683898",
+        "lvl_proj_1792469680414",
+        "lvl_proj_1792469707374",
+        "lvl_proj_1792469714538"
+      ],
+      "timestamp": 1792535969092
+    },
+    {
+      "type": "saveLevel",
+      "lvlId": "lvl_proj_1792537371055",
+      "prevData": null,
+      "timestamp": 1792537371055
+    },
+    {
+      "type": "deleteLevel",
+      "lvlId": "lvl_proj_1792537371055",
+      "lvlName": "lvl_proj_1792537371055",
+      "prevData": {
+        "id": "lvl_proj_1792537371055",
+        "name": "test",
+        "icon": "📁",
+        "elevation": "PROJECT",
+        "desc": "",
+        "rooms": [],
+        "isCustom": true,
+        "isDeleted": false
+      },
+      "prevOrder": [
+        "lvl_proj_1792537371055",
+        "level_0",
+        "level_2",
+        "level_3",
+        "level_1",
+        "grounds",
+        "lvl_copy_mve9gebi",
+        "lvl_proj_1792468528112",
+        "lvl_proj_1792467125782",
+        "lvl_proj_1792468973903",
+        "lvl_proj_powershell_test",
+        "test_level_lock",
+        "lvl_proj_1792469612113",
+        "lvl_proj_1792469683898",
+        "lvl_proj_1792469680414",
+        "lvl_proj_1792469707374",
+        "lvl_proj_1792469714538"
+      ],
+      "timestamp": 1792537375247
+    },
+    {
+      "type": "saveLevel",
+      "lvlId": "lvl_proj_1792537474030",
+      "prevData": null,
+      "timestamp": 1792537474031
+    }
+  ],
+  "customTabs": [],
+  "deletedTabIds": [],
+  "tabOrder": [],
+  "tabOverrides": {},
+  "customTools": [],
+  "deletedToolIds": [],
+  "startingPointHero": {
+    "title": "1910 Whispering Pines Manor • Starting Point (The Before)",
+    "subtitle": "The Starting Condition When Discovered  Forensic Site Baseline Prior to Restoration",
+    "metric1": {
+      "label": "⚖️ Structural Dead Load",
+      "value": "60 Tons",
+      "sub": "Unreinforced fieldstone foundation & center timber beam"
+    },
+    "metric2": {
+      "label": " Floor Joist Deflection",
+      "value": "-3.5 Inches Sag",
+      "sub": "Main salon & hearth joists require calibrated screw-jacks"
+    },
+    "metric3": {
+      "label": "🪵 Initial Salvage Reserve",
+      "value": "Green & Salvage",
+      "sub": "Wood corral drying station active on site"
+    },
+    "metric4": {
+      "label": "💵 Baseline Acquisition",
+      "value": "$165,000",
+      "sub": "Original purchase condition before capital rehab"
+    }
+  },
+  "startingPointBlueprint": {
+    "title": "📐 Original Architectural Pencil Blueprint & Elevation Sketch",
+    "tag": "Historic 1910 Manor Facade Survey",
+    "imageUrl": "jackshousepenicldrawing.jpg",
+    "provenanceNotes": "The original front facade showing the left porch where the observation tower will rise, and the corner 2nd-floor window where the Master En-Suite bath is situated.",
+    "footerCaption": "Historic survey pencil rendering dating to original construction."
+  },
+  "startingPointNarratives": [
+    {
+      "id": "spn_discovery",
+      "header": "The Discovery: October Morning Initial Walkthrough",
+      "subheader": "Assessing 116 Years of Unchecked Weather & Settling",
+      "paragraph": "When we first unlocked the warped solid fir front door, dust motes hung in the cold morning light. The central timber carrier beam had sagged 3.5 inches toward the hearth, pulling interior plaster off the lath. Yet behind the crumbling wallpaper stood pristine old-growth white pine framing and intact heart-pine joists ready for revitalization.",
+      "notes": "Laser transit survey confirms center foundation settled 3.5\"; no active termites detected; dry rot localized to north exterior sill plate.",
+      "footnotes": "Survey conducted October 12; archival blueprint matched to 1910 county tax assessment registry #4418."
+    }
+  ],
+  "startingPointPosts": [
+    {
+      "id": "spp_foundation",
+      "title": "Fieldstone Foundation & Center Timber Beam Sag",
+      "subtitle": "Critical Structural Forensic Assessment",
+      "date": "Survey Day 1",
+      "badge": "STRUCTURAL CRITICAL",
+      "paragraph": "The unreinforced dry-stack fieldstone crawlspace is carrying an estimated 60-ton dead load. Three timber uprights have tilted 4 degrees. Calibration screw-jacks must be installed before any 2nd-floor framing commences.",
+      "notes": "Temporary 20-ton bottle jacks staged at pier 3. Moisture content in timber measures 18%.",
+      "footnotes": "Structural engineering approval required before raising beam beyond 1/8 inch per 24-hour cycle.",
+      "activePhotoIndex": 0,
+      "photos": [
+        {
+          "url": "jackshousepenicldrawing.jpg",
+          "caption": "Original elevation pencil survey marking foundation trench.",
+          "badge": "ARCHIVAL SKETCH"
+        }
+      ]
+    },
+    {
+      "id": "spp_salon",
+      "title": "Grand Salon Hardwoods & Fireplace Mantle",
+      "subtitle": "Historic Millwork & Floor Joist Deflection",
+      "date": "Survey Day 2",
+      "badge": "HISTORIC SALVAGE",
+      "paragraph": "Quarter-sawn red oak flooring has buckled near the chimney stack due to historic hearth settling. The hand-carved mahogany fireplace mantle remains remarkably intact, though coated in five layers of lead varnish.",
+      "notes": "Carefully number and remove floorboards with cat's paw prybars. Store in wood corral.",
+      "footnotes": "Original 1910 iron damper intact; chimney flue requires steel liner before first test burn.",
+      "activePhotoIndex": 0,
+      "photos": [
+        {
+          "url": "steampunk109.jpg",
+          "caption": "Grand Salon fireplace with hand-carved mahogany mantle.",
+          "badge": "SALON BEFORE"
+        }
+      ]
+    }
+  ],
+  "chaosChores": [
+    {
+      "id": "chore_organize",
+      "name": "🧰 Organize & Calibrate Pro Tools",
+      "costAp": 1,
+      "costMoney": 0,
+      "clutterReduction": 20,
+      "desc": "-20% Clutter, +Craftsmanship Precision status (2 days), 50% chance to find loose hardware & cash!"
+    },
+    {
+      "id": "chore_sweep",
+      "name": "🧹 Deep-Clean & Sweep Job Site",
+      "costAp": 1,
+      "costMoney": 0,
+      "clutterReduction": 100,
+      "desc": "Cuts clutter to 0%, 45% chance to find lost coins/bills in the sawdust."
+    },
+    {
+      "id": "chore_debris",
+      "name": "📦 Move Front Debris to Backyard [Ordinance]",
+      "costAp": 1,
+      "costMoney": 0,
+      "clutterReduction": 30,
+      "desc": "-30% Clutter, +20% Neighbor Relations (prevents $250 citation)."
+    },
+    {
+      "id": "chore_mow",
+      "name": "🌿 Mow Overgrown Lawn & Edge Curbs",
+      "costAp": 1,
+      "costMoney": 0,
+      "clutterReduction": 15,
+      "desc": "-15% Clutter, +15% Neighbor Relations, chance to uncover lawn coins."
+    },
+    {
+      "id": "chore_mulcher",
+      "name": "🪵 Run Branch Mulcher",
+      "costAp": 1,
+      "costMoney": 0,
+      "clutterReduction": 35,
+      "desc": "-35% Clutter, +$150 Value (Requires branch mulcher built)"
+    }
+  ],
+  "neighborData": {
+    "name": "Mr. Henderson",
+    "avatar": "👴🏻",
+    "role": "Next-Door Retired Aerospace Inspector",
+    "desc": "Owns a laser-level lawn ruler and keeps a logbook of every delivery truck, saw noise, and overhanging leaf.",
+    "relationScore": 50,
+    "grievances": [
+      "Front yard construction staging in street view (City Ordinance Sec. 14-8)",
+      "Uncut dandelions and overgrown lawn along front curb",
+      "Overhanging oak tree branches over fence line",
+      "Property boundary line dispute (2.3 inches)",
+      "Tile saw buzzing before 8:00 AM",
+      "Dumpster delivery truck parking close to mailbox"
+    ]
+  }
+}

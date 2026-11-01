@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Rapid Project Intake & Quick Dispatch • Jack's Fixer Uper</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rapid-bg: #0b0f19;
+            --rapid-surface: #141b2d;
+            --rapid-card: #1e293b;
+            --rapid-border: rgba(255, 255, 255, 0.08);
+            --rapid-purple: #8b5cf6;
+            --rapid-purple-glow: rgba(139, 92, 246, 0.25);
+            --p1-col: #ef4444;
+            --p2-col: #f59e0b;
+            --p3-col: #38bdf8;
+            --p4-col: #c084fc;
+            --p5-col: #10b981;
+        }
+
+        body.rapid-input-body {
+            background-color: var(--rapid-bg);
+            background-image: 
+                radial-gradient(circle at 10% 0%, rgba(139, 92, 246, 0.12), transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.08), transparent 40%);
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-size: 15px;
+        }
+
+        .rapid-header {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--rapid-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 24px;
+        }
+
+        .rapid-header-inner {
+            max-width: 95vw;
+            width: 95vw;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .rapid-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .rapid-brand-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.7));
+        }
+
+        .rapid-brand h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            margin: 0;
+            letter-spacing: 0.05em;
+            color: #f8fafc;
+        }
+
+        .rapid-brand span {
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            color: #a78bfa;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .rapid-nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-rapid-nav {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #e2e8f0;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-rapid-nav:hover {
+            background: rgba(51, 65, 85, 0.95);
+            border-color: #a78bfa;
+            color: #fff;
+        }
+
+        .btn-rapid-nav.btn-highlight {
+            background: #8b5cf6;
+            border-color: #a78bfa;
+            color: #fff;
+        }
+
+        .btn-rapid-nav.btn-highlight:hover {
+            background: #7c3aed;
+        }
+
+        .rapid-container {
+            max-width: 95vw;
+            width: 95vw;
+            margin: 24px auto 90px auto;
+            padding: 0 16px;
+            box-sizing: border-box;
+        }
+
+        /* Banner & Mindset Helper */
+        .rapid-mindset-banner {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            border-left: 6px solid #8b5cf6;
+            border-radius: 14px;
+            padding: 20px 26px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .mindset-text h2 {
+            margin: 0 0 6px 0;
+            font-size: 1.25rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mindset-text p {
+            margin: 0;
+            font-size: 0.92rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .mindset-stats {
+            display: flex;
+            gap: 20px;
+            background: #0f172a;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-item span {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #38bdf8;
+        }
+
+        .stat-item small {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Color-Coded Quick Navigation Tray */
+        .mode-tabs-tray {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 74px;
+            z-index: 80;
+            background: rgba(11, 15, 25, 0.94);
+            backdrop-filter: blur(12px);
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .mode-tab-btn {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+        }
+
+        .mode-tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        }
+
+        /* 🚀 Full Intake (Top): Purple */
+        .mode-tab-btn.tab-all {
+            border-color: rgba(139, 92, 246, 0.4);
+            color: #e9d5ff;
+            background: rgba(139, 92, 246, 0.14);
+        }
+        .mode-tab-btn.tab-all:hover, .mode-tab-btn.tab-all.active {
+            background: #8b5cf6;
+            color: #ffffff;
+            border-color: #a78bfa;
+            box-shadow: 0 0 16px rgba(139, 92, 246, 0.5);
+        }
+
+        /* 📍 Blueprint Room: Sky Blue */
+        .mode-tab-btn.tab-room {
+            border-color: rgba(56, 189, 248, 0.4);
+            color: #7dd3fc;
+            background: rgba(56, 189, 248, 0.12);
+        }
+        .mode-tab-btn.tab-room:hover, .mode-tab-btn.tab-room.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #38bdf8;
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
+        }
+
+        /* 🛠️ Project Task & Urgency: Amber */
+        .mode-tab-btn.tab-task {
+            border-color: rgba(245, 158, 11, 0.4);
+            color: #fcd34d;
+            background: rgba(245, 158, 11, 0.12);
+        }
+        .mode-tab-btn.tab-task:hover, .mode-tab-btn.tab-task.active {
+            background: #d97706;
+            color: #ffffff;
+            border-color: #f59e0b;
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
+        }
+
+        /* ☑️ Scope Steps: Emerald Green */
+        .mode-tab-btn.tab-steps {
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #6ee7b7;
+            background: rgba(16, 185, 129, 0.12);
+        }
+        .mode-tab-btn.tab-steps:hover, .mode-tab-btn.tab-steps.active {
+            background: #059669;
+            color: #ffffff;
+            border-color: #10b981;
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+        }
+
+        /* 📦 Materials & Tools: Golden Yellow */
+        .mode-tab-btn.tab-materials {
+            border-color: rgba(251, 191, 36, 0.4);
+            color: #fde68a;
+            background: rgba(251, 191, 36, 0.12);
+        }
+        .mode-tab-btn.tab-materials:hover, .mode-tab-btn.tab-materials.active {
+            background: #ca8a04;
+            color: #ffffff;
+            border-color: #fbbf24;
+            box-shadow: 0 0 16px rgba(251, 191, 36, 0.5);
+        }
+
+        /* 📷 Field Photo & Visuals: Purple / Lavender */
+        .mode-tab-btn.tab-photo {
+            border-color: rgba(192, 132, 252, 0.4);
+            color: #e9d5ff;
+            background: rgba(192, 132, 252, 0.12);
+        }
+        .mode-tab-btn.tab-photo:hover, .mode-tab-btn.tab-photo.active {
+            background: #9333ea;
+            color: #ffffff;
+            border-color: #c084fc;
+            box-shadow: 0 0 16px rgba(192, 132, 252, 0.5);
+        }
+
+        /* 📖 Engineering Literature: Cobalt Blue */
+        .mode-tab-btn.tab-literature {
+            border-color: rgba(96, 165, 250, 0.4);
+            color: #93c5fd;
+            background: rgba(96, 165, 250, 0.12);
+        }
+        .mode-tab-btn.tab-literature:hover, .mode-tab-btn.tab-literature.active {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #60a5fa;
+            box-shadow: 0 0 16px rgba(96, 165, 250, 0.5);
+        }
+
+        /* ✨ Freeform Quick-Paste Parser: Sparkle Violet */
+        .mode-tab-btn.tab-freeform {
+            border-color: rgba(167, 139, 250, 0.4);
+            color: #ddd6fe;
+            background: rgba(167, 139, 250, 0.12);
+        }
+        .mode-tab-btn.tab-freeform:hover, .mode-tab-btn.tab-freeform.active {
+            background: #7c3aed;
+            color: #ffffff;
+            border-color: #a78bfa;
+            box-shadow: 0 0 16px rgba(167, 139, 250, 0.5);
+        }
+
+        /* Smooth scroll-margin and highlight animation */
+        .form-section-card,
+        .freeform-dump-card,
+        #sec-room,
+        #sec-task,
+        #sec-steps,
+        #sec-materials,
+        #sec-media,
+        #sec-literature,
+        #sec-routing {
+            scroll-margin-top: 155px;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .section-card-highlight {
+            animation: sectionPulseGlow 1.8s ease-out;
+        }
+
+        @keyframes sectionPulseGlow {
+            0% {
+                box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.8), 0 0 35px rgba(139, 92, 246, 0.6);
+                border-color: #a78bfa !important;
+                transform: translateY(-3px);
+            }
+            50% {
+                box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.3);
+            }
+            100% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+                transform: translateY(0);
+            }
+        }
+
+        /* Freeform Dump Drawer */
+        .freeform-dump-card {
+            background: #141b2d;
+            border: 1px dashed rgba(139, 92, 246, 0.5);
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 24px;
+        }
+
+        .freeform-dump-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.05rem;
+            color: #c084fc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .freeform-textarea {
+            width: 100%;
+            height: 120px;
+            background: #090d16;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 10px;
+            color: #f8fafc;
+            padding: 12px 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        .freeform-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        /* Single-Column Linear Stacked Layout (1 below the other) */
+        .rapid-columns-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .rapid-column-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .form-section-card {
+            background: var(--rapid-surface);
+            border: 1px solid var(--rapid-border);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .form-section-card.full-span {
+            grid-column: 1 / -1;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+            margin-bottom: 4px;
+        }
+
+        .section-header h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+        }
+
+        .section-header small {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field-group label {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .field-group label small {
+            font-weight: 400;
+            color: #94a3b8;
+            font-size: 0.82rem;
+        }
+
+        .rapid-input, .rapid-select, .rapid-textarea {
+            background: #090d16;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            color: #f8fafc;
+            padding: 12px 14px;
+            font-size: 0.98rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .rapid-input:focus, .rapid-select:focus, .rapid-textarea:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.28);
+        }
+
+        .rapid-textarea {
+            resize: vertical;
+            min-height: 110px;
+            line-height: 1.5;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .fields-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .fields-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Priority Button Radio Pills */
+        .priority-pills-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        @media (max-width: 650px) {
+            .priority-pills-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .p-pill-btn {
+            background: #090d16;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #94a3b8;
+            padding: 10px 6px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .p-pill-btn span {
+            font-size: 0.95rem;
+            font-weight: 800;
+        }
+
+        .p-pill-btn:hover {
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #fff;
+        }
+
+        .p-pill-btn.active-p1 { background: rgba(239, 68, 68, 0.25); border-color: var(--p1-col); color: #f87171; }
+        .p-pill-btn.active-p2 { background: rgba(245, 158, 11, 0.25); border-color: var(--p2-col); color: #fbbf24; }
+        .p-pill-btn.active-p3 { background: rgba(56, 189, 248, 0.25); border-color: var(--p3-col); color: #38bdf8; }
+        .p-pill-btn.active-p4 { background: rgba(192, 132, 252, 0.25); border-color: var(--p4-col); color: #c084fc; }
+        .p-pill-btn.active-p5 { background: rgba(16, 185, 129, 0.25); border-color: var(--p5-col); color: #34d399; }
+
+        /* Tools Chips */
+        .tools-chip-tray {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .tool-chip {
+            background: #090d16;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.15s;
+        }
+
+        .tool-chip:hover {
+            border-color: #38bdf8;
+            color: #f8fafc;
+        }
+
+        .tool-chip.selected {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+            color: #38bdf8;
+            font-weight: 700;
+        }
+
+        /* Prominent Photo Upload Button & Card */
+        .btn-upload-prominent {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(56, 189, 248, 0.2));
+            border: 1.5px solid #8b5cf6;
+            color: #f8fafc;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
+        }
+
+        .btn-upload-prominent:hover {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.45), rgba(56, 189, 248, 0.35));
+            border-color: #a78bfa;
+            box-shadow: 0 6px 24px rgba(139, 92, 246, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .photo-preview-card {
+            margin-top: 14px;
+            background: #090d16;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .photo-preview-thumb {
+            width: 120px;
+            height: 90px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            flex-shrink: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-preview-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Routing Toggles Section */
+        .routing-toggles-box {
+            background: #090d16;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            cursor: pointer;
+        }
+
+        .toggle-row input[type="checkbox"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #8b5cf6;
+        }
+
+        /* Big Glow Dispatch Action */
+        .dispatch-bar {
+            margin-top: 30px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: flex-end;
+            position: sticky;
+            bottom: 20px;
+            z-index: 90;
+            background: rgba(11, 15, 25, 0.96);
+            backdrop-filter: blur(14px);
+            padding: 18px 26px;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.45);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn-dispatch-main {
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            border: none;
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            box-shadow: 0 0 28px rgba(139, 92, 246, 0.55);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-dispatch-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 38px rgba(139, 92, 246, 0.75);
+        }
+
+        .btn-clear-form {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #94a3b8;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-clear-form:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        /* Success Receipt Card */
+        .dispatch-receipt-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 24px;
+        }
+
+        .dispatch-receipt-modal.active {
+            display: flex;
+        }
+
+        .receipt-card {
+            background: #1e293b;
+            border: 2px solid #10b981;
+            border-radius: 18px;
+            max-width: 660px;
+            width: 100%;
+            padding: 32px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .receipt-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 16px;
+        }
+
+        .receipt-header h2 {
+            margin: 0;
+            font-size: 1.35rem;
+            color: #34d399;
+        }
+
+        .receipt-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.92rem;
+            background: #0f172a;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .receipt-item {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            color: #f1f5f9;
+        }
+
+        .receipt-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body class="rapid-input-body">
+
+    <!-- HEADER -->
+    <header class="rapid-header">
+        <div class="rapid-header-inner">
+            <a href="index.html" class="rapid-brand">
+                <span class="rapid-brand-icon">⚡</span>
+                <div>
+                    <h1>JACK'S FIXER UPER</h1>
+                    <span>Rapid Intake & Quick Dispatch Center</span>
+                </div>
+            </a>
+            <div class="rapid-nav-actions">
+                <button type="button" class="btn-rapid-nav" id="btn-rapid-theme-toggle" onclick="RapidApp.toggleTheme()" style="background:rgba(217, 119, 6, 0.2); border-color:#d97706; color:#fbbf24; cursor:pointer;">🕰️ Steampunk Theme</button>
+                <a href="index.html" class="btn-rapid-nav">🏠 Manor App</a>
+                <a href="dream.html" class="btn-rapid-nav">🌟 Building the Dream</a>
+                <a href="community.html" class="btn-rapid-nav" style="border-color:#f59e0b; color:#fbbf24;">🪵 Community Tips</a>
+                <a href="index.html?tab=blueprint" class="btn-rapid-nav">📐 Blueprint</a>
+                <a href="index.html?tab=renovations" class="btn-rapid-nav btn-highlight">🛠️ Renovations</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="rapid-container">
+
+        <!-- MINDSET BANNER & QUICK STATS -->
+        <div class="rapid-mindset-banner">
+            <div class="mindset-text">
+                <h2>⚡ Fast Job-Site Intake Center</h2>
+                <p>Designed for a busy state of mind. Type or paste your info below and hit Dispatch—it automatically sorts every detail into Manor Blueprint, Renovations, Checklists, Materials, and Journals!</p>
+            </div>
+            <div class="mindset-stats">
+                <div class="stat-item">
+                    <span id="stat-rooms-count">10</span>
+                    <small>Blueprint Rooms</small>
+                </div>
+                <div class="stat-item">
+                    <span id="stat-tasks-count">69</span>
+                    <small>Active Tasks</small>
+                </div>
+                <div class="stat-item">
+                    <span id="stat-budget-disp" style="color:#10b981;">$8,500</span>
+                    <small>Cash Balance</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLOR-CODED QUICK SECTION JUMP TRAY -->
+        <div class="mode-tabs-tray">
+            <button type="button" class="mode-tab-btn tab-all active" onclick="RapidApp.jumpToSection('rapid-intake-form', this)" title="Jump to top of intake form">🚀 Full Intake (Top)</button>
+            <button type="button" class="mode-tab-btn tab-room" onclick="RapidApp.jumpToSection('sec-room', this)" title="Jump to Blueprint Room selection">📍 1. Blueprint Room</button>
+            <button type="button" class="mode-tab-btn tab-task" onclick="RapidApp.jumpToSection('sec-task', this)" title="Jump to Project Task and Priority">🛠️ 2. Project Task</button>
+            <button type="button" class="mode-tab-btn tab-steps" onclick="RapidApp.jumpToSection('sec-steps', this)" title="Jump to Scope Steps checklist">☑️ 3. Scope Steps</button>
+            <button type="button" class="mode-tab-btn tab-materials" onclick="RapidApp.jumpToSection('sec-materials', this)" title="Jump to Materials &amp; Tools">📦 4. Materials &amp; Tools</button>
+            <button type="button" class="mode-tab-btn tab-photo" onclick="RapidApp.jumpToSection('sec-media', this)" title="Jump to Field Photo and Video evidence">📷 5. Field Photo &amp; Notes</button>
+            <button type="button" class="mode-tab-btn tab-literature" onclick="RapidApp.jumpToSection('sec-literature', this)" title="Jump to Engineering Literature and Specs">📖 6. Literature &amp; Specs</button>
+            <button type="button" class="mode-tab-btn tab-freeform" onclick="RapidApp.jumpToSection('freeform-drawer', this)" title="Open Freeform Quick-Paste Parser">✨ Freeform Quick-Paste Parser</button>
+        </div>
+
+        <!-- FREEFORM QUICK-PASTE DRAWER (COLLAPSIBLE) -->
+        <div class="freeform-dump-card" id="freeform-drawer" style="display:none;">
+            <h3>✨ Paste Raw Job-Site Notes to Auto-Populate Fields</h3>
+            <textarea id="freeform-raw-text" class="freeform-textarea" placeholder="Paste notes with keywords like:
+Room: Kitchen
+Task: Install Cast Iron Farmhouse Sink
+Priority: 2
+Steps:
+- Turn off main shutoff valve
+- Solder 1/2 inch PEX adapters
+- Mount heavy duty oak support frame
+Materials:
+- Kohler Cast Iron Sink | 1 | $420 | Delivered
+- 1/2 PEX-A Pipe 50ft | 1 | $45 | Needed
+Tools: Basin wrench, PEX expander, level
+Notes: Passed 65 PSI pressure check. No leaks.
+Feed: Completed kitchen sink plumbing rough-in."></textarea>
+            <div class="freeform-actions">
+                <button class="btn-rapid-nav btn-highlight" onclick="RapidApp.parseFreeformText()">
+                    ⚡ Auto-Populate Form From Notes
+                </button>
+            </div>
+        </div>
+
+        <!-- MAIN RAPID FORM -->
+        <form id="rapid-intake-form" onsubmit="event.preventDefault(); RapidApp.dispatch();">
+            
+            <!-- TOP WORKFLOW: 1 & 2 STACKED ON LEFT, 3 & 4 STACKED ON RIGHT -->
+            <div class="rapid-columns-grid">
+
+                <!-- LEFT COLUMN: BLUEPRINT LOCATION & PROJECT TASK (1 & 2) -->
+                <div class="rapid-column-stack" id="col-left-setup">
+                    
+                    <!-- SECTION 1: MANOR BLUEPRINT LOCATION -->
+                    <div class="form-section-card" id="sec-room">
+                        <div class="section-header">
+                            <h3 style="color:#38bdf8;">📍 1. Manor Blueprint Placement</h3>
+                            <small>Room or Section</small>
+                        </div>
+
+                        <div class="field-group">
+                            <label>
+                                <span>Target Section / Room</span>
+                                <small id="room-mode-label">Existing Room</small>
+                            </label>
+                            <div style="display:flex; gap:10px;">
+                                <select id="input-room-select" class="rapid-select" style="flex:1;" onchange="RapidApp.onRoomChanged()">
+                                    <!-- Dynamically populated -->
+                                </select>
+                                <button type="button" class="btn-rapid-nav" id="btn-toggle-new-room" onclick="RapidApp.toggleNewRoom()" style="padding:10px 16px; font-size:0.9rem;">
+                                    ➕ New Room
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- New Room Fields (Hidden by default) -->
+                        <div id="new-room-fields-box" style="display:none; background:#090d16; padding:16px; border-radius:10px; border:1px solid rgba(139, 92, 246, 0.4); gap:12px; flex-direction:column;">
+                            <div class="field-group">
+                                <label>New Section Name</label>
+                                <input type="text" id="input-new-room-name" class="rapid-input" placeholder="e.g. Victorian Sunroom Observatory">
+                            </div>
+                            <div class="fields-row-3">
+                                <div class="field-group">
+                                    <label>Blueprint Floor Level</label>
+                                    <select id="input-new-room-level" class="rapid-select">
+                                        <option value="level_0">Level 0: Basement & Bedrock</option>
+                                        <option value="level_1" selected>Level 1: Main Floor</option>
+                                        <option value="level_2">Level 2: Second Floor</option>
+                                        <option value="level_3">Level 3: Attic & Tower</option>
+                                        <option value="grounds">Grounds & Carriage Yard</option>
+                                    </select>
+                                </div>
+                                <div class="field-group">
+                                    <label>Icon</label>
+                                    <select id="input-new-room-icon" class="rapid-select">
+                                        <option value="🔭">🔭 Telescope</option>
+                                        <option value="🔨" selected>🔨 Hammer</option>
+                                        <option value="🪚">🪚 Saw</option>
+                                        <option value="🛁">🛁 Bath</option>
+                                        <option value="🍳">🍳 Kitchen</option>
+                                        <option value="🧱">🧱 Masonry</option>
+                                        <option value="🌿">🌿 Conservatory</option>
+                                        <option value="🏰">🏰 Tower</option>
+                                        <option value="🍷">🍷 Cellar</option>
+                                        <option value="⚡">⚡ Power</option>
+                                    </select>
+                                </div>
+                                <div class="field-group">
+                                    <label>Area Category</label>
+                                    <input type="text" id="input-new-room-area" class="rapid-input" value="Main Floor">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: RENOVATION TASK & PRIORITY (Directly Underneath 1) -->
+                    <div class="form-section-card" id="sec-task">
+                        <div class="section-header">
+                            <h3 style="color:#f59e0b;">🛠️ 2. Project Task & Urgency</h3>
+                            <small>Renovations & Dream Portal</small>
+                        </div>
+
+                        <div class="field-group">
+                            <label>
+                                <span>Task / Project</span>
+                                <small id="task-mode-label">Select or create</small>
+                            </label>
+                            <div style="display:flex; gap:10px;">
+                                <select id="input-task-select" class="rapid-select" style="flex:1;" onchange="RapidApp.onTaskChanged()">
+                                    <option value="">-- Choose Existing Task in Room --</option>
+                                </select>
+                                <button type="button" class="btn-rapid-nav btn-highlight" id="btn-toggle-new-task" onclick="RapidApp.toggleNewTask()" style="padding:10px 16px; font-size:0.9rem;">
+                                    ➕ New Task
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="field-group" id="group-task-name">
+                            <label>Task Title</label>
+                            <input type="text" id="input-task-name" class="rapid-input" placeholder="e.g. Sister Center Carrier Beam with 1/2 Flitch Plate">
+                        </div>
+
+                        <div class="field-group">
+                            <label>Priority Tier (Building the Dream Ranking)</label>
+                            <div class="priority-pills-row">
+                                <div class="p-pill-btn active-p1" id="pill-p1" onclick="RapidApp.setPriority(1)">
+                                    <span>🚨 P1</span>
+                                    <small>Critical</small>
+                                </div>
+                                <div class="p-pill-btn" id="pill-p2" onclick="RapidApp.setPriority(2)">
+                                    <span>⚡ P2</span>
+                                    <small>Systems</small>
+                                </div>
+                                <div class="p-pill-btn" id="pill-p3" onclick="RapidApp.setPriority(3)">
+                                    <span>🪵 P3</span>
+                                    <small>Enclosure</small>
+                                </div>
+                                <div class="p-pill-btn" id="pill-p4" onclick="RapidApp.setPriority(4)">
+                                    <span>🎨 P4</span>
+                                    <small>Finishes</small>
+                                </div>
+                                <div class="p-pill-btn" id="pill-p5" onclick="RapidApp.setPriority(5)">
+                                    <span>✨ P5</span>
+                                    <small>Amenities</small>
+                                </div>
+                            </div>
+                            <input type="hidden" id="input-task-priority" value="1">
+                        </div>
+
+                        <div class="fields-row-2">
+                            <div class="field-group">
+                                <label>Estimated DIY Cost ($)</label>
+                                <input type="number" id="input-task-cost" class="rapid-input" placeholder="350">
+                            </div>
+                            <div class="field-group">
+                                <label>Status</label>
+                                <select id="input-task-status" class="rapid-select">
+                                    <option value="available">🚧 In Progress / Planned</option>
+                                    <option value="completed">✅ Certified Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: SCOPE OF WORK & MATERIALS/TOOLS (3 & 4) -->
+                <div class="rapid-column-stack" id="col-right-execution">
+
+                    <!-- SECTION 3: CHECKLIST STEPS (SCOPE OF WORK) -->
+                    <div class="form-section-card" id="sec-steps">
+                        <div class="section-header">
+                            <h3 style="color:#10b981;">☑️ 3. Scope of Work & Checklist Steps</h3>
+                            <small id="steps-counter-disp">0 steps</small>
+                        </div>
+                        <div class="field-group">
+                            <label>
+                                <span>Actionable Steps (One line per step)</span>
+                                <small>Numbers/bullets are cleaned automatically</small>
+                            </label>
+                            <textarea id="input-checklist-steps" class="rapid-textarea" style="height:150px;" placeholder="1. Support joists with hydraulic bottle jacks
+2. Prep steel flitch plate with anti-rust primer
+3. Drill 5/8-inch holes every 16 inches on center
+4. Torque through-bolts to 110 ft-lbs" oninput="RapidApp.updateStepsCount()"></textarea>
+                        </div>
+                        <label style="font-size:0.85rem; color:#94a3b8; display:flex; align-items:center; gap:8px;">
+                            <input type="checkbox" id="chk-append-steps" checked style="width:18px; height:18px; accent-color:#8b5cf6;"> Append to existing task checklist (if task already exists)
+                        </label>
+                    </div>
+
+                    <!-- SECTION 4: MATERIALS & SPECIALIZED TOOLS (Directly Underneath 3) -->
+                    <div class="form-section-card" id="sec-materials">
+                        <div class="section-header">
+                            <h3 style="color:#fbbf24;">📦 4. Materials & Specialized Tools</h3>
+                            <small>Inventory & Requirements</small>
+                        </div>
+
+                        <div class="field-group">
+                            <label>
+                                <span>Materials Needed (One per line)</span>
+                                <small>Format: Name | Qty | Cost | Status</small>
+                            </label>
+                            <textarea id="input-materials-text" class="rapid-textarea" style="height:110px;" placeholder="1/2-in A36 Steel Flitch Plate 16ft | 1 | $240 | Delivered
+1/2x6 Grade 8 Hex Through-Bolts | 24 | $38 | Needed
+Structural Washers & Locking Nuts | 24 | $15 | Needed"></textarea>
+                        </div>
+
+                        <div class="field-group">
+                            <label>
+                                <span>Quick Tool Tag Selection</span>
+                                <small>Click to toggle</small>
+                            </label>
+                            <div class="tools-chip-tray" id="tools-chip-tray">
+                                <!-- Populated with common carpentry & restoration tools -->
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label>Additional Specific Tools</label>
+                            <input type="text" id="input-custom-tools" class="rapid-input" placeholder="e.g. 1/2-in magnetic drill press, torque wrench">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- LOWER GRID: VISUAL EVIDENCE & LITERATURE (5 & 6) -->
+            <div class="rapid-columns-grid" id="row-media-literature" style="margin-top:24px;">
+
+                <!-- SECTION 5: FIELD PHOTO JOURNAL & VIDEO -->
+                <div class="form-section-card" id="sec-media">
+                    <div class="section-header">
+                        <h3 style="color:#c084fc;">📷 5. Job-Site Visual Evidence</h3>
+                        <small>Photo & Video Journals</small>
+                    </div>
+
+                    <div class="fields-row-2">
+                        <div class="field-group">
+                            <label>Photo Title</label>
+                            <input type="text" id="input-photo-title" class="rapid-input" placeholder="e.g. Center Carrier Flitch Plate Installed">
+                        </div>
+                        <div class="field-group">
+                            <label>Visual Phase</label>
+                            <select id="input-photo-phase" class="rapid-select">
+                                <option value="before">Before Restoration</option>
+                                <option value="during" selected>During / In-Progress</option>
+                                <option value="after">Finished / Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- PROMINENT PHOTO UPLOAD BUTTON & LIVE PREVIEW -->
+                    <div class="field-group">
+                        <label>Field Photo Upload or Image URL</label>
+                        <div class="photo-upload-zone" id="photo-upload-zone">
+                            <input type="file" id="input-photo-file" accept="image/*" capture="environment" style="display:none;" onchange="RapidApp.handleFileSelect(this)">
+                            <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                                <button type="button" class="btn-upload-prominent" onclick="document.getElementById('input-photo-file').click()">
+                                    <span style="font-size:1.4rem;">📷</span>
+                                    <div style="text-align:left;">
+                                        <div style="font-weight:800; font-size:1rem;">Upload Photo from Device / Camera</div>
+                                        <div style="font-size:0.75rem; color:#cbd5e1; font-weight:normal;">Tap to capture from camera or choose photo file</div>
+                                    </div>
+                                </button>
+                                <button type="button" class="btn-rapid-nav" onclick="RapidApp.toggleUrlInput()" style="font-size:0.85rem; padding:12px 16px;">
+                                    🔗 Or Enter Web URL
+                                </button>
+                            </div>
+
+                            <!-- Live Photo Preview Card -->
+                            <div id="photo-preview-container" class="photo-preview-card" style="display:none;">
+                                <div class="photo-preview-thumb">
+                                    <img id="photo-preview-img" src="" alt="Job-site photo preview">
+                                </div>
+                                <div style="flex:1; min-width:0;">
+                                    <div id="photo-preview-filename" style="font-weight:700; font-size:0.95rem; color:#38bdf8; word-break:break-all;">Photo Loaded</div>
+                                    <div id="photo-preview-filesize" style="font-size:0.82rem; color:#94a3b8; margin-top:2px;">Ready for archiving in Photo Journal</div>
+                                </div>
+                                <div style="display:flex; gap:8px;">
+                                    <button type="button" class="btn-rapid-nav" onclick="document.getElementById('input-photo-file').click()" title="Change photo">
+                                        🔄 Change
+                                    </button>
+                                    <button type="button" class="btn-rapid-nav" onclick="RapidApp.removePhoto()" style="color:#ef4444; border-color:rgba(239,68,68,0.4);" title="Remove photo">
+                                        🗑️ Remove
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Collapsible URL Input Field -->
+                            <div id="photo-url-input-box" style="margin-top:10px; display:none;">
+                                <div style="display:flex; gap:8px;">
+                                    <input type="text" id="input-photo-url" class="rapid-input" style="flex:1;" placeholder="https://example.com/site-photo.jpg or data:image/..." oninput="RapidApp.onPhotoUrlInput(this.value)">
+                                    <button type="button" class="btn-rapid-nav" onclick="RapidApp.loadPhotoFromUrl()">Preview</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Photo Caption / Field Notes</label>
+                        <input type="text" id="input-photo-caption" class="rapid-input" placeholder="Bolts torqued, laser level confirmed zero sag">
+                    </div>
+
+                    <div class="fields-row-2" style="margin-top:4px;">
+                        <div class="field-group">
+                            <label>Video Walkthrough Title (Optional)</label>
+                            <input type="text" id="input-video-title" class="rapid-input" placeholder="e.g. Episode 4: Lifting The Center Beam">
+                        </div>
+                        <div class="field-group">
+                            <label>Video URL (YouTube/Vimeo)</label>
+                            <input type="url" id="input-video-url" class="rapid-input" placeholder="https://youtu.be/...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 6: ENGINEERING LITERATURE & NOTES -->
+                <div class="form-section-card" id="sec-literature">
+                    <div class="section-header">
+                        <h3 style="color:#38bdf8;">📖 6. Engineering Literature & Specs</h3>
+                        <small>Contractor Logs & Permits</small>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Engineering Document Title</label>
+                        <input type="text" id="input-prog-title" class="rapid-input" placeholder="e.g. Dead-Load Shear Calculations & Flitch Sizing">
+                    </div>
+
+                    <div class="field-group">
+                        <label>Engineering Specifications & Field Report</label>
+                        <textarea id="input-literature-text" class="rapid-textarea" style="height:140px;" placeholder="Beam Span: 18 feet between concrete piers.
+Original Wood: 8x10 old-growth white oak.
+Calculated Center Dead Load: 14,500 lbs.
+Flitch Specification: 1/2-inch ASTM A36 plate sandwiched between sistered 2x10 Douglas Fir joists.
+Safety Factor: 3.2x exceeds residential code requirement."></textarea>
+                    </div>
+
+                    <label style="font-size:0.85rem; color:#34d399; display:flex; align-items:center; gap:8px;">
+                        <input type="checkbox" id="chk-passed-inspection" style="width:18px; height:18px; accent-color:#10b981;"> Mark as Municipal Building Inspection Certified / Passed
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- SECTION 7: AUTO-DISTRIBUTION TOGGLES -->
+            <div class="form-section-card full-span" id="sec-routing" style="margin-top:24px;">
+                <div class="section-header">
+                    <h3 style="color:#a78bfa;">📣 7. Automatic Dispatch & Routing Options</h3>
+                    <small>Check where this data should be distributed</small>
+                </div>
+
+                <div class="routing-toggles-box">
+                    <label class="toggle-row">
+                        <input type="checkbox" id="chk-post-feed" checked>
+                        <span><strong>Post real-time update to Live Site Activity Feed</strong> with automatic timestamp</span>
+                    </label>
+                    <div id="feed-msg-row" style="margin-left:30px;">
+                        <input type="text" id="input-feed-msg" class="rapid-input" style="font-size:0.9rem; padding:8px 12px;" placeholder="Optional custom note for activity feed (leaves empty for automatic format)">
+                    </div>
+
+                    <label class="toggle-row">
+                        <input type="checkbox" id="chk-sync-dream" checked>
+                        <span><strong>Sync to &quot;Building the Dream&quot; Supporter Portal</strong> with milestone sponsorship goal:</span>
+                        <span style="display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono';">
+                            $<input type="number" id="input-donation-goal" class="rapid-input" style="width:110px; padding:6px 10px; font-size:0.9rem;" value="500">
+                        </span>
+                    </label>
+
+                    <label class="toggle-row">
+                        <input type="checkbox" id="chk-log-expense">
+                        <span><strong>Record in Financial Expense Ledger</strong> (deducts DIY material cost from cash balance)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- DISPATCH BUTTON STRIP -->
+            <div class="dispatch-bar">
+                <button type="button" class="btn-clear-form" onclick="RapidApp.resetForm()">
+                    🧹 Clear Form
+                </button>
+                <button type="submit" class="btn-dispatch-main">
+                    <span>🚀 DISPATCH TO BLUEPRINT & RENOVATIONS</span>
+                    <span style="font-size:0.8rem; background:rgba(0,0,0,0.25); padding:4px 10px; border-radius:6px;">Ctrl + Enter</span>
+                </button>
+            </div>
+        </form>
+
+    </main>
+
+    <!-- SUCCESS RECEIPT MODAL -->
+    <div class="dispatch-receipt-modal" id="dispatch-receipt-modal">
+        <div class="receipt-card">
+            <div class="receipt-header">
+                <span style="font-size:2rem;">🎉</span>
+                <div>
+                    <h2>Dispatched Successfully!</h2>
+                    <small style="color:#94a3b8;">All project specifications have been atomically routed across your house system.</small>
+                </div>
+            </div>
+
+            <div class="receipt-list" id="receipt-summary-list">
+                <!-- Dynamically filled with receipt items -->
+            </div>
+
+            <div class="receipt-actions">
+                <button class="btn-rapid-nav btn-highlight" onclick="RapidApp.openCreatedProjectPage()" id="btn-receipt-open-proj">
+                    📋 Open Dedicated Project Page ↗
+                </button>
+                <a href="index.html?tab=renovations" class="btn-rapid-nav">
+                    🛠️ View in Renovations
+                </a>
+                <a href="index.html?tab=blueprint" class="btn-rapid-nav">
+                    📐 View in Manor Blueprint
+                </a>
+                <a href="dream.html" class="btn-rapid-nav">
+                    🌟 View on Dream Portal
+                </a>
+                <button class="btn-rapid-nav" onclick="RapidApp.closeReceiptAndNew()" style="background:#10b981; color:#fff; border-color:#34d399;">
+                    ➕ Next Intake (Keep Room)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/audio.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/game.js"></script>
+    <script>
+        // RAPID INTAKE APP CONTROLLER
+        const RapidApp = {
+            currentMode: 'all',
+            currentTheme: 'blueprint',
+            isNewRoomMode: false,
+            isNewTaskMode: false,
+            selectedPriority: 1,
+            selectedTools: new Set(),
+            lastDispatchedTaskId: null,
+
+            commonTools: [
+                "🔨 Hammer", "📏 Level", "🪚 Circular Saw", "⚡ Impact Driver",
+                "🧰 Multimeter", "🔧 Pipe Wrench", "🪜 Step Ladder", "🪛 Screwdrivers",
+                "🧼 Wire Strippers", "🥽 Safety Glasses", "📐 Framing Square",
+                "🔩 Socket Wrench", "🗜️ Bar Clamps", "🪣 Mud Pan & Trowel"
+            ],
+
+            init() {
+                // Initialize theme from localStorage
+                let savedTheme = 'blueprint';
+                try { savedTheme = localStorage.getItem('jack_theme') || 'blueprint'; } catch (e) {}
+                this.setTheme(savedTheme, false);
+
+                const g = window.Game;
+                this.renderRoomsDropdown();
+                this.renderToolsChips();
+                this.updateHeaderStats();
+
+                // Select first room by default
+                const rooms = Object.keys(g.getRooms());
+                if (rooms.length > 0) {
+                    document.getElementById('input-room-select').value = rooms[0];
+                    this.onRoomChanged();
+                }
+
+                // Keyboard shortcuts (Ctrl+Enter to dispatch)
+                window.addEventListener('keydown', (e) => {
+                    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                        e.preventDefault();
+                        this.dispatch();
+                    }
+                });
+            },
+
+            setTheme(themeName, playSound = false) {
+                this.currentTheme = themeName;
+                try { localStorage.setItem('jack_theme', themeName); } catch (e) {}
+                if (themeName === 'steampunk') {
+                    document.body.classList.add('theme-steampunk');
+                    document.documentElement.setAttribute('data-theme', 'steampunk');
+                    if (playSound && window.Sound && window.Sound.playSteamHiss) window.Sound.playSteamHiss();
+                } else {
+                    document.body.classList.remove('theme-steampunk');
+                    document.documentElement.removeAttribute('data-theme');
+                    if (playSound && window.Sound && window.Sound.playGearClick) window.Sound.playGearClick();
+                }
+                const btn = document.getElementById('btn-rapid-theme-toggle');
+                if (btn) {
+                    btn.innerHTML = themeName === 'steampunk' ? '📐 Blueprint Theme' : '🕰️ Steampunk Theme';
+                }
+            },
+
+            toggleTheme() {
+                const nextTheme = this.currentTheme === 'steampunk' ? 'blueprint' : 'steampunk';
+                this.setTheme(nextTheme, true);
+            },
+
+            updateHeaderStats() {
+                const g = window.Game;
+                const rooms = Object.keys(g.getRooms()).length;
+                const tasks = g.getAllTasksList().length;
+                const money = g.currentMoney || 0;
+
+                const rEl = document.getElementById('stat-rooms-count');
+                const tEl = document.getElementById('stat-tasks-count');
+                const bEl = document.getElementById('stat-budget-disp');
+
+                if (rEl) rEl.textContent = rooms;
+                if (tEl) tEl.textContent = tasks;
+                if (bEl) bEl.textContent = '$' + money.toLocaleString();
+            },
+
+            renderRoomsDropdown() {
+                const g = window.Game;
+                const rooms = g.getRooms();
+                const sel = document.getElementById('input-room-select');
+                if (!sel) return;
+
+                sel.innerHTML = Object.keys(rooms).map(key => {
+                    const r = rooms[key];
+                    return `<option value="${key}">${r.icon || '📍'} ${r.name} (${r.area || 'Main'})</option>`;
+                }).join('');
+            },
+
+            renderToolsChips() {
+                const tray = document.getElementById('tools-chip-tray');
+                if (!tray) return;
+
+                tray.innerHTML = this.commonTools.map(tool => {
+                    return `<span class="tool-chip" onclick="RapidApp.toggleToolChip('${tool}', this)">${tool}</span>`;
+                }).join('');
+            },
+
+            toggleToolChip(toolName, el) {
+                if (this.selectedTools.has(toolName)) {
+                    this.selectedTools.delete(toolName);
+                    el.classList.remove('selected');
+                } else {
+                    this.selectedTools.add(toolName);
+                    el.classList.add('selected');
+                }
+            },
+
+            onRoomChanged() {
+                const g = window.Game;
+                const roomKey = document.getElementById('input-room-select').value;
+                const taskSel = document.getElementById('input-task-select');
+                if (!taskSel) return;
+
+                const allTasks = g.getAllTasksList().filter(t => t.room === roomKey);
+                taskSel.innerHTML = `
+                    <option value="">-- Choose Existing Task in Room (${allTasks.length}) --</option>
+                    ${allTasks.map(t => `<option value="${t.id}">${t.name} (P${t.priority || 3})</option>`).join('')}
+                `;
+
+                if (allTasks.length > 0) {
+                    this.setTaskMode(false);
+                } else {
+                    this.setTaskMode(true);
+                }
+            },
+
+            onTaskChanged() {
+                const taskId = document.getElementById('input-task-select').value;
+                if (taskId) {
+                    const g = window.Game;
+                    const task = g.getTask(taskId);
+                    if (task) {
+                        document.getElementById('input-task-name').value = task.name;
+                        document.getElementById('input-task-cost').value = task.diyCost || '';
+                        this.setPriority(g.getTaskPriority(taskId));
+
+                        // Preload checklist
+                        const chk = g.getTaskChecklist(taskId);
+                        if (chk.length > 0) {
+                            document.getElementById('input-checklist-steps').value = chk.map(c => c.text).join('\n');
+                            this.updateStepsCount();
+                        }
+                    }
+                    this.setTaskMode(false);
+                }
+            },
+
+            toggleNewRoom() {
+                this.isNewRoomMode = !this.isNewRoomMode;
+                const box = document.getElementById('new-room-fields-box');
+                const sel = document.getElementById('input-room-select');
+                const btn = document.getElementById('btn-toggle-new-room');
+                const label = document.getElementById('room-mode-label');
+
+                if (this.isNewRoomMode) {
+                    box.style.display = 'flex';
+                    sel.disabled = true;
+                    btn.classList.add('btn-highlight');
+                    btn.textContent = '✖ Cancel';
+                    label.textContent = 'Creating New Room';
+                    document.getElementById('input-new-room-name').focus();
+                    this.setTaskMode(true);
+                } else {
+                    box.style.display = 'none';
+                    sel.disabled = false;
+                    btn.classList.remove('btn-highlight');
+                    btn.textContent = '➕ New Room';
+                    label.textContent = 'Existing Room';
+                }
+            },
+
+            toggleNewTask() {
+                this.setTaskMode(!this.isNewTaskMode);
+            },
+
+            setTaskMode(isNew) {
+                this.isNewTaskMode = isNew;
+                const taskSel = document.getElementById('input-task-select');
+                const btn = document.getElementById('btn-toggle-new-task');
+                const label = document.getElementById('task-mode-label');
+
+                if (this.isNewTaskMode) {
+                    taskSel.value = "";
+                    taskSel.disabled = true;
+                    btn.textContent = '✖ Pick Existing';
+                    label.textContent = 'Creating New Project';
+                    document.getElementById('input-task-name').placeholder = "e.g. Install Historic 4-Blade Wooden Ceiling Fan";
+                } else {
+                    taskSel.disabled = false;
+                    btn.textContent = '➕ New Task';
+                    label.textContent = 'Selected Existing Task';
+                }
+            },
+
+            setPriority(p) {
+                this.selectedPriority = p;
+                document.getElementById('input-task-priority').value = p;
+                for (let i = 1; i <= 5; i++) {
+                    const el = document.getElementById('pill-p' + i);
+                    if (el) {
+                        el.className = 'p-pill-btn' + (i === p ? ` active-p${i}` : '');
+                    }
+                }
+            },
+
+            updateStepsCount() {
+                const val = document.getElementById('input-checklist-steps').value;
+                const count = val.split('\n').map(x => x.trim()).filter(Boolean).length;
+                const disp = document.getElementById('steps-counter-disp');
+                if (disp) disp.textContent = `${count} ${count === 1 ? 'step' : 'steps'}`;
+            },
+
+            toggleFreeform() {
+                const drawer = document.getElementById('freeform-drawer');
+                if (drawer) {
+                    const isOpening = drawer.style.display === 'none';
+                    drawer.style.display = isOpening ? 'block' : 'none';
+                    if (isOpening) {
+                        drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        this.flashHighlight(drawer);
+                        const ta = document.getElementById('freeform-raw-text');
+                        if (ta) setTimeout(() => ta.focus(), 250);
+                    }
+                }
+            },
+
+            parseFreeformText() {
+                const text = document.getElementById('freeform-raw-text').value;
+                if (!text.trim()) return;
+
+                const lines = text.split('\n');
+                let currentSection = null;
+                let checklistLines = [];
+                let materialsLines = [];
+                let notesLines = [];
+
+                lines.forEach(line => {
+                    const trimmed = line.trim();
+                    if (!trimmed) return;
+
+                    const lower = trimmed.toLowerCase();
+                    if (lower.startsWith('room:')) {
+                        const roomQuery = trimmed.replace(/^room:/i, '').trim().toLowerCase();
+                        const g = window.Game;
+                        const rooms = g.getRooms();
+                        const found = Object.keys(rooms).find(k => rooms[k].name.toLowerCase().includes(roomQuery) || k.toLowerCase().includes(roomQuery));
+                        if (found) {
+                            document.getElementById('input-room-select').value = found;
+                            this.onRoomChanged();
+                        } else {
+                            if (!this.isNewRoomMode) this.toggleNewRoom();
+                            document.getElementById('input-new-room-name').value = trimmed.replace(/^room:/i, '').trim();
+                        }
+                    } else if (lower.startsWith('task:') || lower.startsWith('project:')) {
+                        this.setTaskMode(true);
+                        document.getElementById('input-task-name').value = trimmed.replace(/^(task|project):/i, '').trim();
+                    } else if (lower.startsWith('priority:')) {
+                        const p = Number(trimmed.replace(/^priority:/i, '').replace(/[^1-5]/g, '')) || 1;
+                        this.setPriority(p);
+                    } else if (lower.startsWith('cost:')) {
+                        const c = Number(trimmed.replace(/^cost:/i, '').replace(/[^0-9.]/g, '')) || 0;
+                        document.getElementById('input-task-cost').value = c;
+                    } else if (lower.startsWith('tools:')) {
+                        const toolsStr = trimmed.replace(/^tools:/i, '').trim();
+                        document.getElementById('input-custom-tools').value = toolsStr;
+                    } else if (lower.startsWith('photo:')) {
+                        document.getElementById('input-photo-title').value = trimmed.replace(/^photo:/i, '').trim();
+                    } else if (lower.startsWith('feed:')) {
+                        document.getElementById('input-feed-msg').value = trimmed.replace(/^feed:/i, '').trim();
+                        document.getElementById('chk-post-feed').checked = true;
+                    } else if (lower.startsWith('steps:') || lower.startsWith('checklist:')) {
+                        currentSection = 'steps';
+                    } else if (lower.startsWith('materials:')) {
+                        currentSection = 'materials';
+                    } else if (lower.startsWith('notes:') || lower.startsWith('literature:')) {
+                        currentSection = 'notes';
+                    } else {
+                        if (currentSection === 'steps') checklistLines.push(trimmed);
+                        else if (currentSection === 'materials') materialsLines.push(trimmed);
+                        else if (currentSection === 'notes') notesLines.push(trimmed);
+                    }
+                });
+
+                if (checklistLines.length > 0) {
+                    document.getElementById('input-checklist-steps').value = checklistLines.join('\n');
+                    this.updateStepsCount();
+                }
+                if (materialsLines.length > 0) {
+                    document.getElementById('input-materials-text').value = materialsLines.join('\n');
+                }
+                if (notesLines.length > 0) {
+                    document.getElementById('input-literature-text').value = notesLines.join('\n');
+                }
+
+                alert("✨ Freeform notes successfully parsed into form fields!");
+                document.getElementById('freeform-drawer').style.display = 'none';
+            },
+
+            handleFileSelect(input) {
+                if (input.files && input.files[0]) {
+                    const file = input.files[0];
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const dataUrl = e.target.result;
+                        document.getElementById('input-photo-url').value = dataUrl;
+
+                        const prevContainer = document.getElementById('photo-preview-container');
+                        const prevImg = document.getElementById('photo-preview-img');
+                        const nameEl = document.getElementById('photo-preview-filename');
+                        const sizeEl = document.getElementById('photo-preview-filesize');
+
+                        if (prevContainer && prevImg) {
+                            prevImg.src = dataUrl;
+                            if (nameEl) nameEl.textContent = file.name || 'Job-Site-Photo.jpg';
+                            if (sizeEl) {
+                                const kb = (file.size / 1024).toFixed(1);
+                                const mb = (file.size / (1024 * 1024)).toFixed(2);
+                                sizeEl.textContent = file.size > 1048576 ? `${mb} MB • Ready for Photo Journal` : `${kb} KB • Ready for Photo Journal`;
+                            }
+                            prevContainer.style.display = 'flex';
+                        }
+
+                        const titleInput = document.getElementById('input-photo-title');
+                        if (titleInput && !titleInput.value) {
+                            const baseName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, ' ');
+                            titleInput.value = baseName.charAt(0).toUpperCase() + baseName.slice(1);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            },
+
+            removePhoto() {
+                document.getElementById('input-photo-url').value = '';
+                const fileInput = document.getElementById('input-photo-file');
+                if (fileInput) fileInput.value = '';
+                const prevContainer = document.getElementById('photo-preview-container');
+                if (prevContainer) prevContainer.style.display = 'none';
+                const prevImg = document.getElementById('photo-preview-img');
+                if (prevImg) prevImg.src = '';
+            },
+
+            toggleUrlInput() {
+                const box = document.getElementById('photo-url-input-box');
+                if (box) {
+                    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+                    if (box.style.display === 'block') {
+                        document.getElementById('input-photo-url').focus();
+                    }
+                }
+            },
+
+            onPhotoUrlInput(url) {
+                if (url && (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:image/'))) {
+                    const prevContainer = document.getElementById('photo-preview-container');
+                    const prevImg = document.getElementById('photo-preview-img');
+                    const nameEl = document.getElementById('photo-preview-filename');
+                    const sizeEl = document.getElementById('photo-preview-filesize');
+                    if (prevContainer && prevImg) {
+                        prevImg.src = url;
+                        if (nameEl) nameEl.textContent = 'Web Image Link';
+                        if (sizeEl) sizeEl.textContent = 'Remote URL Source';
+                        prevContainer.style.display = 'flex';
+                    }
+                }
+            },
+
+            loadPhotoFromUrl() {
+                const url = document.getElementById('input-photo-url').value.trim();
+                if (url) {
+                    this.onPhotoUrlInput(url);
+                }
+            },
+
+            jumpToSection(sectionId, btnEl) {
+                if (window.Sound && window.Sound.playClick) window.Sound.playClick();
+
+                // If targeting freeform drawer, expand it if closed
+                if (sectionId === 'freeform-drawer') {
+                    const drawer = document.getElementById('freeform-drawer');
+                    if (drawer) {
+                        drawer.style.display = 'block';
+                    }
+                    const ta = document.getElementById('freeform-raw-text');
+                    if (ta) setTimeout(() => ta.focus(), 300);
+                }
+
+                // If targeting new room, make sure new room fields are open
+                if (sectionId === 'sec-room-new') {
+                    sectionId = 'sec-room';
+                    if (!this.isNewRoomMode) this.toggleNewRoom();
+                }
+
+                const target = document.getElementById(sectionId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    this.flashHighlight(target);
+                }
+
+                if (btnEl) {
+                    document.querySelectorAll('.mode-tab-btn').forEach(b => b.classList.remove('active'));
+                    btnEl.classList.add('active');
+                }
+            },
+
+            flashHighlight(element) {
+                if (!element) return;
+                element.classList.remove('section-card-highlight');
+                void element.offsetWidth; // Force CSS reflow
+                element.classList.add('section-card-highlight');
+                setTimeout(() => {
+                    element.classList.remove('section-card-highlight');
+                }, 1900);
+            },
+
+            setMode(mode, btnEl) {
+                this.currentMode = mode;
+                if (mode === 'all') {
+                    this.jumpToSection('rapid-intake-form', btnEl);
+                } else if (mode === 'room') {
+                    this.jumpToSection('sec-room', btnEl);
+                } else if (mode === 'task') {
+                    this.jumpToSection('sec-task', btnEl);
+                } else if (mode === 'steps') {
+                    this.jumpToSection('sec-steps', btnEl);
+                } else if (mode === 'materials') {
+                    this.jumpToSection('sec-materials', btnEl);
+                } else if (mode === 'photo') {
+                    this.jumpToSection('sec-media', btnEl);
+                } else if (mode === 'literature') {
+                    this.jumpToSection('sec-literature', btnEl);
+                } else if (mode === 'freeform') {
+                    this.jumpToSection('freeform-drawer', btnEl);
+                }
+            },
+
+            dispatch() {
+                const g = window.Game;
+
+                // Build consolidated intake payload
+                const payload = {
+                    // Room
+                    isNewRoom: this.isNewRoomMode,
+                    roomKey: document.getElementById('input-room-select').value,
+                    newRoomName: document.getElementById('input-new-room-name').value.trim(),
+                    newRoomLevel: document.getElementById('input-new-room-level').value,
+                    newRoomIcon: document.getElementById('input-new-room-icon').value,
+                    newRoomArea: document.getElementById('input-new-room-area').value.trim(),
+
+                    // Task
+                    isNewTask: this.isNewTaskMode || !document.getElementById('input-task-select').value,
+                    taskId: document.getElementById('input-task-select').value,
+                    taskName: document.getElementById('input-task-name').value.trim(),
+                    priority: Number(document.getElementById('input-task-priority').value) || 1,
+                    taskDiyCost: Number(document.getElementById('input-task-cost').value) || 0,
+                    isTaskCompleted: document.getElementById('input-task-status').value === 'completed',
+
+                    // Checklist
+                    checklistItems: document.getElementById('input-checklist-steps').value,
+                    appendChecklist: document.getElementById('chk-append-steps').checked,
+
+                    // Materials & Tools
+                    materials: document.getElementById('input-materials-text').value,
+                    appendMaterials: true,
+                    tools: Array.from(this.selectedTools).join(', ') + (document.getElementById('input-custom-tools').value ? ', ' + document.getElementById('input-custom-tools').value : ''),
+                    appendTools: true,
+
+                    // Media
+                    photoTitle: document.getElementById('input-photo-title').value.trim(),
+                    photoUrl: document.getElementById('input-photo-url').value.trim(),
+                    photoPhase: document.getElementById('input-photo-phase').value,
+                    photoCaption: document.getElementById('input-photo-caption').value.trim(),
+                    videoTitle: document.getElementById('input-video-title').value.trim(),
+                    videoUrl: document.getElementById('input-video-url').value.trim(),
+
+                    // Literature
+                    progressTitle: document.getElementById('input-prog-title').value.trim(),
+                    literatureText: document.getElementById('input-literature-text').value.trim(),
+                    inspectionPassed: document.getElementById('chk-passed-inspection').checked,
+
+                    // Routing
+                    postToFeed: document.getElementById('chk-post-feed').checked,
+                    feedMessage: document.getElementById('input-feed-msg').value.trim(),
+                    donationGoal: document.getElementById('chk-sync-dream').checked ? Number(document.getElementById('input-donation-goal').value) : null,
+                    logAsExpense: document.getElementById('chk-log-expense').checked
+                };
+
+                // Validate minimum requirement (either task name or photo or room name)
+                if (payload.isNewRoom && !payload.newRoomName) {
+                    alert("⚠️ Please enter a New Section Name!");
+                    return;
+                }
+                if (!payload.taskName && !payload.taskId && !payload.photoTitle && !payload.newRoomName) {
+                    alert("⚠️ Please enter a Task Name, attach a Photo, or name a New Room!");
+                    return;
+                }
+
+                // Execute Atomic Dispatch
+                const result = g.dispatchRapidIntake(payload);
+                if (!result.success) {
+                    alert("❌ Dispatch failed: " + (result.error || "Unknown error"));
+                    return;
+                }
+
+                // Play pleasant feedback
+                if (window.Sound) {
+                    window.Sound.playSuccess();
+                }
+
+                this.lastDispatchedTaskId = result.results.taskUpdated ? result.results.taskUpdated.id : payload.taskId;
+
+                // Render Receipt Modal
+                this.renderReceipt(result.results);
+                this.updateHeaderStats();
+            },
+
+            renderReceipt(res) {
+                const modal = document.getElementById('dispatch-receipt-modal');
+                const list = document.getElementById('receipt-summary-list');
+                if (!modal || !list) return;
+
+                list.innerHTML = res.summary.map(s => `
+                    <div class="receipt-item">
+                        <span>✔</span>
+                        <span>${s}</span>
+                    </div>
+                `).join('');
+
+                modal.classList.add('active');
+            },
+
+            openCreatedProjectPage() {
+                if (this.lastDispatchedTaskId) {
+                    window.open(`project.html?id=${this.lastDispatchedTaskId}`, '_blank');
+                } else {
+                    window.open('dream.html', '_blank');
+                }
+            },
+
+            closeReceiptAndNew() {
+                const modal = document.getElementById('dispatch-receipt-modal');
+                if (modal) modal.classList.remove('active');
+
+                // Keep room, clear task specific inputs
+                document.getElementById('input-task-name').value = '';
+                document.getElementById('input-task-cost').value = '';
+                document.getElementById('input-checklist-steps').value = '';
+                document.getElementById('input-materials-text').value = '';
+                document.getElementById('input-custom-tools').value = '';
+                document.getElementById('input-photo-title').value = '';
+                this.removePhoto();
+                document.getElementById('input-photo-caption').value = '';
+                document.getElementById('input-video-title').value = '';
+                document.getElementById('input-video-url').value = '';
+                document.getElementById('input-prog-title').value = '';
+                document.getElementById('input-literature-text').value = '';
+                document.getElementById('input-feed-msg').value = '';
+
+                this.updateStepsCount();
+                this.renderRoomsDropdown();
+                this.onRoomChanged();
+                this.setTaskMode(true);
+            },
+
+            resetForm() {
+                if (confirm("Clear all intake inputs?")) {
+                    document.getElementById('rapid-intake-form').reset();
+                    this.selectedTools.clear();
+                    document.querySelectorAll('.tool-chip').forEach(c => c.classList.remove('selected'));
+                    this.removePhoto();
+                    this.setPriority(1);
+                    this.updateStepsCount();
+                }
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            RapidApp.init();
+        });
+    </script>
+</body>
+</html>

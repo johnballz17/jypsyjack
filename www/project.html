@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Specification & Field Tracker • Whispering Pines Manor</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --proj-bg: #090d16;
+            --proj-panel-bg: rgba(30, 41, 59, 0.7);
+            --proj-border: rgba(255, 255, 255, 0.08);
+            --accent-gold: #f59e0b;
+            --accent-cyan: #38bdf8;
+            --accent-green: #10b981;
+        }
+
+        body.project-page-body {
+            background-color: var(--proj-bg);
+            background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08), transparent 40%);
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .project-nav-header {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 24px;
+        }
+
+        .project-nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .breadcrumb-trail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .breadcrumb-trail a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .breadcrumb-sep {
+            color: #64748b;
+        }
+
+        .breadcrumb-current {
+            color: #f8fafc;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 320px;
+        }
+
+        .project-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-proj-header {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-proj-header:hover {
+            background: #334155;
+            color: #fff;
+            border-color: var(--accent-cyan);
+        }
+
+        .btn-proj-edit-mode.active {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border-color: #f59e0b;
+        }
+
+        .project-main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px 80px 20px;
+        }
+
+        /* Project Banner Card */
+        .project-banner-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+            position: relative;
+        }
+
+        .project-banner-badges {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .badge-pill-priority {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .project-title-h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.1rem;
+            margin: 0 0 12px 0;
+            color: #f8fafc;
+            line-height: 1.25;
+        }
+
+        .project-desc-lead {
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 950px;
+        }
+
+        /* Milestone Stats Strip */
+        .project-stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-block-item small {
+            display: block;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .stat-block-item span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        /* Milestone Funding Row */
+        .milestone-funding-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 10px;
+            padding: 16px 20px;
+        }
+
+        .milestone-funding-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .milestone-funding-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Two-Column Workspace Layout */
+        .project-workspace-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 860px) {
+            .project-workspace-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .workspace-panel-card {
+            background: var(--proj-panel-bg);
+            border: 1px solid var(--proj-border);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .panel-heading-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+        }
+
+        .panel-heading-row h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* To-Do Checklist Styling */
+        .checklist-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checklist-item-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 8px;
+            padding: 10px 14px;
+            transition: all 0.2s;
+        }
+
+        .checklist-item-row:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .checklist-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #64748b;
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            margin-top: 2px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .checklist-checkbox:checked {
+            background: #10b981;
+            border-color: #10b981;
+        }
+
+        .checklist-checkbox:checked::after {
+            content: '✓';
+            color: #0f172a;
+            position: absolute;
+            font-size: 14px;
+            font-weight: 900;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checklist-text {
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            line-height: 1.45;
+            flex: 1;
+        }
+
+        .checklist-item-row.is-done .checklist-text {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        .btn-delete-check {
+            background: transparent;
+            border: none;
+            color: #ef4444;
+            opacity: 0.6;
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 2px 6px;
+        }
+
+        .btn-delete-check:hover {
+            opacity: 1;
+        }
+
+        /* Table Lists */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .specs-table th {
+            text-align: left;
+            padding: 8px 10px;
+            color: #94a3b8;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .specs-table td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #cbd5e1;
+        }
+
+        .badge-status-chip {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+
+        .status-needed { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+        .status-onsite { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .status-have { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .status-rent { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+
+        /* Media Grids */
+        .project-media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .photo-card-item {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .photo-thumbnail-box {
+            height: 150px;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            overflow: hidden;
+        }
+
+        .photo-thumbnail-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-details-box {
+            padding: 12px;
+        }
+
+        .photo-title-line {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 4px;
+        }
+
+        .photo-caption-line {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* Literature Notes Block */
+        .lit-notes-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .lit-notes-title {
+            font-weight: 700;
+            color: #38bdf8;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .lit-notes-body {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        /* Bottom Project Nav */
+        .project-bottom-nav {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+        }
+
+        .inline-composer-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .inline-composer-input {
+            flex: 1;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #f8fafc;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+
+        .btn-inline-add {
+            background: #38bdf8;
+            border: none;
+            color: #0f172a;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body class="project-page-body">
+
+    <!-- HEADER / BREADCRUMB NAV -->
+    <header class="project-nav-header">
+        <div class="project-nav-inner">
+            <div class="breadcrumb-trail">
+                <a href="dream.html">🏛️ Building the Dream</a>
+                <span class="breadcrumb-sep">/</span>
+                <span id="bc-room-name">Roof & Attic</span>
+                <span class="breadcrumb-sep">/</span>
+                <span class="breadcrumb-current" id="bc-task-name">Restore Heritage Roof Cupola</span>
+            </div>
+            <div class="project-header-actions">
+                <a href="dream.html" class="btn-proj-header">
+                    📋 All Projects
+                </a>
+                <a href="index.html" class="btn-proj-header">
+                    🛠️ Open in Gypsy Jack's Shack
+                </a>
+                <button class="btn-proj-header" onclick="ProjectApp.copyShareLink()">
+                    🔗 Share Project
+                </button>
+                <a href="dream.html#hall-of-fame" class="btn-proj-header" style="border-color:#fbbf24; color:#fbbf24;">
+                    🏆 Backers &amp; Plaques
+                </a>
+                <a href="community.html" class="btn-proj-header" style="border-color:#f59e0b; color:#fbbf24;">
+                    🪵 Community Tips &amp; Salvage
+                </a>
+                <button class="btn-proj-header" id="btn-project-theme-toggle" onclick="ProjectApp.toggleTheme()" style="cursor:pointer;">
+                    🕰️ Steampunk Theme
+                </button>
+                <button class="btn-proj-header btn-proj-edit-mode" id="btn-toggle-edit" onclick="ProjectApp.toggleEditMode()">
+                    ✏️ Edit Mode: Off
+                </button>
+                <button class="btn-proj-header" id="btn-delete-this-project" onclick="ProjectApp.deleteThisProject()" style="background:rgba(239, 68, 68, 0.2); border-color:#ef4444; color:#fca5a5;">
+                    🗑️ Delete Project
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="project-main-container">
+
+        <!-- PROJECT BANNER -->
+        <section class="project-banner-card" id="project-banner">
+            <div class="project-banner-badges">
+                <span class="badge-pill-priority" id="badge-priority">Priority 1 • Critical</span>
+                <span class="meta-chip" id="badge-room">Attic / Roof</span>
+                <span class="meta-chip" id="badge-status">In Progress</span>
+            </div>
+            <h1 class="project-title-h1" id="project-title">Restore Heritage Roof Cupola & Copper Weathervane</h1>
+            <p class="project-desc-lead" id="project-desc">
+                Re-glaze arched cupola viewing windows, paint decorative timber railings, and mount polished brass & copper rooster weathervane.
+            </p>
+
+            <!-- STATS STRIP -->
+            <div class="project-stats-strip">
+                <div class="stat-block-item">
+                    <small>DIY Estimated Cost</small>
+                    <span id="stat-diy">$450</span>
+                </div>
+                <div class="stat-block-item">
+                    <small>Contractor Cost</small>
+                    <span id="stat-sub">$980</span>
+                </div>
+                <div class="stat-block-item">
+                    <small>Estimated ARV Boost</small>
+                    <span id="stat-value" style="color:var(--accent-cyan);">$2,200</span>
+                </div>
+                <div class="stat-block-item">
+                    <small>Milestone Status</small>
+                    <span id="stat-status-text">Active Project</span>
+                </div>
+            </div>
+
+            <!-- MILESTONE FUNDING & SPONSOR ROW -->
+            <div class="milestone-funding-row">
+                <div class="milestone-funding-info">
+                    <div class="milestone-funding-title">Project Sponsorship & Funding Goal</div>
+                    <div style="font-family:'JetBrains Mono', monospace; font-size:1.15rem; font-weight:700; color:#f8fafc; margin-bottom:8px;" id="milestone-funding-text">
+                        $600 / $1,250 Raised (48%)
+                    </div>
+                    <div style="height:8px; background:#0f172a; border-radius:4px; overflow:hidden;">
+                        <div id="milestone-funding-bar" style="height:100%; width:48%; background:linear-gradient(90deg, #f59e0b, #10b981);"></div>
+                    </div>
+                </div>
+                <button class="btn-card-sponsor" onclick="ProjectApp.openSponsorModal()" style="padding:12px 20px; font-size:0.95rem;">
+                    💝 Sponsor This Project
+                </button>
+            </div>
+        </section>
+
+        <!-- TWO-COLUMN WORKSPACE: SCOPE & CHECKLIST VS MATERIALS & TOOLS -->
+        <section class="project-workspace-grid">
+            
+            <!-- PANEL 1: PROJECT TO-DO LIST & CHECKLIST -->
+            <div class="workspace-panel-card">
+                <div class="panel-heading-row">
+                    <h3>☑️ Scope of Work & To-Do Checklist</h3>
+                    <span id="checklist-counter" style="font-size:0.8rem; color:#94a3b8; font-weight:600;">0/0 Done</span>
+                </div>
+                <div class="checklist-items-list" id="checklist-container">
+                    <!-- Populated dynamically -->
+                </div>
+                <!-- Inline Add To-Do Item (Owner Mode) -->
+                <div class="inline-composer-form" id="checklist-composer" style="display:none;">
+                    <input type="text" id="input-new-checklist" class="inline-composer-input" placeholder="Add a new project to-do step...">
+                    <button class="btn-inline-add" onclick="ProjectApp.addChecklistItem()">➕ Add Step</button>
+                </div>
+            </div>
+
+            <!-- PANEL 2: MATERIALS & TOOLS LIST -->
+            <div class="workspace-panel-card">
+                <div class="panel-heading-row">
+                    <h3>📦 Materials & Specialized Tools</h3>
+                    <span style="font-size:0.8rem; color:#94a3b8; font-weight:600;">Specifications & Inventory</span>
+                </div>
+
+                <!-- Materials Table -->
+                <div>
+                    <h4 style="margin:0 0 8px 0; font-size:0.85rem; color:#f59e0b; text-transform:uppercase; letter-spacing:0.04em;">Materials Needed</h4>
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Item Specification</th>
+                                <th>Quantity</th>
+                                <th>Cost</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="materials-tbody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                    <div class="inline-composer-form" id="materials-composer" style="display:none; margin-top:10px;">
+                        <input type="text" id="mat-name" class="inline-composer-input" placeholder="Material item & spec">
+                        <input type="text" id="mat-qty" class="inline-composer-input" style="max-width:90px;" placeholder="Qty">
+                        <input type="number" id="mat-cost" class="inline-composer-input" style="max-width:90px;" placeholder="$ Cost">
+                        <button class="btn-inline-add" onclick="ProjectApp.addMaterialItem()">➕ Add</button>
+                    </div>
+                </div>
+
+                <!-- Tools List -->
+                <div style="margin-top:14px;">
+                    <h4 style="margin:0 0 8px 0; font-size:0.85rem; color:#38bdf8; text-transform:uppercase; letter-spacing:0.04em;">Tools & Equipment</h4>
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Tool Description</th>
+                                <th>Requirement Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tools-tbody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                    <div class="inline-composer-form" id="tools-composer" style="display:none; margin-top:10px;">
+                        <input type="text" id="tool-name" class="inline-composer-input" placeholder="Tool name or equipment">
+                        <select id="tool-status" class="inline-composer-input" style="max-width:130px;">
+                            <option value="Have">Have</option>
+                            <option value="Need to Buy">Need to Buy</option>
+                            <option value="Need to Rent">Need to Rent</option>
+                            <option value="Borrow">Borrow</option>
+                        </select>
+                        <button class="btn-inline-add" onclick="ProjectApp.addToolItem()">➕ Add Tool</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- PANEL 3: FIELD PHOTO JOURNAL & VISUAL PROGRESS -->
+        <section class="workspace-panel-card" style="margin-bottom:28px;">
+            <div class="panel-heading-row">
+                <h3>📷 Field Photo Journal & Visual Evidence</h3>
+                <span id="photo-counter" style="font-size:0.8rem; color:#94a3b8; font-weight:600;">0 Photos</span>
+            </div>
+            <div class="project-media-grid" id="photos-grid">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="inline-composer-form" id="photos-composer" style="display:none; margin-top:14px;">
+                <input type="text" id="photo-title" class="inline-composer-input" placeholder="Photo Title / Milestone">
+                <input type="text" id="photo-caption" class="inline-composer-input" placeholder="Caption or field notes...">
+                <button class="btn-inline-add" onclick="ProjectApp.addPhotoItem()">➕ Attach Photo</button>
+            </div>
+        </section>
+
+        <!-- PANEL 4: DOCUMENTARY VIDEO & LITERATURE -->
+        <section class="project-workspace-grid">
+
+            <!-- Video Section -->
+            <div class="workspace-panel-card">
+                <div class="panel-heading-row">
+                    <h3>🎥 Documentary Video Walkthroughs</h3>
+                    <span id="video-counter" style="font-size:0.8rem; color:#94a3b8; font-weight:600;">0 Videos</span>
+                </div>
+                <div id="videos-container">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Engineering Literature & Notes -->
+            <div class="workspace-panel-card">
+                <div class="panel-heading-row">
+                    <h3>📖 Engineering Literature & Field Notes</h3>
+                    <span id="literature-counter" style="font-size:0.8rem; color:#94a3b8; font-weight:600;">Specifications</span>
+                </div>
+                <div id="literature-container">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Community Sourcing Tips & Advice for this Milestone -->
+            <div class="workspace-panel-card" id="project-community-panel">
+                <div class="panel-heading-row">
+                    <h3>🪵 Community Trade Advice &amp; Salvage Leads</h3>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span id="community-tips-counter" style="font-size:0.8rem; color:#94a3b8; font-weight:600;">0 Tips</span>
+                        <a href="community.html" target="_blank" style="font-size:0.8rem; color:#f59e0b; text-decoration:none; font-weight:700;">Open Guild Hub &nearr;</a>
+                    </div>
+                </div>
+                <div id="project-community-tips-container" style="display:flex; flex-direction:column; gap:12px;">
+                    <!-- Populated dynamically via ProjectApp.renderCommunityTips() -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- BOTTOM NAVIGATION -->
+        <nav class="project-bottom-nav">
+            <a href="dream.html" class="btn-proj-header">
+                ← Back to Building the Dream Roadmap
+            </a>
+            <div style="color:#64748b; font-size:0.85rem;">
+                Whispering Pines Manor Historic Restoration Archive
+            </div>
+        </nav>
+
+    </main>
+
+    <!-- SPONSOR MODAL -->
+    <div class="modal-overlay" id="sponsor-modal-overlay">
+        <div class="modal-window" style="max-width:520px;">
+            <div class="modal-header">
+                <h2 style="color:var(--accent-gold); margin:0; font-size:1.15rem;">💝 Sponsor This Milestone</h2>
+                <button class="btn-modal-close" onclick="ProjectApp.closeSponsorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="sponsor-modal-body" style="padding:20px;"></div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/data.js"></script>
+    <script src="js/game.js"></script>
+    <script>
+        const ProjectApp = {
+            currentTaskId: 'roof_cupola',
+            currentTheme: 'blueprint',
+            isEditMode: false,
+            gameInstance: null,
+
+            init() {
+                // Apply theme from localStorage
+                let savedTheme = 'blueprint';
+                try { savedTheme = localStorage.getItem('jack_theme') || 'blueprint'; } catch (e) {}
+                this.setTheme(savedTheme);
+
+                // Parse taskId from URL query parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const idFromUrl = urlParams.get('id') || urlParams.get('task');
+                if (idFromUrl) {
+                    this.currentTaskId = idFromUrl;
+                }
+
+                if (window.Game) {
+                    this.gameInstance = window.Game;
+                    this.gameInstance.init();
+                } else if (typeof JacksGame !== 'undefined') {
+                    this.gameInstance = new JacksGame();
+                    this.gameInstance.init();
+                }
+
+                if (this.gameInstance && this.gameInstance.subscribe) {
+                    this.gameInstance.subscribe(() => {
+                        this.render();
+                    });
+                }
+
+                this.render();
+            },
+
+            setTheme(themeName) {
+                this.currentTheme = themeName;
+                try { localStorage.setItem('jack_theme', themeName); } catch (e) {}
+                if (themeName === 'steampunk') {
+                    document.body.classList.add('theme-steampunk');
+                    document.documentElement.setAttribute('data-theme', 'steampunk');
+                } else {
+                    document.body.classList.remove('theme-steampunk');
+                    document.documentElement.removeAttribute('data-theme');
+                }
+                const btn = document.getElementById('btn-project-theme-toggle');
+                if (btn) {
+                    btn.innerHTML = themeName === 'steampunk' ? '📐 Blueprint Theme' : '🕰️ Steampunk Theme';
+                }
+            },
+
+            toggleTheme() {
+                const nextTheme = this.currentTheme === 'steampunk' ? 'blueprint' : 'steampunk';
+                this.setTheme(nextTheme);
+            },
+
+            render() {
+                const g = this.gameInstance;
+                if (!g) return;
+
+                const projectData = g.getTaskFullProjectData(this.currentTaskId);
+                if (!projectData || !projectData.task) {
+                    document.getElementById('project-title').textContent = "Project Not Found";
+                    document.getElementById('project-desc').textContent = `Task ID '${this.currentTaskId}' could not be located. Please return to the Building the Dream portal.`;
+                    return;
+                }
+
+                const { task, room, priority, checklist, materials, tools, photos, videos, progressDocs, donation, isCompleted } = projectData;
+
+                // 1. Breadcrumbs & Titles
+                const roomName = room ? (room.icon + ' ' + room.name) : task.room;
+                document.getElementById('bc-room-name').textContent = roomName;
+                document.getElementById('bc-task-name').textContent = task.name;
+                document.getElementById('project-title').textContent = task.name;
+                document.getElementById('project-desc').textContent = task.desc || "Scope details and structural specification.";
+
+                // 2. Badges
+                const priorityLabels = {
+                    1: "🚨 Priority 1 • Critical Structure",
+                    2: "⚡ Priority 2 • Infrastructure",
+                    3: "🪵 Priority 3 • Enclosure",
+                    4: "🎨 Priority 4 • Finishes",
+                    5: "✨ Priority 5 • Amenities"
+                };
+                document.getElementById('badge-priority').textContent = priorityLabels[priority] || `Priority ${priority}`;
+                document.getElementById('badge-room').textContent = roomName;
+                document.getElementById('badge-status').textContent = isCompleted ? '✅ Complete' : '🚧 In Progress';
+
+                // 3. Stats Strip
+                document.getElementById('stat-diy').textContent = `$${(task.matCost || 0).toLocaleString()}`;
+                document.getElementById('stat-sub').textContent = `$${(task.subCost || 0).toLocaleString()}`;
+                document.getElementById('stat-value').textContent = `+$${(task.value || 0).toLocaleString()}`;
+                document.getElementById('stat-status-text').textContent = isCompleted ? 'Certified Completed' : 'Active Field Work';
+
+                // 4. Milestone Funding
+                const goal = donation.goal || 1000;
+                const raised = donation.raised || 0;
+                const pctFunded = goal > 0 ? Math.min(100, Math.round((raised / goal) * 100)) : 0;
+                document.getElementById('milestone-funding-text').textContent = `$${raised.toLocaleString()} / $${goal.toLocaleString()} Raised (${pctFunded}%)`;
+                document.getElementById('milestone-funding-bar').style.width = `${pctFunded}%`;
+
+                // 5. Checklist
+                this.renderChecklist(checklist);
+
+                // 6. Materials
+                this.renderMaterials(materials);
+
+                // 7. Tools
+                this.renderTools(tools);
+
+                // 8. Photos
+                this.renderPhotos(photos);
+
+                // 9. Videos & Literature
+                this.renderVideos(videos);
+                this.renderLiterature(progressDocs);
+                this.renderCommunityTips(task, room);
+
+                // Update composer visibility based on edit mode
+                this.updateComposerVisibility();
+            },
+
+            renderCommunityTips(task, room) {
+                const container = document.getElementById('project-community-tips-container');
+                const counter = document.getElementById('community-tips-counter');
+                if (!container || !this.gameInstance) return;
+
+                const g = this.gameInstance;
+                const allTips = g.getCommunityTips ? g.getCommunityTips('all') : [];
+                const roomKey = task ? task.room : '';
+                
+                // Filter tips matching this room, or general advice
+                let matched = allTips.filter(t => t.room === roomKey);
+                if (matched.length === 0) {
+                    matched = allTips.slice(0, 3);
+                }
+
+                if (counter) counter.textContent = `${matched.length} Tips Available`;
+
+                if (matched.length === 0) {
+                    container.innerHTML = `<p style="color:#94a3b8; font-size:0.85rem;">No community advice logged for this section yet. <a href="community.html" target="_blank" style="color:#f59e0b;">Drop a tip in the Guild Hub</a>.</p>`;
+                    return;
+                }
+
+                container.innerHTML = matched.map(t => `
+                    <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:14px;">
+                        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+                            <strong style="color:#fbbf24; font-size:0.92rem;">${t.title}</strong>
+                            <span style="font-size:0.75rem; color:#94a3b8;">by ${t.author} (${t.role || 'Craftsperson'})</span>
+                        </div>
+                        <p style="font-size:0.85rem; color:#cbd5e1; line-height:1.45; margin:0 0 8px 0;">${t.content}</p>
+                        ${t.location ? `<div style="font-size:0.78rem; color:#38bdf8;">📍 Sourcing: ${t.location}</div>` : ''}
+                    </div>
+                `).join('');
+            },
+
+            renderChecklist(items) {
+                const container = document.getElementById('checklist-container');
+                const counter = document.getElementById('checklist-counter');
+                if (!container) return;
+
+                const doneCount = items.filter(x => x.done).length;
+                counter.textContent = `${doneCount}/${items.length} Done`;
+
+                if (items.length === 0) {
+                    container.innerHTML = `<p style="color:#94a3b8; font-size:0.85rem;">No checklist items added yet. Click 'Edit Mode' above to add scope steps.</p>`;
+                    return;
+                }
+
+                container.innerHTML = items.map(item => `
+                    <div class="checklist-item-row ${item.done ? 'is-done' : ''}">
+                        <input type="checkbox" class="checklist-checkbox" ${item.done ? 'checked' : ''} onchange="ProjectApp.toggleChecklist('${item.id}')">
+                        <span class="checklist-text">${item.text}</span>
+                        ${this.isEditMode ? `<button class="btn-delete-check" onclick="ProjectApp.deleteChecklist('${item.id}')" title="Delete step">&times;</button>` : ''}
+                    </div>
+                `).join('');
+            },
+
+            renderMaterials(materials) {
+                const tbody = document.getElementById('materials-tbody');
+                if (!tbody) return;
+
+                if (materials.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" style="color:#94a3b8; text-align:center;">No materials recorded.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = materials.map((m, idx) => `
+                    <tr>
+                        <td><strong>${m.name}</strong></td>
+                        <td>${m.qty || '1'}</td>
+                        <td style="font-family:'JetBrains Mono', monospace;">$${(m.cost || 0).toLocaleString()}</td>
+                        <td>
+                            <span class="badge-status-chip ${m.status === 'On Site' ? 'status-onsite' : 'status-needed'}">${m.status || 'Needed'}</span>
+                            ${this.isEditMode ? `<button class="btn-delete-check" onclick="ProjectApp.deleteMaterial(${idx})">&times;</button>` : ''}
+                        </td>
+                    </tr>
+                `).join('');
+            },
+
+            renderTools(tools) {
+                const tbody = document.getElementById('tools-tbody');
+                if (!tbody) return;
+
+                if (tools.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="2" style="color:#94a3b8; text-align:center;">Standard safety kit required.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = tools.map((t, idx) => `
+                    <tr>
+                        <td><strong>${t.name}</strong></td>
+                        <td>
+                            <span class="badge-status-chip ${t.status === 'Have' ? 'status-have' : 'status-rent'}">${t.status || 'Have'}</span>
+                            ${this.isEditMode ? `<button class="btn-delete-check" onclick="ProjectApp.deleteTool(${idx})">&times;</button>` : ''}
+                        </td>
+                    </tr>
+                `).join('');
+            },
+
+            renderPhotos(photos) {
+                const grid = document.getElementById('photos-grid');
+                const counter = document.getElementById('photo-counter');
+                if (!grid) return;
+
+                counter.textContent = `${photos.length} Photos`;
+
+                if (photos.length === 0) {
+                    grid.innerHTML = `<div style="grid-column:1/-1; padding:20px; text-align:center; color:#94a3b8; font-size:0.85rem;">No photos attached to this specific milestone yet. Attach progress photos below!</div>`;
+                    return;
+                }
+
+                grid.innerHTML = photos.map(p => `
+                    <div class="photo-card-item" style="position:relative;">
+                        <div class="photo-thumbnail-box">
+                            ${(p.photoData || p.url) ? `<img src="${p.photoData || p.url}" alt="${p.title || 'Photo'}">` : `📷`}
+                        </div>
+                        <div class="photo-details-box">
+                            <div class="photo-title-line" style="display:flex; justify-content:space-between; align-items:center;">
+                                <span>${p.title || 'Field Photo'}</span>
+                                ${this.isEditMode ? `<button class="btn-delete-check" onclick="ProjectApp.deletePhotoItem('${p.id}')" title="Delete photo">&times;</button>` : ''}
+                            </div>
+                            <div class="photo-caption-line">${p.caption || p.summary || ''}</div>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            renderVideos(videos) {
+                const container = document.getElementById('videos-container');
+                const counter = document.getElementById('video-counter');
+                if (!container) return;
+
+                counter.textContent = `${videos.length} Videos`;
+
+                if (videos.length === 0) {
+                    container.innerHTML = `<p style="color:#94a3b8; font-size:0.85rem;">No video logs attached to this milestone.</p>`;
+                    return;
+                }
+
+                container.innerHTML = videos.map(v => `
+                    <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:14px; margin-bottom:10px;">
+                        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+                            <strong style="color:#38bdf8; font-size:0.95rem;">${v.episode || ''}: ${v.title}</strong>
+                            <small style="color:#f59e0b; font-family:'JetBrains Mono', monospace;">${v.duration || 'Video'}</small>
+                        </div>
+                        <p style="font-size:0.82rem; color:#cbd5e1; line-height:1.45; margin:0 0 8px 0;">${v.literature || ''}</p>
+                    </div>
+                `).join('');
+            },
+
+            renderLiterature(docs) {
+                const container = document.getElementById('literature-container');
+                const counter = document.getElementById('literature-counter');
+                if (!container) return;
+
+                counter.textContent = `${docs.length} Spec Reports`;
+
+                if (docs.length === 0) {
+                    container.innerHTML = `<p style="color:#94a3b8; font-size:0.85rem;">Standard architectural code compliance applies.</p>`;
+                    return;
+                }
+
+                container.innerHTML = docs.map(d => `
+                    <div class="lit-notes-card">
+                        <div class="lit-notes-title">${d.title}</div>
+                        <div style="font-size:0.75rem; color:#94a3b8; margin-bottom:8px;">${d.author || 'Architectural Survey'} • ${d.section || 'Specification'}</div>
+                        <div class="lit-notes-body">${d.literature || ''}</div>
+                    </div>
+                `).join('');
+            },
+
+            toggleEditMode() {
+                this.isEditMode = !this.isEditMode;
+                const btn = document.getElementById('btn-toggle-edit');
+                btn.textContent = this.isEditMode ? '✏️ Edit Mode: Active' : '✏️ Edit Mode: Off';
+                btn.classList.toggle('active', this.isEditMode);
+                this.updateComposerVisibility();
+                this.render();
+            },
+
+            updateComposerVisibility() {
+                const show = this.isEditMode ? 'flex' : 'none';
+                ['checklist-composer', 'materials-composer', 'tools-composer', 'photos-composer'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = show;
+                });
+            },
+
+            toggleChecklist(itemId) {
+                this.gameInstance.toggleChecklistItem(this.currentTaskId, itemId);
+                this.render();
+            },
+
+            addChecklistItem() {
+                const input = document.getElementById('input-new-checklist');
+                if (!input || !input.value.trim()) return;
+                this.gameInstance.addChecklistItem(this.currentTaskId, input.value.trim());
+                input.value = '';
+                this.render();
+            },
+
+            deleteChecklist(itemId) {
+                this.gameInstance.deleteChecklistItem(this.currentTaskId, itemId);
+                this.render();
+            },
+
+            addMaterialItem() {
+                const nameInput = document.getElementById('mat-name');
+                const qtyInput = document.getElementById('mat-qty');
+                const costInput = document.getElementById('mat-cost');
+                if (!nameInput || !nameInput.value.trim()) return;
+
+                this.gameInstance.addProjectMaterial(this.currentTaskId, {
+                    name: nameInput.value.trim(),
+                    qty: qtyInput ? qtyInput.value.trim() : '1',
+                    cost: costInput ? Number(costInput.value) || 0 : 0,
+                    status: 'Needed'
+                });
+
+                nameInput.value = '';
+                if (qtyInput) qtyInput.value = '';
+                if (costInput) costInput.value = '';
+                this.render();
+            },
+
+            deleteMaterial(idx) {
+                this.gameInstance.deleteProjectMaterial(this.currentTaskId, idx);
+                this.render();
+            },
+
+            addToolItem() {
+                const nameInput = document.getElementById('tool-name');
+                const statusInput = document.getElementById('tool-status');
+                if (!nameInput || !nameInput.value.trim()) return;
+
+                this.gameInstance.addProjectTool(this.currentTaskId, {
+                    name: nameInput.value.trim(),
+                    status: statusInput ? statusInput.value : 'Have'
+                });
+
+                nameInput.value = '';
+                this.render();
+            },
+
+            deleteTool(idx) {
+                this.gameInstance.deleteProjectTool(this.currentTaskId, idx);
+                this.render();
+            },
+
+            addPhotoItem() {
+                const titleInput = document.getElementById('photo-title');
+                const captionInput = document.getElementById('photo-caption');
+                if (!titleInput || !titleInput.value.trim()) return;
+
+                this.gameInstance.savePhoto({
+                    taskId: this.currentTaskId,
+                    roomKey: this.gameInstance.getTask(this.currentTaskId)?.room || 'Exterior',
+                    title: titleInput.value.trim(),
+                    caption: captionInput ? captionInput.value.trim() : '',
+                    date: new Date().toLocaleDateString()
+                });
+
+                titleInput.value = '';
+                if (captionInput) captionInput.value = '';
+                this.render();
+            },
+
+            deletePhotoItem(photoId) {
+                if (confirm("Delete this photo?")) {
+                    this.gameInstance.deletePhoto(photoId);
+                    this.render();
+                }
+            },
+
+            deleteThisProject() {
+                const task = this.gameInstance.getTask(this.currentTaskId);
+                const name = task ? task.name : this.currentTaskId;
+                if (confirm(`Are you sure you want to delete project "${name}"?`)) {
+                    this.gameInstance.deleteTask(this.currentTaskId);
+                    alert(`Project "${name}" deleted.`);
+                    window.location.href = 'index.html';
+                }
+            },
+
+            copyShareLink() {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert("🔗 Direct project link copied to clipboard!\n" + url);
+                }).catch(() => {
+                    prompt("Copy direct link to this project:", url);
+                });
+            },
+
+            openSponsorModal() {
+                const modal = document.getElementById('sponsor-modal-overlay');
+                const body = document.getElementById('sponsor-modal-body');
+                if (!modal || !body) return;
+
+                const g = this.gameInstance;
+                const settings = g.getDonationSettings();
+                const task = g.getTask(this.currentTaskId);
+
+                body.innerHTML = `
+                    <div style="background:#0f172a; padding:14px; border-radius:8px; border-left:4px solid var(--accent-gold); margin-bottom:16px;">
+                        <strong style="color:#38bdf8;">Sponsoring Project Milestone:</strong>
+                        <div style="font-size:1.1rem; font-weight:700; color:#fff; margin-top:4px;">${task?.name || 'Milestone'}</div>
+                        <small style="color:#94a3b8;">${task?.desc || ''}</small>
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        ${settings.gofundmeUrl ? `
+                            <a href="${settings.gofundmeUrl}" target="_blank" class="btn-card-webpage" style="padding:12px; font-size:0.95rem; justify-content:center;">
+                                💛 Give Towards This Milestone on GoFundMe
+                            </a>
+                        ` : ''}
+                        ${settings.venmoHandle ? `
+                            <div style="background:#0f172a; padding:12px; border-radius:8px; display:flex; justify-content:space-between;">
+                                <span>💸 Venmo Handle:</span>
+                                <strong style="color:#38bdf8; font-family:monospace;">${settings.venmoHandle}</strong>
+                            </div>
+                        ` : ''}
+                        ${settings.paypalHandle ? `
+                            <div style="background:#0f172a; padding:12px; border-radius:8px; display:flex; justify-content:space-between;">
+                                <span>🅿️ PayPal Handle:</span>
+                                <strong style="color:#38bdf8; font-family:monospace;">${settings.paypalHandle}</strong>
+                            </div>
+                        ` : ''}
+                        ${settings.wishlistUrl ? `
+                            <a href="${settings.wishlistUrl}" target="_blank" class="btn-proj-header" style="padding:12px; justify-content:center;">
+                                📦 Purchase Needed Materials on Wishlist
+                            </a>
+                        ` : ''}
+                    </div>
+                `;
+                modal.style.display = 'flex';
+            },
+
+            closeSponsorModal() {
+                const modal = document.getElementById('sponsor-modal-overlay');
+                if (modal) modal.style.display = 'none';
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            ProjectApp.init();
+        });
+    </script>
+</body>
+</html>

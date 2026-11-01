@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building the Dream • Historic Manor Restoration & Public Supporter Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --portal-bg: #090d16;
+            --portal-card-bg: rgba(30, 41, 59, 0.7);
+            --portal-card-border: rgba(255, 255, 255, 0.08);
+            --p1-color: #ef4444;
+            --p2-color: #f59e0b;
+            --p3-color: #38bdf8;
+            --p4-color: #a855f7;
+            --p5-color: #10b981;
+        }
+
+        body.dream-portal-body {
+            background-color: var(--portal-bg);
+            background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08), transparent 40%),
+                              radial-gradient(circle at 100% 60%, rgba(245, 158, 11, 0.05), transparent 30%);
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .portal-header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 24px;
+        }
+
+        .portal-header-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .portal-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .portal-logo-icon {
+            font-size: 1.8rem;
+            background: rgba(245, 158, 11, 0.15);
+            padding: 6px;
+            border-radius: 8px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .portal-brand-text h1 {
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+        }
+
+        .portal-brand-text span {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            letter-spacing: 0.02em;
+        }
+
+        .portal-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-portal-action {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-portal-action:hover {
+            background: #334155;
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .btn-portal-action.btn-sponsor-highlight {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #0f172a;
+            border: none;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-portal-action.btn-sponsor-highlight:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .portal-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px 20px 80px 20px;
+        }
+
+        /* Hero Campaign Section */
+        .portal-hero {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 36px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #38bdf8, #10b981);
+        }
+
+        .hero-title-group h2 {
+            margin: 0 0 8px 0;
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: #f8fafc;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: #38bdf8;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .hero-story {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.65;
+            max-width: 900px;
+            margin-bottom: 24px;
+        }
+
+        /* Meters Grid */
+        .hero-meters-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-meters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .meter-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .meter-title {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .meter-figures {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .meter-bar-track {
+            height: 14px;
+            background: #0f172a;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+
+        .meter-bar-fill-funding {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b, #10b981);
+            border-radius: 8px;
+            transition: width 0.6s ease;
+        }
+
+        .meter-bar-fill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #38bdf8, #6366f1);
+            border-radius: 8px;
+            transition: width 0.6s ease;
+        }
+
+        /* Donation Channels Tray */
+        .donation-channels-tray {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .channel-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .channel-pill:hover {
+            border-color: var(--accent);
+            background: rgba(245, 158, 11, 0.15);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Roadmap Section Controls */
+        .roadmap-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .roadmap-header-row h3 {
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-controls-tray {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            transform-origin: center center;
+            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        background 0.2s ease,
+                        color 0.2s ease,
+                        border-color 0.2s ease,
+                        box-shadow 0.22s ease;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            color: #ffffff;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-color: #38bdf8;
+            transform: translateY(-2px) scale(1.10);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 14px rgba(56, 189, 248, 0.45);
+            z-index: 20;
+            font-size: 0.86rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .filter-btn.active {
+            background: #38bdf8;
+            color: #0f172a;
+            border-color: #38bdf8;
+            font-weight: 800;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+        }
+
+        .filter-btn.active:hover {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: #0b1329;
+            transform: translateY(-3px) scale(1.14);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6), 0 0 18px rgba(56, 189, 248, 0.6);
+            z-index: 25;
+        }
+
+        /* Priority Cards Grid */
+        .priority-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .priority-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .priority-project-card {
+            background: var(--portal-card-bg);
+            border: 1px solid var(--portal-card-border);
+            border-radius: 14px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .priority-project-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .priority-project-card.priority-1 { border-top: 4px solid var(--p1-color); }
+        .priority-project-card.priority-2 { border-top: 4px solid var(--p2-color); }
+        .priority-project-card.priority-3 { border-top: 4px solid var(--p3-color); }
+        .priority-project-card.priority-4 { border-top: 4px solid var(--p4-color); }
+        .priority-project-card.priority-5 { border-top: 4px solid var(--p5-color); }
+
+        .card-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .priority-badge-pill {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-p1 { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .badge-p2 { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .badge-p3 { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+        .badge-p4 { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+        .badge-p5 { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+        .room-location-tag {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .card-project-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin: 0 0 8px 0;
+            line-height: 1.35;
+        }
+
+        .card-project-desc {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Card Funding Progress */
+        .card-funding-section {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .card-funding-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            margin-bottom: 6px;
+        }
+
+        .card-funding-track {
+            height: 8px;
+            background: #0f172a;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .card-funding-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b, #10b981);
+            border-radius: 4px;
+        }
+
+        /* Card Meta Badges */
+        .card-meta-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .meta-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 0.73rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .meta-chip.active-done {
+            color: #34d399;
+            border-color: rgba(52, 211, 153, 0.3);
+            background: rgba(52, 211, 153, 0.1);
+        }
+
+        .card-actions-row {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn-card-webpage {
+            flex: 1;
+            background: #0284c7;
+            border: none;
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-card-webpage:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .btn-card-sponsor {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-card-sponsor:hover {
+            background: #f59e0b;
+            color: #0f172a;
+        }
+
+        /* Sponsorship Perks Banner */
+        .perks-showcase-section {
+            margin-top: 50px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .perks-showcase-section h3 {
+            margin: 0 0 16px 0;
+            font-family: 'Cinzel', serif;
+            color: var(--accent);
+            font-size: 1.4rem;
+        }
+
+        .perks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .perk-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .perk-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .perk-name {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 1rem;
+        }
+
+        .perk-amount {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #fbbf24;
+            font-size: 1.1rem;
+        }
+
+        .perk-desc {
+            font-size: 0.84rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .portal-footer {
+            margin-top: 60px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 30px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .portal-footer a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        /* Steampunk Theme */
+        body.theme-steampunk {
+            background-color: #120a06;
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(217, 119, 6, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(180, 83, 9, 0.08) 0%, transparent 40%),
+                linear-gradient(180deg, #180d07 0%, #0d0704 100%);
+            color: #fef3c7;
+        }
+        body.theme-steampunk .portal-header {
+            background: linear-gradient(180deg, #24140b 0%, #170d07 100%);
+            border-bottom: 2px solid #b45309;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        }
+        body.theme-steampunk .portal-hero {
+            background: linear-gradient(135deg, #2a160c 0%, #170d07 100%);
+            border: 1px solid #92400e;
+        }
+        body.theme-steampunk .meter-box {
+            background: #170d07;
+            border: 1px solid #78350f;
+        }
+        body.theme-steampunk .priority-project-card {
+            background: linear-gradient(180deg, #20110a 0%, #140a05 100%);
+            border: 1px solid #78350f;
+        }
+        body.theme-steampunk .priority-project-card:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 16px rgba(245, 158, 11, 0.35);
+        }
+        body.theme-steampunk .btn-portal-action {
+            background: linear-gradient(180deg, #381e0f, #221209);
+            border: 1px solid #b45309;
+            color: #fef3c7;
+        }
+        body.theme-steampunk .btn-portal-action:hover {
+            background: linear-gradient(180deg, #78350f, #451a03);
+            border-color: #f59e0b;
+        }
+    </style>
+</head>
+<body class="dream-portal-body">
+
+    <!-- PORTAL HEADER -->
+    <header class="portal-header">
+        <div class="portal-header-inner">
+            <a href="index.html" class="portal-brand">
+                <span class="portal-logo-icon">🏛️</span>
+                <div class="portal-brand-text">
+                    <h1 id="portal-header-title">WHISPERING PINES MANOR</h1>
+                    <span>1910 HISTORIC RESTORATION PROJECT & COMMUNITY HUB</span>
+                </div>
+            </a>
+            <div class="portal-nav-actions">
+                <a href="index.html" class="btn-portal-action">
+                    🛠️ Back to Gypsy Jack's Shack
+                </a>
+                <a href="community.html" class="btn-portal-action" style="border-color:#f59e0b; color:#fbbf24;">
+                    🪵 Community Tips &amp; Salvage
+                </a>
+                <button class="btn-portal-action" style="border-color:#fbbf24; color:#fef08a;" onclick="DreamPortal.openPlaqueStudio()" title="Interactive Engraved Plaque & Adoption Studio">
+                    🎖️ Plaque Studio &amp; Adopt
+                </button>
+                <a href="#hall-of-fame" class="btn-portal-action">
+                    🏆 Hall of Fame
+                </a>
+                <button class="btn-portal-action" id="btn-dream-theme-toggle" onclick="DreamPortal.toggleTheme()" title="Toggle Steampunk theme">
+                    🕰️ Steampunk Theme
+                </button>
+                <button class="btn-portal-action" onclick="DreamPortal.openSyncModal()">
+                    💾 Sync / Import Progress
+                </button>
+                <button class="btn-portal-action btn-sponsor-highlight" onclick="DreamPortal.openSponsorModal()">
+                    💝 Sponsor a Milestone
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="portal-container">
+
+        <!-- CAMPAIGN HERO -->
+        <section class="portal-hero">
+            <div class="hero-title-group">
+                <h2 id="campaign-title">Building the Dream: 1910 Whispering Pines Restoration</h2>
+                <div class="hero-tagline" id="campaign-tagline">Restoring a 116-year-old historic Queen Anne & Craftsman treasure from bedrock to cupola</div>
+                <p class="hero-story" id="campaign-story">
+                    Whispering Pines was commissioned in 1910 by timber baron Thaddeus Vance using virgin old-growth Douglas fir and quarter-sawn white oak timbers. We are undertaking an authentic, ground-up restoration—jacking the 60-ton structure on hydraulic towers, restoring scalloped Peach Bottom black slate 32 feet high, replacing legacy lead supply pipes with modern PEX-A lines, and creating an educational craftsmanship center and community B&B. Every contribution directly funds historic materials, specialized restoration tools, and structural preservation.
+                </p>
+            </div>
+
+            <!-- METERS -->
+            <div class="hero-meters-grid">
+                <div class="meter-box">
+                    <div class="meter-box-header">
+                        <span class="meter-title">Restoration Funding Goal</span>
+                        <span class="meter-figures" id="funding-figures">$28,450 / $75,000 (38%)</span>
+                    </div>
+                    <div class="meter-bar-track">
+                        <div class="meter-bar-fill-funding" id="funding-bar" style="width: 38%;"></div>
+                    </div>
+                </div>
+                <div class="meter-box">
+                    <div class="meter-box-header">
+                        <span class="meter-title">Overall Manor Completion</span>
+                        <span class="meter-figures" id="progress-figures">42% Renovated</span>
+                    </div>
+                    <div class="meter-bar-track">
+                        <div class="meter-bar-fill-progress" id="progress-bar" style="width: 42%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DONATION CHANNELS -->
+            <div class="donation-channels-tray" id="channels-tray">
+                <a href="https://gofundme.com" target="_blank" class="channel-pill" id="link-gofundme">💛 GoFundMe Campaign</a>
+                <a href="https://patreon.com" target="_blank" class="channel-pill" id="link-patreon">☕ Patreon Membership</a>
+                <span class="channel-pill" id="badge-venmo">💸 Venmo: @whisperingpines-restoration</span>
+                <span class="channel-pill" id="badge-paypal">🅿️ PayPal: @whisperingpines1910</span>
+                <a href="https://amazon.com" target="_blank" class="channel-pill" id="link-wishlist">📦 Tool & Materials Wishlist</a>
+            </div>
+        </section>
+
+        <!-- RESTORATION ROADMAP: HIGHEST PRIORITY FIRST -->
+        <section class="roadmap-section">
+            <div class="roadmap-header-row">
+                <h3>
+                    <span>📋 Restoration Roadmap</span>
+                    <small style="font-size:0.8rem; color:#94a3b8; font-family:'Inter', sans-serif; font-weight:400;">(Highest Priority Projects First)</small>
+                </h3>
+                <div class="filter-controls-tray">
+                    <button class="filter-btn active" onclick="DreamPortal.filterPriority('all')">All Projects</button>
+                    <button class="filter-btn" onclick="DreamPortal.filterPriority(1)">🚨 Priority 1: Critical / Structure</button>
+                    <button class="filter-btn" onclick="DreamPortal.filterPriority(2)">⚡ Priority 2: Infrastructure</button>
+                    <button class="filter-btn" onclick="DreamPortal.filterPriority(3)">🪵 Priority 3: Enclosure</button>
+                    <button class="filter-btn" onclick="DreamPortal.filterPriority(4)">🎨 Priority 4: Finishes</button>
+                    <button class="filter-btn" onclick="DreamPortal.filterPriority(5)">✨ Priority 5: Amenities</button>
+                </div>
+            </div>
+
+            <!-- CARDS GRID -->
+            <div class="priority-cards-grid" id="projects-grid">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- COMMUNITY CROWDSOURCING & SALVAGE RADAR SHOWCASE -->
+        <section class="community-supporter-banner" style="margin-top:40px; background:linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.95)); border:1px solid rgba(245,158,11,0.35); border-radius:14px; padding:24px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+            <div style="max-width:760px;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                    <span style="font-size:1.4rem;">🪵</span>
+                    <h3 style="margin:0; font-family:'Cinzel', serif; color:#fbbf24; font-size:1.25rem;">Community Knowledge &amp; Salvage Radar</h3>
+                    <span style="font-size:0.75rem; background:rgba(245,158,11,0.2); color:#fbbf24; padding:2px 8px; border-radius:12px; font-weight:700;">Crowdsourced</span>
+                </div>
+                <p style="margin:0; font-size:0.88rem; color:#cbd5e1; line-height:1.5;">
+                    Have constructive advice on our 60-ton hydraulic jacking sequence, reclaimed Douglas fir timber leads, or workshop bench jigs? Join our community of craftspeople and supporters contributing directly to Whispering Pines Manor!
+                </p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <a href="community.html" class="btn-portal-action" style="background:linear-gradient(135deg, #f59e0b, #d97706); color:#0f172a; font-weight:800; border:none; padding:12px 20px; font-size:0.9rem;">
+                    💡 View Community Feed &amp; Drop Advice
+                </a>
+            </div>
+        </section>
+
+        <!-- PUBLIC BACKER HALL OF FAME WALL -->
+        <section class="hall-of-fame-section" id="hall-of-fame">
+            <div class="hof-header-row">
+                <div class="hof-title-block">
+                    <h3>🏆 BACKER HALL OF FAME &amp; COMMEMORATIVE REGISTRY</h3>
+                    <p>Honoring the generous supporters, salvage scouts, and craftspeople adopting historic boards, slate tiles, and foundation piers.</p>
+                </div>
+                <div>
+                    <button type="button" class="btn-portal-action" style="background:linear-gradient(135deg, #f59e0b, #d97706); color:#0f172a; font-weight:800; border:none; padding:12px 22px; font-size:0.92rem; box-shadow:0 4px 15px rgba(245,158,11,0.4);" onclick="DreamPortal.openPlaqueStudio()">
+                        🎖️ Open Plaque Studio (Adopt a Board or Tile)
+                    </button>
+                </div>
+            </div>
+
+            <!-- LIVE STATS COUNTER -->
+            <div class="hof-stats-grid">
+                <div class="hof-stat-card">
+                    <span class="hof-stat-icon">🪵</span>
+                    <div class="hof-stat-info">
+                        <strong id="hof-stat-boards">0</strong>
+                        <span>Adopted Boards</span>
+                    </div>
+                </div>
+                <div class="hof-stat-card">
+                    <span class="hof-stat-icon">🪨</span>
+                    <div class="hof-stat-info">
+                        <strong id="hof-stat-tiles">0</strong>
+                        <span>Adopted Slate Tiles</span>
+                    </div>
+                </div>
+                <div class="hof-stat-card">
+                    <span class="hof-stat-icon">🪙</span>
+                    <div class="hof-stat-info">
+                        <strong id="hof-stat-brass">0</strong>
+                        <span>Bedrock Brass Plaques</span>
+                    </div>
+                </div>
+                <div class="hof-stat-card">
+                    <span class="hof-stat-icon">💝</span>
+                    <div class="hof-stat-info">
+                        <strong id="hof-stat-total">0</strong>
+                        <span>Total Backers</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROLS & SEARCH -->
+            <div class="hof-controls-row">
+                <div class="hof-filter-tabs">
+                    <button type="button" class="btn-hof-filter active" onclick="DreamPortal.filterHallOfFame('all')">All Patrons</button>
+                    <button type="button" class="btn-hof-filter" onclick="DreamPortal.filterHallOfFame('board')">🪵 Adopt-a-Board</button>
+                    <button type="button" class="btn-hof-filter" onclick="DreamPortal.filterHallOfFame('tile')">🪨 Adopt-a-Tile</button>
+                    <button type="button" class="btn-hof-filter" onclick="DreamPortal.filterHallOfFame('brass')">🪙 Brass Foundation</button>
+                    <button type="button" class="btn-hof-filter" onclick="DreamPortal.filterHallOfFame('suite')">🏛️ Suite Sponsors</button>
+                </div>
+                <input type="text" class="hof-search-input" id="hof-search-input" placeholder="🔍 Search by name, room, or quote..." oninput="DreamPortal.onHallOfFameSearch(this.value)">
+            </div>
+
+            <!-- CARDS GRID -->
+            <div class="hof-cards-grid" id="hall-of-fame-grid">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- SPONSORSHIP PERKS -->
+        <section class="perks-showcase-section">
+            <h3>🏛️ Heritage Sponsorship Tiers & Perks</h3>
+            <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:20px;">Support a specific architectural milestone and be permanently commemorated in the manor archive:</p>
+            <div class="perks-grid" id="perks-container">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <footer class="portal-footer">
+            <p><strong>Whispering Pines Manor Restoration Project</strong> • 1910 Vance Ridge Road, Timber Basin, WA</p>
+            <p>Created with <a href="index.html">Jack's Fixer Uper Editable Engine</a> • Track, build, and share your historic dreams.</p>
+        </footer>
+
+    </main>
+
+    <!-- SPONSOR MODAL OVERLAY -->
+    <div class="modal-overlay" id="sponsor-modal-overlay">
+        <div class="modal-window" style="max-width:550px;">
+            <div class="modal-header">
+                <h2 style="color:var(--accent); margin:0; font-size:1.15rem;">💝 Support Whispering Pines Restoration</h2>
+                <button class="btn-modal-close" onclick="DreamPortal.closeSponsorModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="sponsor-modal-body" style="padding:20px;">
+                <!-- Populated via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SYNC MODAL OVERLAY -->
+    <div class="modal-overlay" id="sync-modal-overlay">
+        <div class="modal-window" style="max-width:550px;">
+            <div class="modal-header">
+                <h2 style="color:#38bdf8; margin:0; font-size:1.15rem;">💾 Sync Latest Restoration Data</h2>
+                <button class="btn-modal-close" onclick="DreamPortal.closeSyncModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:20px;">
+                <p style="font-size:0.9rem; color:#cbd5e1; line-height:1.5;">
+                    If you edited your house project on another device or exported a project backup, paste your exported JSON below or choose a JSON file to update this portal immediately:
+                </p>
+                <input type="file" id="sync-file-input" accept=".json" style="margin:12px 0; color:#cbd5e1;">
+                <textarea id="sync-json-textarea" rows="6" style="width:100%; background:#0f172a; border:1px solid #334155; color:#f8fafc; border-radius:6px; padding:10px; font-family:monospace; font-size:0.8rem;" placeholder="Or paste exported JSON project string here..."></textarea>
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+                    <button class="btn-portal-action" onclick="DreamPortal.closeSyncModal()">Cancel</button>
+                    <button class="btn-portal-action btn-sponsor-highlight" onclick="DreamPortal.importSyncData()">Apply Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERACTIVE ENGRAVED PLAQUE STUDIO MODAL -->
+    <div class="modal-overlay" id="plaque-studio-modal-overlay">
+        <div class="modal-window" style="max-width:960px; width:95%; max-height:92vh; overflow-y:auto; border-color:#f59e0b;">
+            <div class="modal-header" style="background:#0f172a; border-bottom:1px solid rgba(255,255,255,0.1); padding:18px 24px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:1.4rem;">🎖️</span>
+                    <div>
+                        <h2 style="color:#fbbf24; margin:0; font-family:'Cinzel', serif; font-size:1.25rem;">Commemorative Plaque &amp; Adoption Studio</h2>
+                        <small style="color:#94a3b8;">Adopt a historic board, slate roofing tile, or cast bedrock brass plaque with live visual preview.</small>
+                    </div>
+                </div>
+                <button class="btn-modal-close" onclick="DreamPortal.closePlaqueStudio()">&times;</button>
+            </div>
+            
+            <div class="modal-body" style="padding:26px;">
+                <div class="plaque-studio-layout">
+                    <!-- Left: Studio Inputs -->
+                    <div class="plaque-form-controls">
+                        <label style="display:block; font-size:0.8rem; font-weight:700; color:#fbbf24; text-transform:uppercase; margin-bottom:8px;">1. Select Commemorative Adoption Tier</label>
+                        <div class="plaque-tier-selector">
+                            <button type="button" class="btn-plaque-tier active" id="btn-tier-board" onclick="DreamPortal.selectStudioTier('board')">
+                                <span style="font-size:1.3rem;">🪵</span>
+                                <div>
+                                    <div>Adopt a Board</div>
+                                    <small style="color:#38bdf8; font-weight:400;">$75 • Reclaimed Fir</small>
+                                </div>
+                            </button>
+                            <button type="button" class="btn-plaque-tier" id="btn-tier-tile" onclick="DreamPortal.selectStudioTier('tile')">
+                                <span style="font-size:1.3rem;">🪨</span>
+                                <div>
+                                    <div>Adopt a Tile</div>
+                                    <small style="color:#38bdf8; font-weight:400;">$150 • 125-Yr Slate</small>
+                                </div>
+                            </button>
+                            <button type="button" class="btn-plaque-tier" id="btn-tier-brass" onclick="DreamPortal.selectStudioTier('brass')">
+                                <span style="font-size:1.3rem;">🪙</span>
+                                <div>
+                                    <div>Founding Brass</div>
+                                    <small style="color:#38bdf8; font-weight:400;">$500 • Bedrock Pier</small>
+                                </div>
+                            </button>
+                            <button type="button" class="btn-plaque-tier" id="btn-tier-suite" onclick="DreamPortal.selectStudioTier('suite')">
+                                <span style="font-size:1.3rem;">🏛️</span>
+                                <div>
+                                    <div>Suite Sponsor</div>
+                                    <small style="color:#38bdf8; font-weight:400;">$1,200 • Walnut Door</small>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div style="margin-bottom:14px;">
+                            <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:6px;">Supporter Name / Family / Guild</label>
+                            <input type="text" id="studio-donor-name" class="form-control" style="width:100%; box-sizing:border-box; background:#0f172a; border:1px solid #334155; color:#fff; padding:10px 12px; border-radius:6px; font-size:0.95rem;" placeholder="e.g. Wayne &amp; Carol Vance or The Miller Family" value="The Miller Family" oninput="DreamPortal.updateStudioPreview()">
+                        </div>
+
+                        <div style="margin-bottom:14px;">
+                            <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:6px;">Custom Inscription / Dedication Quote</label>
+                            <textarea id="studio-inscription" rows="3" class="form-control" style="width:100%; box-sizing:border-box; background:#0f172a; border:1px solid #334155; color:#fff; padding:10px 12px; border-radius:6px; font-size:0.88rem; font-family:'Georgia', serif; resize:vertical;" placeholder="e.g. Preserving authentic American craftsmanship for the next century." oninput="DreamPortal.updateStudioPreview()">Honoring historic craftsmanship — proud to support Whispering Pines!</textarea>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;">
+                            <div>
+                                <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:6px;">Manor Location</label>
+                                <select id="studio-location" class="form-control" style="width:100%; box-sizing:border-box; background:#0f172a; border:1px solid #334155; color:#fff; padding:10px 12px; border-radius:6px; font-size:0.88rem;" onchange="DreamPortal.updateStudioPreview()">
+                                    <option value="Victorian Slate Roofing &amp; Cupola">Roof Cupola &amp; Tower</option>
+                                    <option value="Guest Parlor &amp; Hearth">Guest Parlor &amp; Hearth</option>
+                                    <option value="1910 Bad Foundation &amp; 60-Ton Frame">Sub-Cellar Foundation</option>
+                                    <option value="Wrap-Around Veranda &amp; Lawn">Wrap-Around Veranda</option>
+                                    <option value="Temporary Wood &amp; Metal Fabrication Shop">Wood &amp; Metal Workshop</option>
+                                    <option value="Heritage Guest Rooms">Heritage Guest Suites</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:0.8rem; font-weight:700; color:#cbd5e1; margin-bottom:6px;">Pledge Amount ($)</label>
+                                <input type="number" id="studio-amount" class="form-control" style="width:100%; box-sizing:border-box; background:#0f172a; border:1px solid #334155; color:#fff; padding:10px 12px; border-radius:6px; font-size:0.88rem;" value="75" min="10" oninput="DreamPortal.updateStudioPreview()">
+                            </div>
+                        </div>
+
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <button type="button" class="btn-portal-action btn-sponsor-highlight" style="flex:1; padding:12px 18px; font-weight:800; font-size:0.95rem;" onclick="DreamPortal.submitStudioPledge()">
+                                💝 Pledge &amp; Add to Backer Registry
+                            </button>
+                            <button type="button" class="btn-portal-action" style="padding:12px 16px;" onclick="DreamPortal.copyCertificateText()">
+                                📋 Copy Certificate Text
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Visual Preview Stage -->
+                    <div>
+                        <label style="display:block; font-size:0.8rem; font-weight:700; color:#38bdf8; text-transform:uppercase; margin-bottom:8px; text-align:center;">✨ Live Engraved Plaque Simulation</label>
+                        <div class="plaque-preview-stage">
+                            <!-- Visual Render Box -->
+                            <div class="plaque-render-box style-wood" id="studio-render-box">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span class="plaque-badge" id="studio-plaque-badge">🪵 HISTORIC TIMBER ADOPTION</span>
+                                    <span style="font-size:0.75rem; font-weight:700; opacity:0.85;" id="studio-plaque-year">EST. 1910 • WA</span>
+                                </div>
+                                <div style="margin:20px 0; text-align:center;">
+                                    <div class="plaque-name" id="studio-plaque-name">The Miller Family</div>
+                                    <div class="plaque-quote" id="studio-plaque-quote">“Honoring historic craftsmanship — proud to support Whispering Pines!”</div>
+                                </div>
+                                <div class="plaque-meta">
+                                    <span id="studio-plaque-location">Guest Parlor &amp; Hearth</span>
+                                    <span id="studio-plaque-item">Douglas Fir Joist #184</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="font-size:0.75rem; color:#94a3b8; text-align:center; margin-top:10px;">
+                            Rendered in real-time. Upon pledge confirmation, this commemorative inscription is recorded permanently in the Manor Registry archive.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/data.js"></script>
+    <script src="js/game.js"></script>
+    <script>
+        const DreamPortal = {
+            currentFilter: 'all',
+            currentTheme: 'blueprint',
+            gameInstance: null,
+
+            init() {
+                // Initialize theme
+                let savedTheme = 'blueprint';
+                try { savedTheme = localStorage.getItem('jack_theme') || 'blueprint'; } catch (e) {}
+                this.setTheme(savedTheme);
+
+                // Initialize game instance to read current saved state
+                if (window.Game) {
+                    this.gameInstance = window.Game;
+                    this.gameInstance.init();
+                } else if (typeof JacksGame !== 'undefined') {
+                    this.gameInstance = new JacksGame();
+                    this.gameInstance.init();
+                }
+                if (this.gameInstance && this.gameInstance.subscribe) {
+                    this.gameInstance.subscribe(() => {
+                        this.render();
+                    });
+                }
+                this.render();
+            },
+
+            setTheme(themeName) {
+                this.currentTheme = themeName;
+                try { localStorage.setItem('jack_theme', themeName); } catch (e) {}
+                if (themeName === 'steampunk') {
+                    document.body.classList.add('theme-steampunk');
+                    document.documentElement.setAttribute('data-theme', 'steampunk');
+                } else {
+                    document.body.classList.remove('theme-steampunk');
+                    document.documentElement.removeAttribute('data-theme');
+                }
+                const btn = document.getElementById('btn-dream-theme-toggle');
+                if (btn) {
+                    btn.innerHTML = themeName === 'steampunk' ? '📐 Blueprint Theme' : '🕰️ Steampunk Theme';
+                }
+            },
+
+            toggleTheme() {
+                const next = this.currentTheme === 'steampunk' ? 'blueprint' : 'steampunk';
+                this.setTheme(next);
+            },
+
+            render() {
+                const g = this.gameInstance;
+                if (!g) return;
+
+                // 1. Render Campaign & Story
+                const settings = g.getDonationSettings();
+                document.getElementById('portal-header-title').textContent = (g.propertyInfo?.name || "WHISPERING PINES MANOR").toUpperCase();
+                document.getElementById('campaign-title').textContent = settings.title || "Building the Dream: Whispering Pines Restoration";
+                document.getElementById('campaign-tagline').textContent = settings.tagline || "";
+                document.getElementById('campaign-story').textContent = settings.story || "";
+
+                // 2. Render Meters
+                const stats = g.getProjectDonationStats();
+                document.getElementById('funding-figures').textContent = `$${stats.totalRaised.toLocaleString()} / $${stats.totalGoal.toLocaleString()} (${stats.pctRaised}%)`;
+                document.getElementById('funding-bar').style.width = `${Math.min(100, stats.pctRaised)}%`;
+
+                document.getElementById('progress-figures').textContent = `${stats.pctRenovated}% Renovated (${stats.completedProjects}/${stats.totalProjects} Milestones)`;
+                document.getElementById('progress-bar').style.width = `${Math.min(100, stats.pctRenovated)}%`;
+
+                // 3. Render Donation Links
+                if (settings.gofundmeUrl) {
+                    const el = document.getElementById('link-gofundme');
+                    el.href = settings.gofundmeUrl;
+                    el.style.display = 'inline-flex';
+                }
+                if (settings.patreonUrl) {
+                    const el = document.getElementById('link-patreon');
+                    el.href = settings.patreonUrl;
+                    el.style.display = 'inline-flex';
+                }
+                if (settings.venmoHandle) {
+                    const el = document.getElementById('badge-venmo');
+                    el.textContent = `💸 Venmo: ${settings.venmoHandle}`;
+                    el.style.display = 'inline-flex';
+                }
+                if (settings.paypalHandle) {
+                    const el = document.getElementById('badge-paypal');
+                    el.textContent = `🅿️ PayPal: ${settings.paypalHandle}`;
+                    el.style.display = 'inline-flex';
+                }
+                if (settings.wishlistUrl) {
+                    const el = document.getElementById('link-wishlist');
+                    el.href = settings.wishlistUrl;
+                    el.style.display = 'inline-flex';
+                }
+
+                // 4. Render Roadmap Projects (Highest Priority First)
+                this.renderProjects();
+
+                // 5. Render Perks
+                this.renderPerks(settings.sponsorshipPerks || []);
+
+                // 6. Render Backer Hall of Fame & Commemorative Registry
+                this.renderHallOfFame();
+            },
+
+            renderProjects() {
+                const g = this.gameInstance;
+                const container = document.getElementById('projects-grid');
+                if (!container || !g) return;
+
+                const tasks = g.getPrioritySortedTasks(null, this.currentFilter);
+                if (tasks.length === 0) {
+                    container.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #94a3b8;">No projects found for the selected priority tier.</div>`;
+                    return;
+                }
+
+                container.innerHTML = tasks.map(t => {
+                    const priorityClass = `priority-${t.priority}`;
+                    const badgeClass = `badge-p${t.priority}`;
+                    const priorityLabels = {
+                        1: "🚨 Priority 1 • Critical Structure",
+                        2: "⚡ Priority 2 • Infrastructure",
+                        3: "🪵 Priority 3 • Enclosure",
+                        4: "🎨 Priority 4 • Finishes",
+                        5: "✨ Priority 5 • Amenities"
+                    };
+                    const pLabel = priorityLabels[t.priority] || `Priority ${t.priority}`;
+
+                    const goal = t.donation.goal || 1000;
+                    const raised = t.donation.raised || 0;
+                    const pctFunded = goal > 0 ? Math.min(100, Math.round((raised / goal) * 100)) : 0;
+
+                    return `
+                        <div class="priority-project-card ${priorityClass}">
+                            <div>
+                                <div class="card-top-row">
+                                    <span class="priority-badge-pill ${badgeClass}">${pLabel}</span>
+                                    <span class="room-location-tag">${t.roomInfo ? t.roomInfo.icon + ' ' + t.roomInfo.name : t.room}</span>
+                                </div>
+                                <h4 class="card-project-title">${t.name}</h4>
+                                <p class="card-project-desc">${t.desc || ''}</p>
+
+                                <div class="card-funding-section">
+                                    <div class="card-funding-labels">
+                                        <span style="color:#94a3b8;">Milestone Funding:</span>
+                                        <span style="font-weight:700; color:#f8fafc;">$${raised.toLocaleString()} / $${goal.toLocaleString()} (${pctFunded}%)</span>
+                                    </div>
+                                    <div class="card-funding-track">
+                                        <div class="card-funding-fill" style="width:${pctFunded}%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-meta-chips">
+                                    <span class="meta-chip ${t.isCompleted ? 'active-done' : ''}">
+                                        ${t.isCompleted ? '✅ Complete' : '🚧 In Progress'}
+                                    </span>
+                                    <span class="meta-chip">☑️ ${t.doneChecklist}/${t.totalChecklist} Steps Done</span>
+                                    <span class="meta-chip">📦 ${t.materials.length} Materials</span>
+                                    <span class="meta-chip">🔧 ${t.tools.length} Tools</span>
+                                    ${t.photosCount > 0 ? `<span class="meta-chip">📷 ${t.photosCount} Photos</span>` : ''}
+                                    ${t.videosCount > 0 ? `<span class="meta-chip">🎥 ${t.videosCount} Videos</span>` : ''}
+                                </div>
+                            </div>
+
+                            <div class="card-actions-row">
+                                <a href="project.html?id=${t.id}" class="btn-card-webpage">
+                                    🌐 View Project Webpage →
+                                </a>
+                                <button class="btn-card-sponsor" onclick="DreamPortal.openSponsorModal('${t.id}')">
+                                    💝 Sponsor
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            renderPerks(perks) {
+                const container = document.getElementById('perks-container');
+                if (!container) return;
+                if (!perks || perks.length === 0) {
+                    container.innerHTML = `<p style="color:#94a3b8;">No sponsorship tiers configured.</p>`;
+                    return;
+                }
+                container.innerHTML = perks.map(p => {
+                    const isBoard = p.name.includes('Board');
+                    const isTile = p.name.includes('Tile') || p.name.includes('Slate');
+                    const isBrass = p.name.includes('Brass') || p.name.includes('Pier');
+                    const isSuite = p.name.includes('Suite') || p.name.includes('Beam');
+                    const tier = isBoard ? 'board' : (isTile ? 'tile' : (isBrass ? 'brass' : 'suite'));
+                    return `
+                        <div class="perk-card" style="cursor:pointer;" onclick="DreamPortal.openPlaqueStudio('${tier}')" title="Click to open interactive Plaque Studio & adopt!">
+                            <div class="perk-card-top">
+                                <span class="perk-name">${p.name}</span>
+                                <span class="perk-amount">$${p.amount.toLocaleString()}</span>
+                            </div>
+                            <p class="perk-desc">${p.perk}</p>
+                            <div style="margin-top:12px; display:flex; justify-content:flex-end;">
+                                <span style="font-size:0.78rem; font-weight:700; color:#fbbf24;">✨ Open Plaque Studio &amp; Adopt &rarr;</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            // Hall of Fame & Plaque Studio state & methods
+            currentHofFilter: 'all',
+            currentHofSearch: '',
+            currentStudioTier: 'board',
+
+            renderHallOfFame() {
+                const g = this.gameInstance;
+                const container = document.getElementById('hall-of-fame-grid');
+                if (!container || !g) return;
+
+                // 1. Stats
+                const stats = g.getHallOfFameStats();
+                const elBoards = document.getElementById('hof-stat-boards');
+                const elTiles = document.getElementById('hof-stat-tiles');
+                const elBrass = document.getElementById('hof-stat-brass');
+                const elTotal = document.getElementById('hof-stat-total');
+                if (elBoards) elBoards.textContent = stats.adoptedBoards;
+                if (elTiles) elTiles.textContent = stats.adoptedTiles;
+                if (elBrass) elBrass.textContent = stats.brassPlaques;
+                if (elTotal) elTotal.textContent = stats.totalBackers;
+
+                // 2. Filtered Cards
+                const backers = g.getHallOfFameBackers(this.currentHofFilter, this.currentHofSearch);
+                if (backers.length === 0) {
+                    container.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #94a3b8;">No commemorative backers found matching "${this.currentHofSearch}".</div>`;
+                    return;
+                }
+
+                container.innerHTML = backers.map(b => {
+                    const tierIcons = {
+                        board: "🪵",
+                        tile: "🪨",
+                        brass: "🪙",
+                        suite: "🏛️"
+                    };
+                    const icon = tierIcons[b.tier] || "🎖️";
+                    return `
+                        <div class="hof-backer-card" id="card-${b.id}">
+                            <div class="hof-backer-top">
+                                <div style="display:flex; align-items:center; gap:12px;">
+                                    <div class="hof-avatar-box">${icon}</div>
+                                    <div class="hof-backer-info">
+                                        <h4>${b.donorName}</h4>
+                                        <div class="hof-item-tag">${icon} ${b.itemLabel}</div>
+                                    </div>
+                                </div>
+                                <span class="hof-amount-badge">$${(Number(b.amount) || 0).toLocaleString()}</span>
+                            </div>
+
+                            <div class="hof-inscription-box">
+                                “${b.inscription}”
+                            </div>
+
+                            <div class="hof-card-footer">
+                                <span>📍 ${b.location} • ${b.date || ''}</span>
+                                <button type="button" class="btn-inspect-plaque" onclick="DreamPortal.inspectBackerPlaque('${b.id}')">
+                                    👁️ View Plaque
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            filterHallOfFame(tier) {
+                this.currentHofFilter = tier;
+                document.querySelectorAll('.btn-hof-filter').forEach(btn => {
+                    if (tier === 'all') {
+                        btn.classList.toggle('active', btn.textContent.includes('All'));
+                    } else if (tier === 'board') {
+                        btn.classList.toggle('active', btn.textContent.includes('Adopt-a-Board'));
+                    } else if (tier === 'tile') {
+                        btn.classList.toggle('active', btn.textContent.includes('Adopt-a-Tile'));
+                    } else if (tier === 'brass') {
+                        btn.classList.toggle('active', btn.textContent.includes('Brass'));
+                    } else if (tier === 'suite') {
+                        btn.classList.toggle('active', btn.textContent.includes('Suite'));
+                    }
+                });
+                this.renderHallOfFame();
+            },
+
+            onHallOfFameSearch(query) {
+                this.currentHofSearch = query;
+                this.renderHallOfFame();
+            },
+
+            openPlaqueStudio(defaultTier = 'board', prefillName = '', prefillQuote = '', prefillLocation = '') {
+                const modal = document.getElementById('plaque-studio-modal-overlay');
+                if (!modal) return;
+
+                this.selectStudioTier(defaultTier);
+                if (prefillName) document.getElementById('studio-donor-name').value = prefillName;
+                if (prefillQuote) document.getElementById('studio-inscription').value = prefillQuote;
+                if (prefillLocation) document.getElementById('studio-location').value = prefillLocation;
+
+                this.updateStudioPreview();
+                modal.style.display = 'flex';
+            },
+
+            closePlaqueStudio() {
+                const modal = document.getElementById('plaque-studio-modal-overlay');
+                if (modal) modal.style.display = 'none';
+            },
+
+            selectStudioTier(tierKey) {
+                this.currentStudioTier = tierKey;
+                const tierInfo = (GAME_DATA.ADOPTION_TIERS && GAME_DATA.ADOPTION_TIERS[tierKey]) || {
+                    name: "Adopt a Board",
+                    amount: 75
+                };
+
+                // Update tier selector buttons
+                ['board', 'tile', 'brass', 'suite'].forEach(t => {
+                    const btn = document.getElementById(`btn-tier-${t}`);
+                    if (btn) btn.classList.toggle('active', t === tierKey);
+                });
+
+                const amountInput = document.getElementById('studio-amount');
+                if (amountInput) amountInput.value = tierInfo.amount;
+
+                this.updateStudioPreview();
+            },
+
+            updateStudioPreview() {
+                const tierKey = this.currentStudioTier || 'board';
+                const tierInfo = (GAME_DATA.ADOPTION_TIERS && GAME_DATA.ADOPTION_TIERS[tierKey]) || {
+                    name: "Adopt a Board",
+                    amount: 75,
+                    previewStyle: "wood"
+                };
+
+                const donorName = document.getElementById('studio-donor-name')?.value.trim() || "The Henderson Family";
+                const inscription = document.getElementById('studio-inscription')?.value.trim() || "Dedicated to historic preservation and authentic craftsmanship.";
+                const location = document.getElementById('studio-location')?.value || "Guest Parlor & Hearth";
+
+                const renderBox = document.getElementById('studio-render-box');
+                const badgeEl = document.getElementById('studio-plaque-badge');
+                const nameEl = document.getElementById('studio-plaque-name');
+                const quoteEl = document.getElementById('studio-plaque-quote');
+                const locEl = document.getElementById('studio-plaque-location');
+                const itemEl = document.getElementById('studio-plaque-item');
+
+                if (!renderBox) return;
+
+                // Reset style classes
+                renderBox.className = `plaque-render-box style-${tierInfo.previewStyle || 'wood'}`;
+
+                // Add or remove screws for brass style
+                const existingScrews = renderBox.querySelectorAll('.plaque-screw');
+                existingScrews.forEach(s => s.remove());
+                if (tierInfo.previewStyle === 'brass') {
+                    const screws = ['tl', 'tr', 'bl', 'br'].map(pos => {
+                        const s = document.createElement('div');
+                        s.className = `plaque-screw ${pos}`;
+                        return s;
+                    });
+                    screws.forEach(s => renderBox.appendChild(s));
+                }
+
+                if (badgeEl) {
+                    if (tierKey === 'board') badgeEl.textContent = "🪵 HISTORIC TIMBER ADOPTION";
+                    else if (tierKey === 'tile') badgeEl.textContent = "🪨 VERMONT ROOFING SLATE";
+                    else if (tierKey === 'brass') badgeEl.textContent = "🪙 BEDROCK FOUNDATION REGISTRY";
+                    else if (tierKey === 'suite') badgeEl.textContent = "🏛️ HERITAGE SUITE COMMEMORATION";
+                }
+
+                if (nameEl) nameEl.textContent = donorName;
+                if (quoteEl) quoteEl.textContent = `“${inscription}”`;
+                if (locEl) locEl.textContent = location;
+                if (itemEl) {
+                    if (tierKey === 'board') itemEl.textContent = "Douglas Fir Joist #184";
+                    else if (tierKey === 'tile') itemEl.textContent = "Vermont Slate #42";
+                    else if (tierKey === 'brass') itemEl.textContent = "Bedrock Pier #01";
+                    else if (tierKey === 'suite') itemEl.textContent = "Master Suite Door Plaque";
+                }
+            },
+
+            submitStudioPledge() {
+                const g = this.gameInstance;
+                if (!g) return;
+
+                const donorName = document.getElementById('studio-donor-name')?.value.trim();
+                if (!donorName) {
+                    alert("Please enter a donor / supporter name.");
+                    return;
+                }
+
+                const inscription = document.getElementById('studio-inscription')?.value.trim() || "Dedicated to historic craftsmanship.";
+                const location = document.getElementById('studio-location')?.value || "1910 Whispering Pines Manor";
+                const amount = Number(document.getElementById('studio-amount')?.value) || 75;
+                const tier = this.currentStudioTier || 'board';
+
+                const tierInfo = GAME_DATA.ADOPTION_TIERS?.[tier] || { name: "Adopt a Board" };
+                const itemLabel = `${tierInfo.name} #${Math.floor(Math.random() * 800 + 100)}`;
+
+                const res = g.addHallOfFameBacker({
+                    donorName,
+                    inscription,
+                    location,
+                    amount,
+                    tier,
+                    itemLabel
+                });
+
+                if (res.success) {
+                    alert(`🎉 Thank you, ${donorName}! Your commemorative ${tierInfo.name} has been permanently registered in the Backer Hall of Fame!`);
+                    this.closePlaqueStudio();
+                    this.renderHallOfFame();
+                    this.render(); // update funding meters!
+
+                    // Scroll to Hall of Fame
+                    const hofEl = document.getElementById('hall-of-fame');
+                    if (hofEl) hofEl.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert("Error: " + res.error);
+                }
+            },
+
+            inspectBackerPlaque(backerId) {
+                const g = this.gameInstance;
+                if (!g) return;
+                const backer = g.getHallOfFameBacker(backerId);
+                if (!backer) return;
+
+                this.openPlaqueStudio(backer.tier || 'board', backer.donorName, backer.inscription, backer.location);
+                const itemEl = document.getElementById('studio-plaque-item');
+                if (itemEl && backer.itemLabel) itemEl.textContent = backer.itemLabel;
+            },
+
+            copyCertificateText() {
+                const donorName = document.getElementById('studio-donor-name')?.value.trim() || "Supporter";
+                const inscription = document.getElementById('studio-inscription')?.value.trim() || "";
+                const location = document.getElementById('studio-location')?.value || "Whispering Pines Manor";
+                const tier = this.currentStudioTier || 'board';
+                const tierInfo = GAME_DATA.ADOPTION_TIERS?.[tier] || { name: "Adopt a Board" };
+
+                const certText = `🏛️ 1910 WHISPERING PINES MANOR COMMEMORATIVE CERTIFICATE\n` +
+                    `--------------------------------------------------------\n` +
+                    `Commemorative Tier: ${tierInfo.name}\n` +
+                    `Honoree: ${donorName}\n` +
+                    `Inscription: "${inscription}"\n` +
+                    `Location: ${location}\n` +
+                    `Date: ${new Date().toLocaleDateString()}\n` +
+                    `Status: Verified in Permanent Manor Restoration Registry`;
+
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(certText).then(() => {
+                        alert("📋 Commemorative certificate text copied to clipboard!");
+                    }).catch(() => {
+                        alert(certText);
+                    });
+                } else {
+                    alert(certText);
+                }
+            },
+
+            filterPriority(priority) {
+                this.currentFilter = priority;
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.textContent.includes(priority === 'all' ? 'All' : `Priority ${priority}`));
+                });
+                this.renderProjects();
+            },
+
+            openSponsorModal(taskId = null) {
+                const modal = document.getElementById('sponsor-modal-overlay');
+                const body = document.getElementById('sponsor-modal-body');
+                if (!modal || !body) return;
+
+                const g = this.gameInstance;
+                const settings = g.getDonationSettings();
+                const task = taskId ? g.getTask(taskId) : null;
+
+                body.innerHTML = `
+                    <div style="margin-bottom:16px;">
+                        ${task ? `
+                            <div style="background:#0f172a; padding:12px; border-radius:8px; border-left:4px solid var(--accent); margin-bottom:16px;">
+                                <strong style="color:#38bdf8;">Sponsoring Project:</strong>
+                                <div style="font-size:1.05rem; font-weight:700; color:#fff; margin-top:4px;">${task.name}</div>
+                                <small style="color:#94a3b8;">${task.desc || ''}</small>
+                            </div>
+                        ` : `
+                            <p style="font-size:0.95rem; color:#cbd5e1; line-height:1.5;">
+                                Your donation directly purchases authentic heritage materials (scalloped slate, old-growth timber, copper flashing, structural fasteners) and specialized historic restoration tools.
+                            </p>
+                        `}
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        ${settings.gofundmeUrl ? `
+                            <a href="${settings.gofundmeUrl}" target="_blank" class="btn-portal-action btn-sponsor-highlight" style="justify-content:center; padding:12px;">
+                                💛 Give on GoFundMe
+                            </a>
+                        ` : ''}
+                        ${settings.patreonUrl ? `
+                            <a href="${settings.patreonUrl}" target="_blank" class="btn-portal-action" style="justify-content:center; padding:12px; background:#f97316; color:#fff; border:none;">
+                                ☕ Become a Monthly Patreon Sponsor
+                            </a>
+                        ` : ''}
+                        ${settings.venmoHandle ? `
+                            <div style="background:#0f172a; padding:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                                <span>💸 Venmo Handle:</span>
+                                <strong style="color:#38bdf8; font-family:monospace;">${settings.venmoHandle}</strong>
+                            </div>
+                        ` : ''}
+                        ${settings.paypalHandle ? `
+                            <div style="background:#0f172a; padding:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                                <span>🅿️ PayPal Handle:</span>
+                                <strong style="color:#38bdf8; font-family:monospace;">${settings.paypalHandle}</strong>
+                            </div>
+                        ` : ''}
+                        ${settings.wishlistUrl ? `
+                            <a href="${settings.wishlistUrl}" target="_blank" class="btn-portal-action" style="justify-content:center; padding:12px;">
+                                📦 Purchase Directly From Material Wishlist
+                            </a>
+                        ` : ''}
+                        ${settings.volunteerEmail ? `
+                            <div style="text-align:center; margin-top:10px;">
+                                <small style="color:#94a3b8;">Want to volunteer on site? Email: <a href="mailto:${settings.volunteerEmail}" style="color:#38bdf8;">${settings.volunteerEmail}</a></small>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                modal.style.display = 'flex';
+            },
+
+            closeSponsorModal() {
+                const modal = document.getElementById('sponsor-modal-overlay');
+                if (modal) modal.style.display = 'none';
+            },
+
+            openSyncModal() {
+                const modal = document.getElementById('sync-modal-overlay');
+                if (modal) modal.style.display = 'flex';
+            },
+
+            closeSyncModal() {
+                const modal = document.getElementById('sync-modal-overlay');
+                if (modal) modal.style.display = 'none';
+            },
+
+            importSyncData() {
+                const textarea = document.getElementById('sync-json-textarea');
+                const fileInput = document.getElementById('sync-file-input');
+
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.processJsonString(e.target.result);
+                    };
+                    reader.readAsText(fileInput.files[0]);
+                    return;
+                }
+
+                if (textarea && textarea.value.trim()) {
+                    this.processJsonString(textarea.value.trim());
+                    return;
+                }
+
+                alert("Please select a JSON file or paste exported project JSON into the box.");
+            },
+
+            processJsonString(jsonStr) {
+                const res = this.gameInstance.importProjectJson(jsonStr);
+                if (res.success) {
+                    alert("🎉 Project progress updated successfully!");
+                    this.closeSyncModal();
+                    this.render();
+                } else {
+                    alert("❌ Failed to parse JSON: " + res.error);
+                }
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            DreamPortal.init();
+        });
+    </script>
+</body>
+</html>
